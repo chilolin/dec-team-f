@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ## 開発環境
 | 名前 | バージョン |
 | --- | --- |
@@ -35,3 +36,6 @@ sail up -d "mariadb"
 ```
 
 
+=======
+# dct-team-f
+>>>>>>> origin/master
