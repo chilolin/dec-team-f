@@ -27,9 +27,10 @@ alias sail='[ -f sail ] && bash sail || bash vendor/bin/sail'
 ```
 $ sail up -d
 
-# Laravel本体のみ
-$ sail up -d "laravel.test"
-
-# MariaDB本体のみ
+# MariaDBのみ
 $ sail up -d "mariadb"
+```
+5. Sailを止める
+```
+$ sail stop
 ```
