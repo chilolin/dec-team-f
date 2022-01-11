@@ -2,6 +2,7 @@
 | 名前 | バージョン |
 | --- | --- |
 | PHP | 8.1 |
+| Composer | 2.2.4 |
 | Laravel | 8 |
 | Node.js | 16 |
 | npm | 8.3.0 |
@@ -26,6 +27,8 @@ alias sail='[ -f sail ] && bash sail || bash vendor/bin/sail'
 4. Sailをバックグラウンドで立ち上げる。(初回は時間がかかります。)
 ```
 $ sail up -d
+$ sail composer install
+$ sail npm install
 
 # MariaDBのみ
 $ sail up -d "mariadb"
