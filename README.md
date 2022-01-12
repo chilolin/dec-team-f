@@ -18,10 +18,11 @@ $ cd dct-team-f
 ```
 2. SailコマンドをBashエイリアスとして設定する。
 ```
-$ vi ~/.bashrc
+$ alias sail='[ -f sail ] && bash sail || bash vendor/bin/sail'
+$ source ~/.bashrc
 
-# ./bashrc に下記を記入する。
-alias sail='[ -f sail ] && bash sail || bash vendor/bin/sail'
+# 変更の更新
+$ source ~/.bash_profile
 ```
 3. 環境変数を`.env.example`をもとに`.env`ファイルを記入する。
 4. Sailをバックグラウンドで立ち上げる。(初回は時間がかかります。)
