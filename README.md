@@ -1,13 +1,18 @@
 ## 開発環境
+#### ロカール環境
+| 名前 | バージョン |
+| --- | --- |
+| Composer | 2.2.4 |
+| Docker | |
+#### Dockerコンテナ内主要環境
 | 名前 | バージョン |
 | --- | --- |
 | PHP | 8.1 |
 | Composer | 2.2.4 |
 | Laravel | 8 |
-| Node.js | 16 |
+| Node.js | 16.13.2 |
 | npm | 8.3.0 |
 | MariaDB | |
-| Docker | |
 
 ## 環境構築
 0. [Docker Desktop](https://docs.docker.com/desktop/windows/wsl/) をインストールして、起動しておく。
@@ -15,6 +20,7 @@
 ```
 $ git clone https://github.com/chilolin/dct-team-f.git
 $ cd dct-team-f
+$ composer install
 ```
 2. SailコマンドをBashエイリアスとして設定する。
 ```
