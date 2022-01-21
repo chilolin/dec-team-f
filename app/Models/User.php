@@ -43,10 +43,22 @@ class User extends Authenticatable
     ];
 
     /**
-     * このユーザーに属するスキル
+     * このユーザーに属する使用できるスキル
      */
     public function skills()
     {
-        return $this->belongsToMany(Skill::class)->withTimestamps();
+        return $this->belongsToMany(Skill::class, 'skill_user')
+        ->as('useable')
+        ->withPivot(['is_practice', 'is_learning', 'level'])
+        ->withTimestamps();
+    }
+
+
+    /**
+     * このユーザーに属する今後学習したいスキル
+     */
+    public function career_skills()
+    {
+        return $this->belongsToMany(Skill::class, 'careers', 'user_id', 'skill_id')->withTimestamps();
     }
 }

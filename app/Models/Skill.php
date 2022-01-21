@@ -14,6 +14,18 @@ class Skill extends Model
      */
     public function users()
     {
-        return $this->belongsToMany(User::class)->withTimestamps();
+        return $this->belongsToMany(User::class, 'skill_user')
+        ->as('useable')
+        ->withPivot(['is_practice', 'is_learning', 'level'])
+        ->withTimestamps();
+    }
+
+    /**
+     * このスキルに属する今後学習したいユーザー
+     */
+    public function career_users()
+    {
+        return $this->belongsToMany(User::class, 'careers', 'skill_id', 'user_id')
+        ->withTimestamps();
     }
 }

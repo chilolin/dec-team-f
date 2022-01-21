@@ -22,6 +22,8 @@ class Matter extends Model
      */
     public function skills()
     {
-        return $this->belongsToMany(Skill::class)->withTimestamps();
+        return $this->belongsToMany(Skill::class)
+        ->withPivot('engineer_type')
+        ->withTimestamps();
     }
 }
