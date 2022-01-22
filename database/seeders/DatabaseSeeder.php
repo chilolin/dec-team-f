@@ -21,5 +21,11 @@ class DatabaseSeeder extends Seeder
         Client::factory(10)->create();
         Matter::factory(10)->create();
         Skill::factory(10)->create();
+
+        $this->call([
+            CareerSeeder::class,
+            MatterSkillSeeder::class,
+            SkillUserSeeder::class,
+        ]);
     }
 }
