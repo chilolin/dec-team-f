@@ -17,7 +17,6 @@ class CreateMatterSkillTable extends Migration
             $table->id();
             $table->foreignId('matter_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignId('skill_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
-            $table->foreignId('enginner_type')->constrained('skills')->cascadeOnUpdate()->cascadeOnDelete();
             $table->timestamps();
         });
     }
