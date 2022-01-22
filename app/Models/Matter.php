@@ -9,21 +9,27 @@ class Matter extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name',
+        'client_id',
+        'start_at',
+        'end_at',
+    ];
+
     /**
-     * この案件に属する依頼者
+     * この案件を依頼した依頼者
      */
     public function client()
     {
-        return $this->hasOne(Client::class);
+        return $this->belongsTo(Client::class);
     }
 
     /**
-     * この案件に属するスキル
+     * この案件が使用するスキル
      */
     public function skills()
     {
         return $this->belongsToMany(Skill::class)
-        ->withPivot('engineer_type')
         ->withTimestamps();
     }
 }

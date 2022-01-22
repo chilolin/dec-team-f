@@ -9,6 +9,12 @@ class Skill extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name',
+        'skill_type',
+        'version',
+    ];
+
     /**
      * このスキルに属するユーザー
      */

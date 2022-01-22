@@ -40,10 +40,11 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'is_master' => 'boolean',
     ];
 
     /**
-     * このユーザーに属する使用できるスキル
+     * このユーザーが使用できるスキル
      */
     public function skills()
     {
@@ -55,7 +56,7 @@ class User extends Authenticatable
 
 
     /**
-     * このユーザーに属する今後学習したいスキル
+     * このユーザーが今後学習したいスキル
      */
     public function career_skills()
     {
