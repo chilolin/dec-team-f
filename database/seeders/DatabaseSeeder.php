@@ -3,6 +3,10 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use App\Models\User;
+use App\Models\Client;
+use App\Models\Matter;
+use App\Models\Skill;
 
 class DatabaseSeeder extends Seeder
 {
@@ -13,6 +17,15 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        User::factory(10)->create();
+        Client::factory(10)->create();
+        Matter::factory(10)->create();
+        Skill::factory(10)->create();
+
+        $this->call([
+            CareerSeeder::class,
+            MatterSkillSeeder::class,
+            SkillUserSeeder::class,
+        ]);
     }
 }

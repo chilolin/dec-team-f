@@ -40,5 +40,26 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'is_master' => 'boolean',
     ];
+
+    /**
+     * このユーザーが使用できるスキル
+     */
+    public function skills()
+    {
+        return $this->belongsToMany(Skill::class, 'skill_user')
+        ->as('useable')
+        ->withPivot(['is_practice', 'is_learning', 'level'])
+        ->withTimestamps();
+    }
+
+
+    /**
+     * このユーザーが今後学習したいスキル
+     */
+    public function career_skills()
+    {
+        return $this->belongsToMany(Skill::class, 'careers', 'user_id', 'skill_id')->withTimestamps();
+    }
 }
