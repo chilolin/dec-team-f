@@ -25,3 +25,8 @@ Route::get('/dashboard', function () {
 require __DIR__.'/auth.php';
 
 Route::resource('users', UserController::class);
+
+
+Route::get('/empolyee_list', function () {
+    return view('empolyee-list');
+});
