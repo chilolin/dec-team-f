@@ -101,8 +101,8 @@
     <style>
         .container {
             width: 100%;
-            padding-left: 30px;
-            padding-right: 30px;
+            padding-left: 50px;
+            padding-right: 50px;
             margin-left: auto;
             margin-right: auto;
         }
