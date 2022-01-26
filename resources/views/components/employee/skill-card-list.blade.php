@@ -19,7 +19,7 @@
 
     <style>
         .card-row {
-            margin-top: 0px;
+            margin: 0px;
         }
         .card-row div:nth-child(1n) {
             margin-right: 10px;
@@ -30,6 +30,7 @@
         }
         .card-row div:nth-child(3n) {
             margin-left: 10px;
+            margin-right: 0px;
         }
     </style>
 </div>

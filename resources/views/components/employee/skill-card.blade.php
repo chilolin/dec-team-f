@@ -1,6 +1,11 @@
 <div {{ $attributes->merge(['class' => 'card']) }}>
     <div class="card-header">
-        <h5 class="card-title">{{ $skillTypeTranslator[$skillType] }}</h5>
+        <span class="card-title">{{ $skillTypeTranslator[$skillType] }}</span>
+        @if ($listType != "practice")
+            <a class="" href="#" style="font-size: 15px; color:orange">
+                編集する
+            </a>
+        @endif
     </div>
     <div class="card-body">
         <div class="table-full-width">
@@ -18,6 +23,10 @@
     </div>
 
     <style>
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+        }
         .skill-list,.skill-list td{
             border: none !important;
         }

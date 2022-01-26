@@ -23,8 +23,6 @@ class SkillCard extends Component
     public $skillType;
     public $uid;
 
-    protected $except = ['listType'];
-
     /**
      * Create a new component instance.
      *
