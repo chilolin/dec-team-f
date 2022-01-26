@@ -19,82 +19,9 @@
                 </div>
             </div>
 
-            <h4 class="title">実務スキル</h4>
-            <div class="row card-row" style="margin: 0px;">
-                <div class="col-md card">
-                    <div class="card-header">
-                        <h5 class="card-title">プログラミング言語</h5>
-                    </div>
-                    <div class="card-body">
-                        <div class="table-full-width">
-                            <table class="table skill-list">
-                                <tbody>
-                                    <tr>
-                                        <td>&#9675;</td>
-                                        <td>PHP</td>
-                                    </tr>
-                                    <tr>
-                                        <td>&#9675;</td>
-                                        <td>JavaScript</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md card">
-                    <div class="card-header">
-                        <h5 class="card-title">フレームワーク</h5>
-                    </div>
-                    <div class="card-body">
-                        <div class="table-full-width">
-                            <table class="table skill-list">
-                                <tbody>
-                                    <tr>
-                                        <td>&#9675;</td>
-                                        <td>PHP</td>
-                                    </tr>
-                                    <tr>
-                                        <td>&#9675;</td>
-                                        <td>JavaScript</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md card">
-                    <div class="card-header">
-                        <h5 class="card-title">デザインパターン</h5>
-                    </div>
-                    <div class="card-body">
-                        <div class="table-full-width">
-                            <table class="table skill-list">
-                                <tbody>
-                                    <tr>
-                                        <td>&#9675;</td>
-                                        <td>PHP</td>
-                                    </tr>
-                                    <tr>
-                                        <td>&#9675;</td>
-                                        <td>JavaScript</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <h4 class="title">学習スキル</h4>
-            <div class="card">
-                <div class="raw"></div>
-            </div>
-
-            <h4 class="title">キャリア</h4>
-            <div class="card">
-                <div class="raw"></div>
-            </div>
+            <x-employee.skill-card-list list-type="practice" uid=1 />
+            <x-employee.skill-card-list list-type="learning" uid=1 />
+            <x-employee.skill-card-list list-type="career" uid=1 />
         </div>
     </div>
 
@@ -105,21 +32,6 @@
             padding-right: 50px;
             margin-left: auto;
             margin-right: auto;
-        }
-
-        .card-row div:nth-child(1n) {
-            margin-right: 10px;
-        }
-        .card-row div:nth-child(2n) {
-            margin-left: 5px;
-            margin-right: 5px;
-        }
-        .card-row div:nth-child(3n) {
-            margin-left: 10px;
-        }
-
-        .skill-list,.skill-list td{
-            border: none !important;
         }
     </style>
 </x-app-layout>
