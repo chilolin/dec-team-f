@@ -22,6 +22,8 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
-require __DIR__.'/auth.php';
+Route::get('employee/detail', function () {
+    return view('employee.detail');
+});
 
-Route::resource('users', UserController::class);
+require __DIR__.'/auth.php';
