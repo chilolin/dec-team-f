@@ -1,7 +1,7 @@
 <div {{ $attributes->merge(['class' => 'card']) }}>
     <div class="card-header">
         <span class="card-title">{{ $skillTypeTranslator[$skillType] }}</span>
-        @if ($listType != "practice")
+        @if ($listType != "practice" && $is_auth)
             <a class="" href="#" style="font-size: 15px; color:orange">
                 編集する
             </a>

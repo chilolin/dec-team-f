@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,8 +23,15 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
-Route::get('employee/detail', function () {
-    return view('employee.detail');
-});
+Route::get('employees/{id}', function ($id) {
+    return view('employee.detail', [ 'uid' => $id ]);
+})->middleware(['auth'])->name('employee');
+
+Route::get('employees/{id}/edits/{skill_type}', function ($id, $skill_type) {
+    if (Auth::id() != $id) {
+        return redirect()->route('employee', ['id' => $id]);
+    }
+    return view('employee.edit', ['uid' => $id, 'skill_type' => $skill_type]);
+})->middleware(['auth']);
 
 require __DIR__.'/auth.php';
