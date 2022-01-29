@@ -26,4 +26,10 @@ Route::get('employee/detail', function () {
     return view('employee.detail');
 });
 
+Route::resource('users', UserController::class);
+
+
+Route::get('/employee_list', function () {
+    return view('employee_list');
+});
 require __DIR__.'/auth.php';
