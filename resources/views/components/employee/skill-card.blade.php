@@ -2,7 +2,7 @@
     <div class="card-header">
         <span class="card-title">{{ $skillTypeTranslator[$skillType] }}</span>
         @if ($listType != "practice" && $is_auth)
-            <a class="" href="#" style="font-size: 15px; color:orange">
+            <a href="dfff" style="font-size: 15px; color:orange" onclick="event.preventDefault(); this.closest('form').submit();">
                 編集する
             </a>
         @endif
