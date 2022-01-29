@@ -29,7 +29,7 @@ Route::get('employee/detail', function () {
 Route::resource('users', UserController::class);
 
 
-Route::get('/empolyee_list', function () {
-    return view('empolyee-list');
+Route::get('/employee_list', function () {
+    return view('employee_list');
 });
 require __DIR__.'/auth.php';
