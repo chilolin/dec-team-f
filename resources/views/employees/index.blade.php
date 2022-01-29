@@ -1,4 +1,8 @@
 <x-app-layout>
+    <x-slot name="title">
+        社員一覧
+    </x-slot>
+
   <h2 class="main">社員検索結果</h2>
 
     <div class="border" id="flexbox">
@@ -43,10 +47,10 @@
       }
 
       .border{
-        padding: 8px; 
-        margin-bottom: 30px; 
-        margin-left: 50px; 
-        margin-right: 50px; 
+        padding: 8px;
+        margin-bottom: 30px;
+        margin-left: 50px;
+        margin-right: 50px;
         border: 1px solid #333333;
       }
 
