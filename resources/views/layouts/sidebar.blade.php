@@ -5,53 +5,32 @@
 -->
     <div class="sidebar-wrapper">
         <div class="logo">
-            <a href="http://www.creative-tim.com" class="simple-text">
-                Creative Tim
+            <a href="https://e3sys.co.jp/" class="simple-text">
+                <img src="{{asset('img/e3sys_logo.png')}}" width="100%" height=100%">
             </a>
         </div>
         <ul class="nav">
             <li class="nav-item active">
-                <a class="nav-link" href="dashboard.html">
-                    <i class="nc-icon nc-chart-pie-35"></i>
-                    <p>Dashboard</p>
+                <a class="nav-link" href="{{url('dashboard')}}">
+                    <i class="bi bi-search"></i>
+                    <p>エンジニア検索</p>
                 </a>
             </li>
+
             <li>
-                <a class="nav-link" href="./user.html">
-                    <i class="nc-icon nc-circle-09"></i>
-                    <p>User Profile</p>
+                <a class="nav-link" href="#">
+                    <i class="bi bi-card-checklist"></i>
+                    <p>案件入力</p>
                 </a>
             </li>
+
             <li>
-                <a class="nav-link" href="./table.html">
-                    <i class="nc-icon nc-notes"></i>
-                    <p>Table List</p>
+                <a class="nav-link" href="#">
+                    <i class="bi bi-person"></i>
+                    <p>MYデータ</p>
                 </a>
-            </li>
-            <li>
-                <a class="nav-link" href="./typography.html">
-                    <i class="nc-icon nc-paper-2"></i>
-                    <p>Typography</p>
-                </a>
-            </li>
-            <li>
-                <a class="nav-link" href="./icons.html">
-                    <i class="nc-icon nc-atom"></i>
-                    <p>Icons</p>
-                </a>
-            </li>
-            <li>
-                <a class="nav-link" href="./maps.html">
-                    <i class="nc-icon nc-pin-3"></i>
-                    <p>Maps</p>
-                </a>
-            </li>
-            <li>
-                <a class="nav-link" href="./notifications.html">
-                    <i class="nc-icon nc-bell-55"></i>
-                    <p>Notifications</p>
-                </a>
-            </li>
+            </li>            
+
         </ul>
     </div>
 </div>
