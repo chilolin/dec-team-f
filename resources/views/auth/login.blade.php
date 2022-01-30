@@ -6,7 +6,8 @@
         <form method="POST" action="{{ route('login') }}" class="col-6 row justify-content-center">
             @csrf
             <!-- Email Address -->
-            <div class="col-12" style="margin-bottom: 12px;">
+            <div class="col-12" style="margin-bottom: 17px;">
+                <label for="email">メールアドレス</label>
                 <input
                     id="email"
                     class="form-control"
@@ -20,7 +21,8 @@
             </div>
 
             <!-- Password -->
-            <div class="col-12" style="margin-bottom: 12px;">
+            <div class="col-12" style="margin-bottom: 17px;">
+                <label for="password">パスワード</label>
                 <input
                     id="password"
                     class="form-control"
@@ -66,6 +68,11 @@
         </form>
 
         <style>
+            label {
+                font-size: 13px;
+                font-weight: 600;
+                margin-bottom: -6px;
+            }
             #remember_checkbox input[type="checkbox"]{
                 display: none;
             }
@@ -79,6 +86,7 @@
                 padding-right: 10px;
                 color: #565656;
                 font-size: 13px;
+                font-weight: 500;
             }
             /* ラベルの左に表示させる正方形のボックス□ */
             #remember_checkbox input[type="checkbox"]+label::before{

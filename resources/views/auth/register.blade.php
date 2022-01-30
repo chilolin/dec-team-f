@@ -3,7 +3,8 @@
         <form method="POST" action="{{ route('register') }}" class="col-5 row justify-content-center">
             @csrf
             <!-- Name -->
-            <div class="col-12" style="margin-bottom: 12px;">
+            <div class="col-12" style="margin-bottom: 17px;">
+                <label for="name">名前</label>
                 <input
                     id="name"
                     class="form-control"
@@ -17,7 +18,8 @@
             </div>
 
             <!-- Email Address -->
-            <div class="col-12" style="margin-bottom: 12px;">
+            <div class="col-12" style="margin-bottom: 17px;">
+                <label for="email">メールアドレス</label>
                 <input
                     id="email"
                     class="form-control"
@@ -30,7 +32,8 @@
             </div>
 
             <!-- Password -->
-            <div class="col-12" style="margin-bottom: 12px;">
+            <div class="col-12" style="margin-bottom: 17px;">
+                <label for="password">パスワード</label>
                 <input
                     id="password"
                     class="form-control"
@@ -43,7 +46,8 @@
             </div>
 
             <!-- Confirm Password -->
-            <div class="col-12" style="margin-bottom: 12px;">
+            <div class="col-12" style="margin-bottom: 17px;">
+                <label for="password_confirmation">パスワード（確認）</label>
                 <input
                     id="password_confirmation"
                     class="form-control"
@@ -51,7 +55,7 @@
                     name="password_confirmation"
                     required
                     autocomplete="current-password"
-                    placeholder="パスワードの再入力"
+                    placeholder="パスワード（確認）"
                 />
             </div>
 
@@ -72,6 +76,11 @@
         </form>
 
         <style>
+            label {
+                font-size: 13px;
+                font-weight: 600;
+                margin-bottom: -6px;
+            }
             #register-button {
                 border-radius: 40px;
                 font-size: 14px;
