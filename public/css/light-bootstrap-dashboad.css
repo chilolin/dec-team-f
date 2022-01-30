@@ -213,12 +213,12 @@ body,
 }
 
 a {
-    color: #1dc7ea;
+    color: #ff9500;
 }
 
 a:hover,
 a:focus {
-    color: #42d0ed;
+    color: #faa228;
     text-decoration: none;
 }
 
@@ -1546,25 +1546,25 @@ fieldset[disabled] .btn-neutral.active {
 }
 
 .form-control::-moz-placeholder {
-    color: #dddddd;
+    color: #ced4da;
     opacity: 1;
     filter: alpha(opacity=100);
 }
 
 .form-control:-moz-placeholder {
-    color: #dddddd;
+    color: #ced4da;
     opacity: 1;
     filter: alpha(opacity=100);
 }
 
 .form-control::-webkit-input-placeholder {
-    color: #dddddd;
+    color: #ced4da;
     opacity: 1;
     filter: alpha(opacity=100);
 }
 
 .form-control:-ms-input-placeholder {
-    color: #dddddd;
+    color: #ced4da;
     opacity: 1;
     filter: alpha(opacity=100);
 }
@@ -1582,7 +1582,7 @@ fieldset[disabled] .btn-neutral.active {
 
 .form-control:focus {
     background-color: #ffffff;
-    border: 1px solid #aaaaaa;
+    border: 1px solid #ced4da;
     -webkit-box-shadow: none;
     box-shadow: none;
     outline: 0 !important;
