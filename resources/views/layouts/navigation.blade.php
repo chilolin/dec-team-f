@@ -1,11 +1,13 @@
 <nav class="navbar navbar-expand-lg " color-on-scroll="500">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#pablo"> Icons </a>
+        <a class="navbar-brand" href="#pablo">
+            icons
+        </a>
         <div class="collapse navbar-collapse justify-content-end" id="navigation">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
                     <a class="nav-link" href="#pablo">
-                        <span class="no-icon">Account</span>
+                        <img src="{{asset('img/dinosaur.jfif')}}" class="rounded-circle" style="height:35px; width:35px; border: 1px solid; border-color: #031de2;">
                     </a>
                 </li>
                 <li class="nav-item dropdown">
