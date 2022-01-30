@@ -22,8 +22,8 @@
                 <i class="bi bi-people"></i>
                     <p>社員一覧</p>
                 </a>
-            </li>     
-            
+            </li>
+
             <li>
                 <a class="nav-link" href="{{url('matters/create')}}">
                     <i class="bi bi-card-checklist"></i>
@@ -36,14 +36,14 @@
                 <i class="bi bi-code-slash"></i>
                     <p>MYスキル</p>
                 </a>
-            </li>       
+            </li>
 
             <li>
                 <a class="nav-link" href="#">
                     <i class="bi bi-speedometer"></i>
                     <p>進行中案件</p>
                 </a>
-            </li>            
+            </li>
 
         </ul>
     </div>

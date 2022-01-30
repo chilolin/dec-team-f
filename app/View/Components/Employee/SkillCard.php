@@ -3,6 +3,7 @@
 namespace App\View\Components\Employee;
 
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\Component;
 
 class SkillCard extends Component
@@ -53,7 +54,7 @@ class SkillCard extends Component
                 $skillList = User::find($this->uid)->career_skills->where('skill_type', $this->skillType);
                 break;
         }
-        return view('components.employee.skill-card', ['skillList' => $skillList]);
+        return view('components.employee.skill-card', ['skillList' => $skillList, 'is_auth' => Auth::id() == $this->uid,]);
 
 
     }
