@@ -60,6 +60,9 @@
             ? this.$element.attr("type")
             : "text";
         this.inputSize = Math.max(1, this.placeholderText.length);
+        this.autocompleteList = element.hasAttribute("data-options")
+            ? this.$element.data("options").split(",")
+            : "";
 
         this.$container = $('<div class="bootstrap-tagsinput"></div>');
         this.$input = $(
@@ -474,6 +477,32 @@
                     self.$input.focus();
                 }, self)
             );
+
+            if (self.autocompleteList !== "") {
+                self.$container.on(
+                    "click focus",
+                    $.proxy(function (event) {
+                        if (!self.$element.attr("disabled")) {
+                            self.$input.removeAttr("disabled");
+                        }
+
+                        self.$input.autocomplete({
+                            source: self.autocompleteList,
+                            minLength: 0,
+                            delay: 1,
+                            autoFocus: false,
+                            scroll: true,
+                            position: {
+                                my: "left top",
+                                at: "left bottom",
+                                collision: "flip",
+                            },
+                        });
+
+                        self.$input.autocomplete("search", "");
+                    })
+                );
+            }
 
             if (self.options.addOnBlur && self.options.freeInput) {
                 self.$input.on(
