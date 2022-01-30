@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\UserController;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -26,18 +27,21 @@ Route::middleware('auth')->group(function() {
     Route::prefix('employees')->group(function() {
         Route::get('/', function () {
             return view('employees.index');
-        });
+        })->name('employees.index');
 
         Route::get('/{id}', function ($id) {
+            if (User::find($id) == null) {
+                return redirect()->route('employees.index');
+            }
             return view('employees.show', [ 'uid' => $id ]);
-        });
+        })->name('employees.show');
 
         Route::get('/{id}/{skill_type}/edit', function ($id, $skill_type) {
             if (Auth::id() != $id) {
                 return redirect()->route('employees.show', ['id' => $id]);
             }
             return view('employees.edit', ['uid' => $id, 'skill_type' => $skill_type]);
-        });
+        })->name('employees.edit');
     });
 
     // 案件画面

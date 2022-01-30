@@ -2,8 +2,8 @@
     <div class="card-header">
         <span class="card-title">{{ $skillTypeTranslator[$skillType] }}</span>
         @if ($listType != "practice" && $is_auth)
-            <a href="dfff" style="font-size: 15px; color:orange" onclick="event.preventDefault(); this.closest('form').submit();">
-                編集する
+            <a href="{{ route('employees.edit', ['id' => $uid, 'skill_type' => $skillType]) }}" style="font-size: 13px;">
+                編集
             </a>
         @endif
     </div>

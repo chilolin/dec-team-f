@@ -16,16 +16,16 @@
     <script>
         $("#input-id").rating({
             starCaptions: {
-                0.5: 'level 0.5',
-                1: 'level 1',
-                1.5: 'level 1.5',
-                2: 'level 2',
-                2.5: 'level 2.5',
-                3: 'level 3',
-                3.5: 'level 3.5',
-                4: 'level 4',
-                4.5: 'level 4.5',
-                5: 'level 5',
+                0.5: '0.5',
+                1: '1.0',
+                1.5: '1.5',
+                2: '2.0',
+                2.5: '2.5',
+                3: '3.0',
+                3.5: '3.5',
+                4: '4.0',
+                4.5: '4.5',
+                5: '5.0',
             },
             hoverChangeCaption: false,
         });
