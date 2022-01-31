@@ -34,4 +34,9 @@ class Skill extends Model
         return $this->belongsToMany(User::class, 'careers', 'skill_id', 'user_id')
         ->withTimestamps();
     }
+
+    public function specific_skills($skillType)
+    {
+        return self::where('skill_type', $skillType)->get();
+    }
 }
