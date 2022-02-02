@@ -1,8 +1,16 @@
 <div>
+    @if ($attributes->has('label'))
+        <label {{ $attributes->merge(['for' => $attributes->get('id')]) }}>{{ $attributes->get('label') }}</label>
+    @endif
     <input {{ $attributes }} type="text" value="" data-role="tagsinput" data-options="{{ $dataOptions }}"/>
 
     <style>
-        /* 各リスト項目のパディング設定 */
+        label {
+            margin-bottom: -4px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
         .ui-menu .ui-menu-item-wrapper {
             position: relative;
             padding: 3px 1em 3px .4em;
