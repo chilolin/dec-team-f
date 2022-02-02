@@ -1,5 +1,5 @@
 <div>
-    <input type="text" value="" data-role="tagsinput" data-options="{{ $dataOptions }}"/>
+    <input {{ $attributes }} type="text" value="" data-role="tagsinput" data-options="{{ $dataOptions }}"/>
 
     <style>
         /* 各リスト項目のパディング設定 */

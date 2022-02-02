@@ -26,6 +26,9 @@ class SkillInput extends Component
     public function render()
     {
         $dataOptions = $this->candidateSkills->reduce(function($dataOptions, $skill) {
+            if ($dataOptions == '') {
+                return $skill->name;
+            }
             return $dataOptions . ',' . $skill->name;
         }, '');
 

@@ -1,20 +1,20 @@
 <div class="row">
     <label for="selectSkillLevel" class="col-md-2 col-form-label">レベル</label>
-    <div class="col-md-7" style="margin-bottom: 10px;">
+    <div class="col-md-7 level-select-wrapper" style="margin-bottom: 10px;">
         <input
-            id="input-id"
-            name="input-name"
+            id="level-select"
+            name="skill-level"
             type="number"
             class="rating rating-loading"
             data-min='0'
             data-max='5'
             data-step='0.5'
-            data-size="sm"
+            data-size='sm'
         >
     </div>
 
     <script>
-        $("#input-id").rating({
+        $("#level-select").rating({
             starCaptions: {
                 0.5: '0.5',
                 1: '1.0',

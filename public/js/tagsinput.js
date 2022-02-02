@@ -64,7 +64,9 @@
             ? this.$element.data("options").split(",")
             : "";
 
-        this.$container = $('<div class="bootstrap-tagsinput"></div>');
+        this.$container = $(
+            '<div class="bootstrap-tagsinput form-control"></div>'
+        );
         this.$input = $(
             '<input type="' +
                 this.type +
