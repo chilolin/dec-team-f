@@ -2,7 +2,7 @@
     <div class="container">
         <h3 class="title">プログラミング言語</h3>
         <div style="padding: 50px 30px;">
-            <form>
+            <form method="POST">
                 <div id="skill-input-group" class="skill-input-group form-group" style="margin-bottom: 50px;">
                     <x-employee.skill-input />
                     <x-employee.level-select />
@@ -14,7 +14,7 @@
                 </div>
 
                 <div class="row justify-content-md-center">
-                    <button type="button" class="btn btn-warning col-lg-2">登録する</button>
+                    <button type="button" class="btn btn-warning col-lg-2" onclick="event.preventDefault(); this.closest('form').submit();">登録する</button>
                 </div>
             </form>
         </div>
@@ -35,20 +35,20 @@
             padding: auto;
             margin-bottom: 50px;
         }
-        </style>
+    </style>
 
-<script>
-    (function($) {
-        $('#add-button').click(function() {
+    <script>
+        (function($) {
+            $('#add-button').click(function() {
                 $('#skill-input-group').clone(false).insertBefore('#add-button-container');
                 $('.skill-input-group:last').find('.skill-input-wrapper').remove();
                 $('.skill-input-group:last').find('.level-select-wrapper').remove();
 
-                // スキル入力欄
+                // スキル入力欄を作成
                 var $dataOptions = $('.skill-input-group:first').find('.sr-only').data('options');
                 var $skillInput = $(
                     '<input type="text" name="skill-name" data-role="tagsinput" data-options=' + $dataOptions + '>'
-                )
+                );
                 var $skillInputWrapper = $(
                     "<div>",
                     {
@@ -61,7 +61,7 @@
                 .append($skillInput);
                 $('.skill-input-group:last .row:first').append($skillInputWrapper)
 
-                // レベル入力欄
+                // レベル入力欄を作成
                 var $levelSelect = $('<input id="level-select" name="skill-level" type="number" class="rating rating-loading" data-min="0" data-max="5" data-step="0.5" data-size="sm">')
                 var $levelSelectWrapper = $(
                     "<div>",
@@ -74,30 +74,8 @@
                 ).append($levelSelect);
                 $('.skill-input-group:last .row:nth-child(2)').append($levelSelectWrapper)
 
-
-                // jQueryを適用
-                $.ajax({
-                    dataType: "script",
-                    url: $(location).attr('origin') + '/js/tagsinput.js',
-                    success: 'success'
-                });
-                $.ajax({
-                    dataType: "script",
-                    url: 'https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-star-rating@4.1.2/js/star-rating.min.js',
-                    success: 'success'
-                });
-                $.ajax({
-                    dataType: "script",
-                    url: 'https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-star-rating@4.1.2/themes/krajee-svg/theme.js',
-                    success: 'success'
-                });
-                $.ajax({
-                    dataType: "script",
-                    url: 'https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-star-rating@4.1.2/js/locales/LANG.js',
-                    success: 'success'
-                });
-
-                // クローンした要素を初期化
+                //  プラグインを適用
+                $skillInput.tagsinput();
                 $levelSelect.rating({
                     starCaptions: {
                         0.5: '0.5',

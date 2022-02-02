@@ -30,9 +30,6 @@
         <script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-star-rating@4.1.2/js/star-rating.min.js" type="text/javascript"></script>
         <script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-star-rating@4.1.2/themes/krajee-svg/theme.js"></script>
         <script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-star-rating@4.1.2/js/locales/LANG.js"></script>
-        <script src="{{ asset('js/app.js') }}" defer></script>
-        <script src="{{ asset('js/tagsinput.js') }}" defer></script>
-
     </head>
     <body>
         <div class="wrapper">
@@ -47,5 +44,8 @@
             </main>
         </div>
 
+        <script src="{{ asset('js/app.js') }}" defer></script>
+        <script src="{{ asset('js/tagsinput.js') }}" defer></script>
+        <script src="{{ asset('js/jquery.multi-select.js') }}" defer></script>
     </body>
 </html>

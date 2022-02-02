@@ -1,4 +1,4 @@
-<div class="row matter_input_group">
+<div class="row matter_input_group justify-content-center">
     <div class="col-3 matter_label"><span>{{ $label }}</span></div>
     <div class="col-7 matter_input">
         {{ $slot }}
