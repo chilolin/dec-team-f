@@ -34,19 +34,10 @@
             <x-matters.create-input-group label="開始日 / 終了日">
                 <div class="row">
                     <div class="col-6">
-                        <div class="input-group date" id="datetimepicker1">
-                            <label for="datetimepicker1" class="pt-2 pr-2">日付:</label>
-                            <input type="text" class="form-control" />
-                            <span class="input-group-append input-group-addon">
-                                <span class="input-group-text"><i class="fa fa-calendar"></i></span>
-                            </span>
-                        </div>
-                        <!-- <label for="start_date">開始日</label>
-                        <input id="start_date" type="text" class="form-control" name="matter_name" /> -->
+                        <x-datetimepicker id="matter_start_at" name="matter_start_at" label="開始日" />
                     </div>
                     <div class="col-6">
-                        <label for="end_date">終了日</label>
-                        <input id="end_date" type="text" class="form-control" name="matter_name" />
+                        <x-datetimepicker id="matter_end_at" name="matter_end_at" label="終了日" />
                     </div>
                 </div>
             </x-matters.create-input-group>
@@ -136,29 +127,6 @@
                     "<div class='multi-select-header'>エンジニア一覧</div>",
                 selectionHeader:
                     "<div class='multi-select-header'>アサイン済み</div>",
-            });
-
-            $('#datetimepicker1').datetimepicker({
-                dayViewHeaderFormat: 'YYYY年 MMMM',
-                tooltips: {
-                    close: '閉じる',
-                    selectMonth: '月を選択',
-                    prevMonth: '前月',
-                    nextMonth: '次月',
-                    selectYear: '年を選択',
-                    prevYear: '前年',
-                    nextYear: '次年',
-                    selectTime: '時間を選択',
-                    selectDate: '日付を選択',
-                    prevDecade: '前期間',
-                    nextDecade: '次期間',
-                    selectDecade: '期間を選択',
-                    prevCentury: '前世紀',
-                    nextCentury: '次世紀'
-                },
-                format: 'YYYY/MM/DD',
-                locale: 'ja',
-                showClose: true
             });
         });
     </script>

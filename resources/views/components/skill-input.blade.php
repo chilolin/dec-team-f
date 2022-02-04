@@ -29,7 +29,7 @@
     @if ($attributes->has('label'))
         <label class="skill-input-label" {{ $attributes->merge(['for' => $attributes->get('id')]) }}>{{ $attributes->get('label') }}</label>
     @endif
-    <input {{ $attributes }} type="text" value="" data-role="tagsinput" data-options="{{ $dataOptions }}"/>
+    <input id="{{ $attributes->get('id') }}" type="text" name="{{ $attributes->get('name') }}" value="" data-role="tagsinput" data-options="{{ $dataOptions }}"/>
 
     <script>
         $(function() {
