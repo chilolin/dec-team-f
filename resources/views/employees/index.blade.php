@@ -14,31 +14,31 @@
   <h2 class="main">社員検索結果</h2>
 
     <div class="border" id="flexbox">
-      <img src="{{ asset('image/human.png') }}" class="img_human">
+      <img src="{{ asset('img/human.png') }}" class="img_human">
       <div class="box-item"style="flex-basis:30%;">佐藤太郎</div>
       <div class="box-item" style="flex-basis:30%;">検索マッチ度 90点</div>
       <div class="box-item" style="flex-basis:30%;">最近のアサイン</div>
     </div>
     <div class="border" id="flexbox">
-      <img src="{{ asset('image/human.png') }}" class="img_human">
+      <img src="{{ asset('img/human.png') }}" class="img_human">
       <div class="box-item"style="flex-basis:30%;">鈴木太郎</div>
       <div class="box-item" style="flex-basis:30%;">検索マッチ度 82点</div>
       <div class="box-item" style="flex-basis:30%;">最近のアサイン</div>
     </div>
     <div class="border" id="flexbox">
-      <img src="{{ asset('image/human.png') }}" class="img_human">
+      <img src="{{ asset('img/human.png') }}" class="img_human">
       <div class="box-item"style="flex-basis:30%;">田中太郎</div>
       <div class="box-item" style="flex-basis:30%;">検索マッチ度 73点</div>
       <div class="box-item" style="flex-basis:30%;">最近のアサイン</div>
     </div>
     <div class="border" id="flexbox">
-      <img src="{{ asset('image/human.png') }}" class="img_human">
+      <img src="{{ asset('img/human.png') }}" class="img_human">
       <div class="box-item"style="flex-basis:30%;">佐々木太郎</div>
       <div class="box-item" style="flex-basis:30%;">検索マッチ度 69点</div>
       <div class="box-item" style="flex-basis:30%;">最近のアサイン</div>
     </div>
     <div class="border" id="flexbox">
-      <img src="{{ asset('image/human.png') }}" class="img_human">
+      <img src="{{ asset('img/human.png') }}" class="img_human">
       <div class="box-item"style="flex-basis:30%;">渡辺太郎</div>
       <div class="box-item" style="flex-basis:30%;">検索マッチ度 58点</div>
       <div class="box-item" style="flex-basis:30%;">最近のアサイン</div>

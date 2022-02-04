@@ -16,9 +16,9 @@ class SearchController extends Controller
     public function index(Request $request)
     {
         $search = $request->all();
-        return view('employees/index', [
+        return view('employees', [
             'search' => $search
-          ]);
+        ]);
     }
 
     /**

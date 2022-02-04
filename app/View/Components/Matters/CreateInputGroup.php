@@ -1,19 +1,20 @@
 <?php
 
-namespace App\View\Components\Employee;
+namespace App\View\Components\Matters;
 
 use Illuminate\View\Component;
 
-class DeleteSkillInputButton extends Component
+class CreateInputGroup extends Component
 {
+    public $label;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($label)
     {
-        //
+        $this->label = $label;
     }
 
     /**
@@ -23,6 +24,6 @@ class DeleteSkillInputButton extends Component
      */
     public function render()
     {
-        return view('components.employee.delete-skill-input-button');
+        return view('components.matters.create-input-group');
     }
 }

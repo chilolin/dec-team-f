@@ -1,6 +1,6 @@
 <?php
 
-namespace App\View\Components\Employee;
+namespace App\View\Components\Employees;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -54,7 +54,7 @@ class SkillCard extends Component
                 $skillList = User::find($this->uid)->career_skills->where('skill_type', $this->skillType);
                 break;
         }
-        return view('components.employee.skill-card', ['skillList' => $skillList, 'is_auth' => Auth::id() == $this->uid,]);
+        return view('components.employees.skill-card', ['skillList' => $skillList, 'is_auth' => Auth::id() == $this->uid,]);
 
 
     }

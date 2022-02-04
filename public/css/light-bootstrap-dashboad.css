@@ -2675,7 +2675,7 @@ Copyright (c) 2015 Daniel Eden
     animation-name: fadeOutUp;
 }
 
-.dropdown-menu {
+/* .dropdown-menu {
     visibility: hidden;
     margin: 0;
     padding: 0;
@@ -2687,7 +2687,7 @@ Copyright (c) 2015 Daniel Eden
     filter: alpha(opacity=0);
     -webkit-box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.125);
     box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.125);
-}
+} */
 
 .show .dropdown-menu {
     opacity: 1;
@@ -2721,7 +2721,7 @@ Copyright (c) 2015 Daniel Eden
     margin-top: -1px;
 }
 
-.dropdown-menu .dropdown-item {
+/* .dropdown-menu .dropdown-item {
     padding: 8px 16px;
     color: #333333;
 }
@@ -2732,13 +2732,13 @@ Copyright (c) 2015 Daniel Eden
 
 .dropdown-menu .dropdown-item:focus {
     outline: 0 !important;
-}
+} */
 
 .btn-group.select .dropdown-menu {
     min-width: 100%;
 }
 
-.dropdown-menu > li:first-child > a {
+/* .dropdown-menu > li:first-child > a {
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
 }
@@ -2746,14 +2746,14 @@ Copyright (c) 2015 Daniel Eden
 .dropdown-menu > li:last-child > a {
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
-}
+} */
 
 .select .dropdown-menu > li:first-child > a {
     border-radius: 0;
     border-bottom: 0 none;
 }
 
-.dropdown-menu .dropdown-item:hover,
+/* .dropdown-menu .dropdown-item:hover,
 .dropdown-menu .dropdown-item:focus {
     background-color: #f5f5f5;
     color: #333333;
@@ -2798,7 +2798,7 @@ Copyright (c) 2015 Daniel Eden
 .dropdown-menu.dropdown-menu-right:after {
     right: 12px !important;
     left: auto !important;
-}
+} */
 
 .dropdown-with-icons > li > a {
     padding-left: 0px;
@@ -4490,9 +4490,9 @@ Copyright (c) 2015 Daniel Eden
             opacity: 1;
         }
     }
-    .dropdown-menu .divider {
+    /* .dropdown-menu .divider {
         background-color: rgba(229, 229, 229, 0.15);
-    }
+    } */
     .navbar-nav {
         margin: 1px 0;
     }
@@ -4537,9 +4537,6 @@ Copyright (c) 2015 Daniel Eden
     [class*="navbar-"] .navbar-nav .dropdown > a:active .caret {
         border-bottom-color: white;
         border-top-color: white;
-    }
-    .dropdown-menu {
-        display: none;
     }
     /* .navbar-fixed-top {
         -webkit-backface-visibility: hidden;

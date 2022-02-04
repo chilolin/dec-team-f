@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\UserController;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 //検索用コントローラー
@@ -24,43 +25,45 @@ Route::middleware('auth')->group(function() {
         return view('dashboard');
     })->name('dashboard');
 
-    // //検索用
-    // Route::resource('search', SearchController::class,['only' => ['index']]);
-    
-
     // 社員画面
     Route::prefix('employees')->group(function() {
-        Route::resource('/', SearchController::class,['only' => ['index']]);
+        // Route::resource('/', SearchController::class, ['only' => ['index']]);
+        Route::get('/', function () {
+            return view('employees.index');
+        })->name('employees.index');
 
         Route::get('/{id}', function ($id) {
+            if (User::find($id) == null) {
+                return redirect()->route('employees.index');
+            }
             return view('employees.show', [ 'uid' => $id ]);
-        });
+        })->name('employees.show');
 
         Route::get('/{id}/{skill_type}/edit', function ($id, $skill_type) {
             if (Auth::id() != $id) {
                 return redirect()->route('employees.show', ['id' => $id]);
             }
             return view('employees.edit', ['uid' => $id, 'skill_type' => $skill_type]);
-        });
+        })->name('employees.edit');
     });
 
     // 案件画面
     Route::prefix('matters')->group(function() {
         Route::get('/', function() {
             return view('matters.index');
-        });
+        })->name('matters.index');
 
         Route::get('/create', function() {
             return view('matters.create');
-        });
+        })->name('matters.create');
 
         Route::get('/{id}', function($id) {
             return view('matters.show');
-        });
+        })->name('matters.show');
 
         Route::get('/{id}/edit', function($id) {
             return view('matters.edit');
-        });
+        })->name('matters.edit');
     });
 
     // 管理者画面

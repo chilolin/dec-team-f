@@ -1,4 +1,78 @@
 <x-guest-layout>
+    <x-slot name="title">
+        ログイン
+    </x-slot>
+
+    <style>
+        label {
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: -6px;
+        }
+        #remember_checkbox input[type="checkbox"]{
+            display: none;
+        }
+        /* チェックボックスの代わりを成すラベル */
+        #remember_checkbox input[type="checkbox"]+label{
+            display: none;
+            cursor: pointer;
+            display: inline-block;
+            position: relative;
+            padding-left: 25px;
+            padding-right: 10px;
+            color: #565656;
+            font-size: 13px;
+            font-weight: 500;
+        }
+        /* ラベルの左に表示させる正方形のボックス□ */
+        #remember_checkbox input[type="checkbox"]+label::before{
+            content: "";
+            position: absolute;
+            display: block;
+            box-sizing: border-box;
+            width: 20px;
+            height: 20px;
+            margin-top: -10px;
+            left: 0;
+            top: 50%;
+            border: 1px solid;
+            border-radius: 50%;
+            border-color:  #e3e3e3; /* 枠の色変更 お好きな色を */
+            background-color: #fff; /* 背景の色変更 お好きな色を */
+        }
+        /* チェックが入った時のレ点 */
+        #remember_checkbox input[type="checkbox"]:checked+label::after{
+            content: "";
+            position: absolute;
+            display: block;
+            box-sizing: border-box;
+            width: 18px;
+            height: 9px;
+            margin-top: -9px;
+            top: 50%;
+            left: 3px;
+            transform: rotate(-45deg);
+            border-bottom: 3px solid;
+            border-left: 3px solid;
+            border-color:  #fff; /* チェックの色変更 お好きな色を */
+        }
+        #remember_checkbox input[type="checkbox"]:checked+label::before{
+            border-color: #ff9500; /* 背景の色変更 お好きな色を */
+            background-color: #ff9500; /* 背景の色変更 お好きな色を */
+        }
+
+        #login-button {
+            border-radius: 40px;
+            font-size: 14px;
+        }
+
+        #password-request,
+        #transition-to-register {
+            text-align: center;
+            font-size: 13px;
+        }
+    </style>
+
     <x-auth-card>
         <!-- Session Status -->
         <x-auth-session-status :status="session('status')" />
@@ -66,75 +140,5 @@
                 @endif
             </div> -->
         </form>
-
-        <style>
-            label {
-                font-size: 13px;
-                font-weight: 600;
-                margin-bottom: -6px;
-            }
-            #remember_checkbox input[type="checkbox"]{
-                display: none;
-            }
-            /* チェックボックスの代わりを成すラベル */
-            #remember_checkbox input[type="checkbox"]+label{
-                display: none;
-                cursor: pointer;
-                display: inline-block;
-                position: relative;
-                padding-left: 25px;
-                padding-right: 10px;
-                color: #565656;
-                font-size: 13px;
-                font-weight: 500;
-            }
-            /* ラベルの左に表示させる正方形のボックス□ */
-            #remember_checkbox input[type="checkbox"]+label::before{
-                content: "";
-                position: absolute;
-                display: block;
-                box-sizing: border-box;
-                width: 20px;
-                height: 20px;
-                margin-top: -10px;
-                left: 0;
-                top: 50%;
-                border: 1px solid;
-                border-radius: 50%;
-                border-color:  #e3e3e3; /* 枠の色変更 お好きな色を */
-                background-color: #fff; /* 背景の色変更 お好きな色を */
-            }
-            /* チェックが入った時のレ点 */
-            #remember_checkbox input[type="checkbox"]:checked+label::after{
-                content: "";
-                position: absolute;
-                display: block;
-                box-sizing: border-box;
-                width: 18px;
-                height: 9px;
-                margin-top: -9px;
-                top: 50%;
-                left: 3px;
-                transform: rotate(-45deg);
-                border-bottom: 3px solid;
-                border-left: 3px solid;
-                border-color:  #fff; /* チェックの色変更 お好きな色を */
-            }
-            #remember_checkbox input[type="checkbox"]:checked+label::before{
-                border-color: #ff9500; /* 背景の色変更 お好きな色を */
-                background-color: #ff9500; /* 背景の色変更 お好きな色を */
-            }
-
-            #login-button {
-                border-radius: 40px;
-                font-size: 14px;
-            }
-
-            #password-request,
-            #transition-to-register {
-                text-align: center;
-                font-size: 13px;
-            }
-        </style>
     </x-auth-card>
 </x-guest-layout>

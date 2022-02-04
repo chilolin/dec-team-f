@@ -1,6 +1,6 @@
 <?php
 
-namespace App\View\Components\Employee;
+namespace App\View\Components\Employees;
 
 use Illuminate\View\Component;
 
@@ -63,6 +63,6 @@ class SkillCardList extends Component
      */
     public function render()
     {
-        return view('components.employee.skill-card-list');
+        return view('components.employees.skill-card-list');
     }
 }
