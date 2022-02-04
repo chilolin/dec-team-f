@@ -1,10 +1,10 @@
 <?php
 
-namespace App\View\Components\Employee;
+namespace App\View\Components\Employees;
 
 use Illuminate\View\Component;
 
-class DeleteSkillInputButton extends Component
+class SkillInput extends Component
 {
     /**
      * Create a new component instance.
@@ -23,6 +23,6 @@ class DeleteSkillInputButton extends Component
      */
     public function render()
     {
-        return view('components.employee.delete-skill-input-button');
+        return view('components.employees.skill-input');
     }
 }

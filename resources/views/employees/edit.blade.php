@@ -6,8 +6,8 @@
     <style scoped>
         .container {
             width: 100%;
-            padding-left: 70px;
-            padding-right: 70px;
+            padding-left: 150px;
+            padding-right: 150px;
             margin-left: auto;
             margin-right: auto;
         }
@@ -25,9 +25,9 @@
         <div style="padding: 50px 30px;">
             <form method="POST">
                 <div id="skill-input-group" class="skill-input-group form-group" style="margin-bottom: 50px;">
-                    <x-employee.skill-input />
-                    <x-employee.level-select />
-                    <x-employee.delete-skill-input-button />
+                    <x-employees.skill-input />
+                    <x-employees.level-select />
+                    <x-employees.delete-skill-input-button />
                 </div>
 
                 <div id="add-button-container" class="row justify-content-md-center">

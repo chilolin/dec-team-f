@@ -1,10 +1,10 @@
 <?php
 
-namespace App\View\Components\Employee;
+namespace App\View\Components\Employees;
 
 use Illuminate\View\Component;
 
-class SkillInput extends Component
+class LevelSelect extends Component
 {
     /**
      * Create a new component instance.
@@ -23,6 +23,6 @@ class SkillInput extends Component
      */
     public function render()
     {
-        return view('components.employee.skill-input');
+        return view('components.employees.level-select');
     }
 }

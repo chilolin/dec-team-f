@@ -12,7 +12,7 @@
         <div class="container">
 
 
-            <form action="{{ route('index') }}" method="GET">
+            <form method="GET">
             @csrf
             <h4>
                 ctrlボタン・<i class="bi bi-command">ボタン</i>を押しながら選択で複数選択が可能です

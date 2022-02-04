@@ -1,4 +1,25 @@
 <x-guest-layout>
+    <x-slot name="title">
+        新規登録
+    </x-slot>
+
+    <style>
+        label {
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: -6px;
+        }
+        #register-button {
+            border-radius: 40px;
+            font-size: 14px;
+        }
+
+        #transition-to-login {
+            text-align: center;
+            font-size: 13px;
+        }
+    </style>
+
     <x-auth-card>
         <form method="POST" action="{{ route('register') }}" class="col-5 row justify-content-center">
             @csrf
@@ -74,22 +95,5 @@
                 </a>
             </div>
         </form>
-
-        <style>
-            label {
-                font-size: 13px;
-                font-weight: 600;
-                margin-bottom: -6px;
-            }
-            #register-button {
-                border-radius: 40px;
-                font-size: 14px;
-            }
-
-            #transition-to-login {
-                text-align: center;
-                font-size: 13px;
-            }
-        </style>
     </x-auth-card>
 </x-guest-layout>

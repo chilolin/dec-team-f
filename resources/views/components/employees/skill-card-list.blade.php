@@ -21,7 +21,7 @@
         @if ($loop->first || $index % 3 == 0)
             <div class="row card-row">
         @endif
-        <x-employee.skill-card class="col-md" :list-type="$listType" :skill-type="$skillType" :uid="$uid" />
+        <x-employees.skill-card class="col-md" :list-type="$listType" :skill-type="$skillType" :uid="$uid" />
         @if ($index % 3 == 2)
             </div>
         @endif
