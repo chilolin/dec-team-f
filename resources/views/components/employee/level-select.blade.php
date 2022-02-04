@@ -13,7 +13,7 @@
         >
     </div>
 
-    <script>
+    <script type="text/javascript">
         $("#level-select").rating({
             starCaptions: {
                 0.5: '0.5',

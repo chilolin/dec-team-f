@@ -1,4 +1,25 @@
 <x-app-layout>
+    <x-slot name="title">
+        スキル編集
+    </x-slot>
+
+    <style scoped>
+        .container {
+            width: 100%;
+            padding-left: 70px;
+            padding-right: 70px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .add-button {
+            border-radius: 50%;
+            font-size: 22px;
+            padding: auto;
+            margin-bottom: 50px;
+        }
+    </style>
+
     <div class="container">
         <h3 class="title">プログラミング言語</h3>
         <div style="padding: 50px 30px;">
@@ -20,25 +41,10 @@
         </div>
     </div>
 
-    <style>
-        .container {
-            width: 100%;
-            padding-left: 70px;
-            padding-right: 70px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .add-button {
-            border-radius: 50%;
-            font-size: 22px;
-            padding: auto;
-            margin-bottom: 50px;
-        }
-    </style>
-
     <script>
         (function($) {
+            'use strict';
+
             $('#add-button').click(function() {
                 $('#skill-input-group').clone(false).insertBefore('#add-button-container');
                 $('.skill-input-group:last').find('.skill-input-wrapper').remove();

@@ -3,6 +3,24 @@
         案件入力
     </x-slot>
 
+    <style>
+        .container {
+            width: 100%;
+            padding-right: 70px;
+            padding-left: 100px;
+            padding-bottom: 100px;
+            margin-right: auto;
+            margin-left: auto;
+        }
+
+        .multi-select-header {
+            background: rgba(203, 203, 210, 0.15);
+            color: #000;
+            font-size: 14px;
+            font-weight: 600;
+        }
+    </style>
+
     <div class="container">
         <form method="POST">
             <x-matters.create-input-group label="案件名">
@@ -16,8 +34,15 @@
             <x-matters.create-input-group label="開始日 / 終了日">
                 <div class="row">
                     <div class="col-6">
-                        <label for="start_date">開始日</label>
-                        <input id="start_date" type="text" class="form-control" name="matter_name" />
+                        <div class="input-group date" id="datetimepicker1">
+                            <label for="datetimepicker1" class="pt-2 pr-2">日付:</label>
+                            <input type="text" class="form-control" />
+                            <span class="input-group-append input-group-addon">
+                                <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+                            </span>
+                        </div>
+                        <!-- <label for="start_date">開始日</label>
+                        <input id="start_date" type="text" class="form-control" name="matter_name" /> -->
                     </div>
                     <div class="col-6">
                         <label for="end_date">終了日</label>
@@ -104,24 +129,7 @@
         </form>
     </div>
 
-    <style>
-        .container {
-            width: 100%;
-            padding-right: 70px;
-            padding-left: 100px;
-            padding-bottom: 100px;
-            margin-right: auto;
-            margin-left: auto;
-        }
-
-        .multi-select-header {
-            background: rgba(203, 203, 210, 0.15);
-            color: #000;
-            font-size: 14px;
-            font-weight: 600;
-        }
-    </style>
-    <script>
+    <script type="text/javascript">
         $(function () {
             $('#enginners').multiSelect({
                 selectableHeader:
@@ -149,25 +157,6 @@
                     nextCentury: '次世紀'
                 },
                 format: 'YYYY/MM/DD',
-                locale: 'ja',
-                showClose: true
-            });
-            $('#datetimepicker2').datetimepicker({
-                tooltips: {
-                    close: '閉じる',
-                    pickHour: '時間を取得',
-                    incrementHour: '時間を増加',
-                    decrementHour: '時間を減少',
-                    pickMinute: '分を取得',
-                    incrementMinute: '分を増加',
-                    decrementMinute: '分を減少',
-                    pickSecond: '秒を取得',
-                    incrementSecond: '秒を増加',
-                    decrementSecond: '秒を減少',
-                    togglePeriod: '午前/午後切替',
-                    selectTime: '時間を選択'
-                },
-                format: 'HH:mm',
                 locale: 'ja',
                 showClose: true
             });

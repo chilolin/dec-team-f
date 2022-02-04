@@ -3,6 +3,16 @@
         社員詳細
     </x-slot>
 
+    <style scoped>
+        .container {
+            width: 100%;
+            padding-left: 50px;
+            padding-right: 50px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+
     <div class="content">
         <div class="container">
             <div class="card card-user">
@@ -24,14 +34,4 @@
             <x-employee.skill-card-list list-type="career" uid="{{ $uid }}" />
         </div>
     </div>
-
-    <style>
-        .container {
-            width: 100%;
-            padding-left: 50px;
-            padding-right: 50px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-    </style>
 </x-app-layout>

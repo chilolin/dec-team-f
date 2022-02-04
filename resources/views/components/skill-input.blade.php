@@ -1,10 +1,5 @@
 <div>
-    @if ($attributes->has('label'))
-        <label class="skill-input-label" {{ $attributes->merge(['for' => $attributes->get('id')]) }}>{{ $attributes->get('label') }}</label>
-    @endif
-    <input {{ $attributes }} type="text" value="" data-role="tagsinput" data-options="{{ $dataOptions }}"/>
-
-    <style>
+    <style scoped>
         .skill-input-label {
             margin-bottom: -4px;
             font-size: 14px;
@@ -30,6 +25,11 @@
             color: #17a2b8!important;
         }
     </style>
+
+    @if ($attributes->has('label'))
+        <label class="skill-input-label" {{ $attributes->merge(['for' => $attributes->get('id')]) }}>{{ $attributes->get('label') }}</label>
+    @endif
+    <input {{ $attributes }} type="text" value="" data-role="tagsinput" data-options="{{ $dataOptions }}"/>
 
     <script>
         $(function() {

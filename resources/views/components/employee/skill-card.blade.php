@@ -1,4 +1,14 @@
 <div {{ $attributes->merge(['class' => 'card']) }}>
+    <style scoped>
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+        }
+        .skill-list,.skill-list td{
+            border: none !important;
+        }
+    </style>
+
     <div class="card-header">
         <span class="card-title">{{ $skillTypeTranslator[$skillType] }}</span>
         @if ($listType != "practice" && $is_auth)
@@ -7,6 +17,7 @@
             </a>
         @endif
     </div>
+
     <div class="card-body">
         <div class="table-full-width">
             <table class="table skill-list">
@@ -39,29 +50,19 @@
         </div>
     </div>
 
-    <style>
-        .card-header {
-            display: flex;
-            justify-content: space-between;
-        }
-        .skill-list,.skill-list td{
-            border: none !important;
-        }
-    </style>
-
-    <script>
+    <script type="text/javascript">
         $("#input-id").rating({
             starCaptions: {
-                0.5: 'level 0.5',
-                1: 'level 1',
-                1.5: 'level 1.5',
-                2: 'level 2',
-                2.5: 'level 2.5',
-                3: 'level 3',
-                3.5: 'level 3.5',
-                4: 'level 4',
-                4.5: 'level 4.5',
-                5: 'level 5',
+                0.5: '0.5',
+                1: '1',
+                1.5: '1.5',
+                2: '2',
+                2.5: '2.5',
+                3: '3',
+                3.5: '3.5',
+                4: '4',
+                4.5: '4.5',
+                5: '5',
             },
         });
     </script>

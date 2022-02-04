@@ -1,4 +1,21 @@
 <div>
+    <style scoped>
+        .card-row {
+            margin: 0px;
+        }
+        .card-row div:nth-child(1n) {
+            margin-right: 10px;
+        }
+        .card-row div:nth-child(2n) {
+            margin-left: 5px;
+            margin-right: 5px;
+        }
+        .card-row div:nth-child(3n) {
+            margin-left: 10px;
+            margin-right: 0px;
+        }
+    </style>
+
     <h4 class="title">{{ $listTypes[$listType]["title"] }}</h4>
     @foreach($listTypes[$listType]["skillTypeList"] as $index => $skillType)
         @if ($loop->first || $index % 3 == 0)
@@ -16,21 +33,4 @@
             </div>
         @endif
     @endforeach
-
-    <style>
-        .card-row {
-            margin: 0px;
-        }
-        .card-row div:nth-child(1n) {
-            margin-right: 10px;
-        }
-        .card-row div:nth-child(2n) {
-            margin-left: 5px;
-            margin-right: 5px;
-        }
-        .card-row div:nth-child(3n) {
-            margin-left: 10px;
-            margin-right: 0px;
-        }
-    </style>
 </div>
