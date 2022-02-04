@@ -11,7 +11,14 @@
                     <img src="{{asset('img/dinosaur.jfif')}}" class="rounded-circle" style="height:35px; width:35px; border: 1px solid; border-color: #031de2;">
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="{{url('employees/show')}}">MYスキル</a>
+                        <a class="dropdown-item" href="{{url('employees/show')}}">
+                        <i class="bi bi-code-slash"></i>
+                        MYスキル
+                        </a>
+                        <a class="dropdown-item" data-toggle="modal" data-target="#myModal1" href="#modal">
+                        <i class="bi bi-speedometer"></i>
+                        進行中案件
+                        </a>
 
                         <div class="divider"></div>
                             <form method="POST" action="{{ route('logout') }}">

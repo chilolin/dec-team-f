@@ -10,7 +10,7 @@
             </a>
         </div>
         <ul class="nav">
-            <li class="nav-item active">
+            <li class="nav-item">
                 <a class="nav-link" href="{{url('/')}}">
                     <i class="bi bi-search"></i>
                     <p>エンジニア検索</p>
@@ -18,7 +18,7 @@
             </li>
 
             <li>
-                <a class="nav-link" href="{{url('employees/show')}}">
+                <a class="nav-link" href="{{url('employees')}}">
                 <i class="bi bi-people"></i>
                     <p>社員一覧</p>
                 </a>
@@ -32,19 +32,19 @@
             </li>
 
             <li>
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="{{url('employees/show')}}">
                 <i class="bi bi-code-slash"></i>
                     <p>MYスキル</p>
                 </a>
             </li>       
 
             <li>
-                <a class="nav-link" href="#">
+                <a class="nav-link" data-toggle="modal" data-target="#myModal1" href="#modal">
                     <i class="bi bi-speedometer"></i>
                     <p>進行中案件</p>
                 </a>
             </li>            
-
         </ul>
     </div>
 </div>
+

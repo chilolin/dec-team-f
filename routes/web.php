@@ -67,6 +67,11 @@ Route::middleware('auth')->group(function() {
     Route::get('master', function($id) {
         return view('master');
     });
+
+    Route::get('modal', function() {
+        return view('modal');
+    });
+
 });
 
 require __DIR__.'/auth.php';
