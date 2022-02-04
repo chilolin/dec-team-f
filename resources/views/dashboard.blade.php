@@ -8,8 +8,6 @@
         </h2>
     </x-slot>
 
-
-
     <div class="content">
         <div class="container">
 
@@ -21,16 +19,16 @@
             </h4>
 
             <div class="row row-cols-1 row-cols-md-3">
-            
+
             <div class="col mb-4">
                 <div class="card border-primary mb-3 h-100" style="width: 18rem;">
                     <div class="card-body">
                         <h5 class="card-title">プログラミング言語</h5>
                         <p class="card-text">
                         This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.
-                        </p>                     
+                        </p>
                     </div>
-                        
+
                     <div class="card-footer">
                         <select class="form-select" size="5"  multiple aria-label=" .form-select-lg example">
                             <option value="Bash">
@@ -108,9 +106,9 @@
                         <h5 class="card-title">フレームワーク</h5>
                         <p class="card-text">
                             説明
-                        </p>                     
+                        </p>
                     </div>
-                        
+
                     <div class="card-footer">
                         <select class="form-select" size="5"  multiple aria-label=" .form-select-lg example">
                             <option value="Ruby on Rails">
@@ -119,28 +117,28 @@
                             Sinatra</option>
                             <option value="Padrino">
                             Padrino</option>
-                        
+
                             <option value="Laravel">
                             Laravel</option>
                             <option value="CakePHP">
                             CakePHP</option>
                             <option value="FuelPHP">
                             FuelPHP</option>
-                        
+
                             <option value="Spring Framework">
                             Spring Framework</option>
                             <option value="PlayFramwork">
                             PlayFramework</option>
                             <option value="JSF(JavaServer Faces">
                             JSF(JavaServer Faces)</option>
-                        
+
                             <option value="AngularJS">
                             AngularJS</option>
                             <option value="Vue.js">
                             Vue.js</option>
                             <option value="React">
                             React</option>
-                        
+
                             <option value="Booststrap">
                             Bootstrap</option>
                             <option value="Foundation">
@@ -158,9 +156,9 @@
                         <h5 class="card-title">デザインパターン</h5>
                         <p class="card-text">
                             説明
-                        </p>                     
+                        </p>
                     </div>
-                        
+
                     <div class="card-footer">
                         <select class="form-select" size="5"  multiple aria-label=" .form-select-lg example">
                             <option selected>Open this select menu</option>
@@ -179,9 +177,9 @@
                         <h5 class="card-title">開発工程</h5>
                         <p class="card-text">
                             説明
-                        </p>                     
+                        </p>
                     </div>
-                        
+
                     <div class="card-footer">
                         <select class="form-select" size="5"  multiple aria-label=" .form-select-lg example">
                             <option value="設計">設計</option>
@@ -197,9 +195,9 @@
                         <h5 class="card-title">開発の進め方</h5>
                         <p class="card-text">
                             説明
-                        </p>                     
+                        </p>
                     </div>
-                        
+
                     <div class="card-footer">
                         <select class="form-select" size="5"  multiple aria-label=" .form-select-lg example">
                             <option value="ウォーターフォール">ウォーターフォール</option>
@@ -215,9 +213,9 @@
                         <h5 class="card-title">エンジニアの種類</h5>
                         <p class="card-text">
                             説明
-                        </p>                     
+                        </p>
                     </div>
-                        
+
                     <div class="card-footer">
                         <select class="form-select" size="5"  multiple aria-label=" .form-select-lg example">
                             <option selected>Open this select menu</option>
@@ -235,9 +233,9 @@
                         <h5 class="card-title">役職</h5>
                         <p class="card-text">
                             説明
-                        </p>                     
+                        </p>
                     </div>
-                        
+
                     <div class="card-footer">
                         <select class="form-select" size="5"  multiple aria-label=" .form-select-lg example">
                             <option  value="PM">
@@ -263,9 +261,9 @@
                         <h5 class="card-title">データベース</h5>
                         <p class="card-text">
                             説明
-                        </p>                     
+                        </p>
                     </div>
-                        
+
                     <div class="card-footer">
                         <select class="form-select" size="5"  multiple aria-label=" .form-select-lg example">
                             <option selected>Open this select menu</option>
@@ -283,9 +281,9 @@
                         <h5 class="card-title">インフラ技術</h5>
                         <p class="card-text">
                             説明
-                        </p>                     
+                        </p>
                     </div>
-                        
+
                     <div class="card-footer">
                         <select class="form-select" size="5"  multiple aria-label=" .form-select-lg example">
                             <option selected>Open this select menu</option>
@@ -302,7 +300,7 @@
         </div>
 
 
-                
+
 
        <button type="submit" class="btn btn-secondary btn-lg btn-block">検索</button>
         </form>

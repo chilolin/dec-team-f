@@ -11,39 +11,39 @@
         </div>
         <ul class="nav">
             <li class="nav-item">
-                <a class="nav-link" href="{{url('/')}}">
+                <a class="nav-link" href="{{ route('dashboard') }}">
                     <i class="bi bi-search"></i>
                     <p>エンジニア検索</p>
                 </a>
             </li>
 
             <li>
-                <a class="nav-link" href="{{url('employees')}}">
+                <a class="nav-link" href="{{ route('employees.index')}}">
                 <i class="bi bi-people"></i>
                     <p>社員一覧</p>
                 </a>
-            </li>     
-            
+            </li>
+
             <li>
-                <a class="nav-link" href="{{url('matters/create')}}">
+                <a class="nav-link" href="{{ route('matters.create')}}">
                     <i class="bi bi-card-checklist"></i>
                     <p>案件入力</p>
                 </a>
             </li>
 
             <li>
-                <a class="nav-link" href="{{url('employees/show')}}">
+                <a class="nav-link" href="{{ route('employees.show', ['id' => Auth::id()])}}">
                 <i class="bi bi-code-slash"></i>
                     <p>MYスキル</p>
                 </a>
-            </li>       
+            </li>
 
             <li>
                 <a class="nav-link" data-toggle="modal" data-target="#myModal1" href="#modal">
                     <i class="bi bi-speedometer"></i>
                     <p>進行中案件</p>
                 </a>
-            </li>            
+            </li>
         </ul>
     </div>
 </div>
