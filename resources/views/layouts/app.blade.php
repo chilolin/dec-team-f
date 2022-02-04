@@ -37,8 +37,8 @@
     <body>
         <div class="wrapper">
             @include('layouts.sidebar')
-
             <main class="main-panel">
+                @include('layouts.modal')
                 @include('layouts.navigation')
 
                 <div class="content">
