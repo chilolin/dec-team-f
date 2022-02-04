@@ -3,6 +3,8 @@
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+//検索用コントローラー
+use App\Http\Controllers\SearchController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,11 +24,13 @@ Route::middleware('auth')->group(function() {
         return view('dashboard');
     })->name('dashboard');
 
+    // //検索用
+    // Route::resource('search', SearchController::class,['only' => ['index']]);
+    
+
     // 社員画面
     Route::prefix('employees')->group(function() {
-        Route::get('/', function () {
-            return view('employees.index');
-        });
+        Route::resource('/', SearchController::class,['only' => ['index']]);
 
         Route::get('/{id}', function ($id) {
             return view('employees.show', [ 'uid' => $id ]);
