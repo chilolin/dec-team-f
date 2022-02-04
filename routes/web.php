@@ -4,6 +4,8 @@ use App\Http\Controllers\UserController;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+//検索用コントローラー
+use App\Http\Controllers\SearchController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,8 +25,14 @@ Route::middleware('auth')->group(function() {
         return view('dashboard');
     })->name('dashboard');
 
+    // //検索用
+    // Route::resource('search', SearchController::class,['only' => ['index']]);
+
+
     // 社員画面
     Route::prefix('employees')->group(function() {
+        Route::resource('/', SearchController::class,['only' => ['index']]);
+
         Route::get('/', function () {
             return view('employees.index');
         })->name('employees.index');
@@ -67,6 +75,11 @@ Route::middleware('auth')->group(function() {
     Route::get('master', function($id) {
         return view('master');
     });
+
+    Route::get('modal', function() {
+        return view('modal');
+    });
+
 });
 
 require __DIR__.'/auth.php';

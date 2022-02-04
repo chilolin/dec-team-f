@@ -5,33 +5,35 @@
         </a>
         <div class="collapse navbar-collapse justify-content-end" id="navigation">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="#pablo">
-                        <img src="{{asset('img/dinosaur.jfif')}}" class="rounded-circle" style="height:35px; width:35px; border: 1px solid; border-color: #031de2;">
-                    </a>
-                </li>
+
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <span class="no-icon">Dropdown</span>
+                    <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <img src="{{asset('img/dinosaur.jfif')}}" class="rounded-circle" style="height:35px; width:35px; border: 1px solid; border-color: #031de2;">
                     </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Something</a>
-                        <a class="dropdown-item" href="#">Something else here</a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" href="{{url('employees/show')}}">
+                        <i class="bi bi-code-slash"></i>
+                        MYスキル
+                        </a>
+                        <a class="dropdown-item" data-toggle="modal" data-target="#myModal1" href="#modal">
+                        <i class="bi bi-speedometer"></i>
+                        進行中案件
+                        </a>
+
                         <div class="divider"></div>
-                        <a class="dropdown-item" href="#">Separated link</a>
+                            <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <a class="dropdown-item" href="route('logout')" onclick="event.preventDefault(); this.closest('form').submit();">
+                            <i class="bi bi-box-arrow-right"></i>    
+                            <span class="no-icon">Log out</span>
+                            </a>
+                            </form>
                     </div>
                 </li>
 
                 <!-- Authentication -->
                 <li class="nav-item">
-                    <form method="POST" action="{{ route('logout') }}">
-                        @csrf
-                        <a class="nav-link" href="route('logout')" onclick="event.preventDefault(); this.closest('form').submit();">
-                            <span class="no-icon">Log out</span>
-                        </a>
-                    </form>
+
                 </li>
             </ul>
         </div>

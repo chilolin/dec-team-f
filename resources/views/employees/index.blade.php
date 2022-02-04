@@ -1,3 +1,11 @@
+<?php
+
+// var_dump($search);
+// exit();
+
+?>
+
+
 <x-app-layout>
     <x-slot name="title">
         社員一覧
