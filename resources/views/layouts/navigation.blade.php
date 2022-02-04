@@ -6,7 +6,7 @@
         <div class="collapse navbar-collapse justify-content-end" id="navigation">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="#pablo">
+                    <a class="nav-link" href="{{url('employees/show')}}">
                         <img src="{{asset('img/dinosaur.jfif')}}" class="rounded-circle" style="height:35px; width:35px; border: 1px solid; border-color: #031de2;">
                     </a>
                 </li>
