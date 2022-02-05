@@ -61,7 +61,6 @@
                             <x-skill-input skill_type="{{ $skillType }}" name="skill-name" />
                         </div>
                     </div>
-
                     <div class="row">
                         <label for="selectSkillLevel" class="col-md-2 col-form-label">レベル</label>
                         <div class="col-md-7 level-select-wrapper" style="margin-bottom: 10px;">
@@ -77,7 +76,6 @@
                             >
                         </div>
                     </div>
-
                     <x-employees.delete-skill-input-button />
                 </div>
 

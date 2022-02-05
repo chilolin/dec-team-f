@@ -11,10 +11,15 @@
 
     <div class="card-header">
         <span class="card-title">{{ $skillTypeTranslator[$skillType] }}</span>
-        @if ($listType != "practice" && $is_auth)
-            {{-- <a href="{{ route('employees.edit', ['id' => $uid, 'skill_type' => $skillType]) }}" style="font-size: 13px;">
+        @if ($listType == "learning" && $is_auth)
+            <a href="{{ route('employees.learning_edit', ['skill_type' => $skillType]) }}" style="font-size: 13px;">
                 編集
-            </a> --}}
+            </a>
+        @endif
+        @if ($listType == "career" && $is_auth)
+            <a href="{{ route('employees.career_edit', ['skill_type' => $skillType]) }}" style="font-size: 13px;">
+                編集
+            </a>
         @endif
     </div>
 
@@ -33,6 +38,7 @@
                                         name="input-name"
                                         type="number"
                                         class="rating rating-loading"
+                                        value="{{ $skill->pivot->level }}"
                                         data-min='0'
                                         data-max='5'
                                         data-step='0.5'

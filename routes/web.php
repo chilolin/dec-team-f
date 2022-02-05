@@ -40,9 +40,7 @@ Route::middleware('auth')->group(function() {
 
         Route::get('/learning/{skill_type}/edit', [UserController::class, 'learning_edit'])->name('employees.learning_edit');
 
-        Route::get('/career/{skill_type}/edit', function ($skill_type) {
-            return view('employees.edit', ['skill_type' => $skill_type]);
-        })->name('employees.career_edit');
+        Route::get('/career/{skill_type}/edit', [UserController::class, 'career_edit'])->name('employees.career_edit');
     });
 
     // 案件画面

@@ -8,6 +8,15 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
+    /**
+     * 社員一覧を表示。
+     */
+    public function search()
+    {
+        $users = User::all();
+        return view('employees.index', ['users' => $users]);
+    }
+
     public $skillTypeTranslator = [
         'language' => 'プログラミング言語',
         'framework' => 'フレームワーク',
@@ -21,15 +30,6 @@ class UserController extends Controller
     ];
 
     /**
-     * 社員一覧を表示。
-     */
-    public function search()
-    {
-        $users = User::all();
-        return view('employees.index', ['users' => $users]);
-    }
-
-    /**
      * 学習スキル編集画面を表示。
      */
     public function learning_edit($skill_type)
@@ -39,7 +39,21 @@ class UserController extends Controller
             return redirect()->route('employees.show', ['id' => Auth::id()]);
         }
 
-        $skillList = User::find(Auth::id())->skills->where('skill_type', $skill_type)->where('pivot.is_practice', true);
+        $skillList = User::find(Auth::id())->skills->where('skill_type', $skill_type)->where('pivot.is_learning', true);
+        return view('employees.edit', ['skillTypeTranslator' => $this->skillTypeTranslator, 'skillType' => $skill_type, 'skillList' => $skillList]);
+    }
+
+    /**
+     * キャリアスキル編集画面を表示。
+     */
+    public function career_edit($skill_type)
+    {
+        if (array_search($skill_type, array_keys($this->skillTypeTranslator)) === false)
+        {
+            return redirect()->route('employees.show', ['id' => Auth::id()]);
+        }
+
+        $skillList = User::find(Auth::id())->career_skills->where('skill_type', $skill_type);
         return view('employees.edit', ['skillTypeTranslator' => $this->skillTypeTranslator, 'skillType' => $skill_type, 'skillList' => $skillList]);
     }
 }
