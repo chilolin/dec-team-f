@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\MatterController;
 use App\Http\Controllers\UserController;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -53,9 +54,7 @@ Route::middleware('auth')->group(function() {
             return view('matters.index');
         })->name('matters.index');
 
-        Route::get('/create', function() {
-            return view('matters.create');
-        })->name('matters.create');
+        Route::get('/create', [MatterController::class, 'create'])->name('matters.create');
 
         Route::get('/{id}', function($id) {
             return view('matters.show');
