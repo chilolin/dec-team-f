@@ -11,7 +11,7 @@
           <li class="list-group-item">依頼者：<p>（株）〇〇〇〇様</p></li>
           <li class="list-group-item">開始日：<p>2018年1月31日</p></li>
           <li class="list-group-item">終了日：<p>2018年12月31日</p></li>
-          <li class="list-group-item">担当：<p>佐藤、田中、斉藤</p></</li>
+          <li class="list-group-item">担当：<p>佐藤、田中、鈴木</p></</li>
         </ul>
         <a href="#" class="btn btn-primary">詳細画面へ</a>
     </div>

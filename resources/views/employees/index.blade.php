@@ -24,7 +24,7 @@
       <div class="card-body">
         <h3>佐藤太郎</h3>
         <p class="card-text">
-            ・役職：PG</br>
+            ・役職：PM</br>
             ・プログラミング言語：HTML,CSS,JavaScript,PHP</br>
             ・経験年数：12年</br>
             ・アサイン中の案件:〇〇〇〇の開発
