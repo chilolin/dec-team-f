@@ -11,66 +11,116 @@
         社員一覧
     </x-slot>
 
-  <h2 class="main">社員検索結果</h2>
+    <h3 class="title">----result----</h3>
 
-    <div class="border" id="flexbox">
-      <img src="{{ asset('img/human.png') }}" class="img_human">
-      <div class="box-item"style="flex-basis:30%;">佐藤太郎</div>
-      <div class="box-item" style="flex-basis:30%;">検索マッチ度 90点</div>
-      <div class="box-item" style="flex-basis:30%;">最近のアサイン</div>
-    </div>
-    <div class="border" id="flexbox">
-      <img src="{{ asset('img/human.png') }}" class="img_human">
-      <div class="box-item"style="flex-basis:30%;">鈴木太郎</div>
-      <div class="box-item" style="flex-basis:30%;">検索マッチ度 82点</div>
-      <div class="box-item" style="flex-basis:30%;">最近のアサイン</div>
-    </div>
-    <div class="border" id="flexbox">
-      <img src="{{ asset('img/human.png') }}" class="img_human">
-      <div class="box-item"style="flex-basis:30%;">田中太郎</div>
-      <div class="box-item" style="flex-basis:30%;">検索マッチ度 73点</div>
-      <div class="box-item" style="flex-basis:30%;">最近のアサイン</div>
-    </div>
-    <div class="border" id="flexbox">
-      <img src="{{ asset('img/human.png') }}" class="img_human">
-      <div class="box-item"style="flex-basis:30%;">佐々木太郎</div>
-      <div class="box-item" style="flex-basis:30%;">検索マッチ度 69点</div>
-      <div class="box-item" style="flex-basis:30%;">最近のアサイン</div>
-    </div>
-    <div class="border" id="flexbox">
-      <img src="{{ asset('img/human.png') }}" class="img_human">
-      <div class="box-item"style="flex-basis:30%;">渡辺太郎</div>
-      <div class="box-item" style="flex-basis:30%;">検索マッチ度 58点</div>
-      <div class="box-item" style="flex-basis:30%;">最近のアサイン</div>
+    <div class="card">
+      <div class="card-info">
+        <img src="{{ asset('img/human.png') }}" class="img1"></br>
+        <div class="info-text">
+          <a href="https://github.com">githubはこちら</a></br>
+          <a href="https://twitter.com/?lang=ja">Twitterはこちら</a>
+        </div>
+      </div>
+      <div class="card-body">
+        <h3>佐藤太郎</h3>
+        <p class="card-text">
+            ・役職：PG</br>
+            ・プログラミング言語：HTML,CSS,JavaScript,PHP</br>
+            ・経験年数：12年</br>
+            ・アサイン中の案件:〇〇〇〇の開発
+        </p>
+        <a href="#" class="btn btn-primary">詳細画面へ</a>
+      </div>
     </div>
 
+    <div class="card">
+      <div class="card-info">
+        <img src="{{ asset('img/human.png') }}" class="img1"></br>
+        <div class="info-text">
+          <a href="https://github.com">githubはこちら</a></br>
+          <a href="https://twitter.com/?lang=ja">Twitterはこちら</a>
+        </div>
+      </div>
+      <div class="card-body">
+        <h3>鈴木太郎</h3>
+        <p class="card-text">
+            ・役職：フロントエンド</br>
+            ・プログラミング言語：HTML,CSS,JavaScript,</br>
+            ・経験年数：８年</br>
+            ・アサイン中の案件:〇〇〇〇の開発
+        </p>
+        <a href="#" class="btn btn-primary">詳細画面へ</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-info">
+        <img src="{{ asset('img/human.png') }}" class="img1"></br>
+        <div class="info-text">
+          <a href="https://github.com">githubはこちら</a></br>
+          <a href="https://twitter.com/?lang=ja">Twitterはこちら</a>
+        </div>
+      </div>
+      <div class="card-body">
+        <h3>田中太郎</h3>
+        <p class="card-text">
+            ・役職：バックエンド</br>
+            ・プログラミング言語：PHP, Java,Ruby</br>
+            ・経験年数：10年</br>
+            ・アサイン中の案件:〇〇〇〇の開発
+        </p>
+        <a href="#" class="btn btn-primary">詳細画面へ</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-info">
+        <img src="{{ asset('img/human.png') }}" class="img1"></br>
+        <div class="info-text">
+          <a href="https://github.com">githubはこちら</a></br>
+          <a href="https://twitter.com/?lang=ja">Twitterはこちら</a>
+        </div>
+      </div>
+      <div class="card-body">
+        <h3>渡辺太郎</h3>
+        <p class="card-text">
+            ・役職：機械学習</br>
+            ・プログラミング言語：Python</br>
+            ・経験年数：７年</br>
+            ・アサイン中の案件:〇〇〇〇の開発
+        </p>
+        <a href="#" class="btn btn-primary">詳細画面へ</a>
+      </div>
+    </div>
+ 
     <style>
-      #flexbox{
-        display:flex;
-      }
-
-      .main{
+      .title{
         text-align:center;
-        margin-bottom: 50px
+        margin-top: 32px
       }
 
-      .border{
+      .card {
+        display: flex;
+        flex-direction: row;
+        width: 60rem; 
+        margin: 36px auto;
         padding: 8px;
-        margin-bottom: 30px;
-        margin-left: 50px;
-        margin-right: 50px;
-        border: 1px solid #333333;
       }
 
-      .img_human{
-        width: 50px;
-        height: 50px;
-        margin-right: 10px;
+      .card-info{
+        margin-top: 24px;
       }
 
-      .box-item{
-        padding-top: 12px;
+      .info-text{
+        margin: auto 16px;
+      }
+      .card-body{
+        margin-left: 72px;
+      }
+
+      .img1{
+        width: 160px;
+        height:160px;
       }
     </style>
-</x-app-layout>
-
+</x-app-layout> 
