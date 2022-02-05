@@ -21,11 +21,13 @@ class CareerSeeder extends Seeder
         for ($i = 0; $i < $data_counts; $i++) {
             $user_id = User::select('id')->orderByRaw("RAND()")->first()->id;
             $skill_id = Skill::select('id')->orderByRaw("RAND()")->first()->id;
+            $level = (float)rand(1, 10)/2.0;
 
             $careers = DB::table('careers')
                             ->where([
                                 ['user_id', '=', $user_id],
-                                ['skill_id', '=', $skill_id]
+                                ['skill_id', '=', $skill_id],
+                                ['level', '=', $level],
                             ])->get();
 
             if($careers->isEmpty()){
@@ -33,6 +35,7 @@ class CareerSeeder extends Seeder
                     [
                         'user_id' => $user_id,
                         'skill_id' => $skill_id,
+                        'level' => $level,
                         'created_at' => now(),
                         'updated_at' => now(),
                     ]
