@@ -29,7 +29,7 @@
             ・経験年数：12年</br>
             ・アサイン中の案件:〇〇〇〇の開発
         </p>
-        <a href="#" class="btn btn-primary">詳細画面へ</a>
+        <a href="{{ url('employees/show') }}" class="btn btn-primary">詳細画面へ</a>
       </div>
     </div>
 
@@ -49,7 +49,7 @@
             ・経験年数：８年</br>
             ・アサイン中の案件:〇〇〇〇の開発
         </p>
-        <a href="#" class="btn btn-primary">詳細画面へ</a>
+        <a href="{{ url('employees/show') }}" class="btn btn-primary">詳細画面へ</a>
       </div>
     </div>
 
@@ -69,7 +69,7 @@
             ・経験年数：10年</br>
             ・アサイン中の案件:〇〇〇〇の開発
         </p>
-        <a href="#" class="btn btn-primary">詳細画面へ</a>
+        <a href="{{ url('employees/show') }}" class="btn btn-primary">詳細画面へ</a>
       </div>
     </div>
 
@@ -89,7 +89,7 @@
             ・経験年数：７年</br>
             ・アサイン中の案件:〇〇〇〇の開発
         </p>
-        <a href="#" class="btn btn-primary">詳細画面へ</a>
+        <a href="{{ url('employees/show') }}" class="btn btn-primary">詳細画面へ</a>
       </div>
     </div>
  
