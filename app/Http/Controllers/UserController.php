@@ -17,30 +17,29 @@ class UserController extends Controller
         return view('employees.index', ['users' => $users]);
     }
 
-    public $skillTypeTranslator = [
-        'language' => 'プログラミング言語',
-        'framework' => 'フレームワーク',
-        'design_pattern' => 'デザインパターン',
-        'process' => '開発工程',
-        'proceeding' => '開発の進め方',
-        'engineer_type' => 'エンジニアの種類',
-        'position' => '役職',
-        'database' => 'データベース',
-        'infrastructure' => 'インフラ技術',
+    public $skill_types = [
+        'language',
+        'framework',
+        'design_pattern',
+        'process',
+        'proceeding',
+        'engineer_type',
+        'position',
+        'database',
+        'infrastructure',
     ];
-
     /**
      * 学習スキル編集画面を表示。
      */
     public function learning_edit($skill_type)
     {
-        if (array_search($skill_type, array_keys($this->skillTypeTranslator)) === false)
+        if (array_search($skill_type, $this->skill_types) === false)
         {
             return redirect()->route('employees.show', ['id' => Auth::id()]);
         }
 
-        $skillList = User::find(Auth::id())->skills->where('skill_type', $skill_type)->where('pivot.is_learning', true);
-        return view('employees.edit', ['skillTypeTranslator' => $this->skillTypeTranslator, 'skillType' => $skill_type, 'skillList' => $skillList]);
+        $skill_list = User::find(Auth::id())->skills->where('skill_type', $skill_type)->where('pivot.is_learning', true);
+        return view('employees.edit', ['skill_type' => $skill_type, 'skill_list' => $skill_list]);
     }
 
     /**
@@ -48,12 +47,12 @@ class UserController extends Controller
      */
     public function career_edit($skill_type)
     {
-        if (array_search($skill_type, array_keys($this->skillTypeTranslator)) === false)
+        if (array_search($skill_type, $this->skill_types) === false)
         {
             return redirect()->route('employees.show', ['id' => Auth::id()]);
         }
 
-        $skillList = User::find(Auth::id())->career_skills->where('skill_type', $skill_type);
-        return view('employees.edit', ['skillTypeTranslator' => $this->skillTypeTranslator, 'skillType' => $skill_type, 'skillList' => $skillList]);
+        $skill_list = User::find(Auth::id())->career_skills->where('skill_type', $skill_type);
+        return view('employees.edit', ['skill_type' => $skill_type, 'skill_list' => $skill_list]);
     }
 }
