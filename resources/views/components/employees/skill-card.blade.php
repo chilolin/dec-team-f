@@ -12,9 +12,9 @@
     <div class="card-header">
         <span class="card-title">{{ $skillTypeTranslator[$skillType] }}</span>
         @if ($listType != "practice" && $is_auth)
-            <a href="{{ route('employees.edit', ['id' => $uid, 'skill_type' => $skillType]) }}" style="font-size: 13px;">
+            {{-- <a href="{{ route('employees.edit', ['id' => $uid, 'skill_type' => $skillType]) }}" style="font-size: 13px;">
                 編集
-            </a>
+            </a> --}}
         @endif
     </div>
 
