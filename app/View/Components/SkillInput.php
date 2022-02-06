@@ -25,13 +25,15 @@ class SkillInput extends Component
      */
     public function render()
     {
-        $dataOptions = $this->candidateSkills->reduce(function($dataOptions, $skill) {
-            if ($dataOptions == '') {
-                return $skill->name;
-            }
-            return $dataOptions . ',' . $skill->name;
-        }, '');
+        $candidates = $this->candidateSkills->map(function($skill) {
+            return $skill->name;
+        });
 
-        return view('components.skill-input', ['dataOptions' => $dataOptions]);
+        $candidate_map = $this->candidateSkills->reduce(function($candidates, $skill) {
+            $candidates[$skill->name] = $skill->id;
+            return $candidates;
+        }, []);
+
+        return view('components.skill-input', ['candidates' => $candidates, 'candidate_map' => $candidate_map]);
     }
 }

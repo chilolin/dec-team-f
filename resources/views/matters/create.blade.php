@@ -46,7 +46,7 @@
                 <x-skill-input name="process" skill_type="process"/>
             </x-matters.create-input-group>
 
-            <x-matters.create-input-group label="開発の進め方">
+            {{-- <x-matters.create-input-group label="開発の進め方">
                 <x-skill-input name="proceeding" skill_type="proceeding"/>
             </x-matters.create-input-group>
 
@@ -112,7 +112,7 @@
                     <option value='elem_4'>Dさん</option>
                     <option value='elem_100'>Eさん</option>
                 </select>
-            </x-matters.create-input-group>
+            </x-matters.create-input-group> --}}
 
             <div class="row justify-content-center mt-5">
                 <button type="button" class="btn btn-fill btn-warning col-lg-4" onclick="event.preventDefault(); this.closest('form').submit();">登録する</button>

@@ -29,11 +29,28 @@
     @if ($attributes->has('label'))
         <label class="skill-input-label" {{ $attributes->merge(['for' => $attributes->get('id')]) }}>{{ $attributes->get('label') }}</label>
     @endif
-    <input id="{{ $attributes->get('id') }}" type="text" name="{{ $attributes->get('name') }}" value="" data-role="tagsinput" data-options="{{ $dataOptions }}"/>
+    <input id="{{ $attributes->get('id') }}" type="text" name="{{ $attributes->get('name') }}" data-role="tagsinput" data-candidatemap="{{ json_encode($candidate_map) }}"/>
 
     <script>
-        $(function() {
-            $("input[data-role=tagsinput]").tagsinput();
-        });
+        (function($) {
+            var list = @json($candidates);
+            var inputName = @json($attributes->get('name'));
+
+            $(function() {
+                var candidates = new Bloodhound({
+                    datumTokenizer: Bloodhound.tokenizers.whitespace,
+                    queryTokenizer: Bloodhound.tokenizers.whitespace,
+                    local: list,
+                });
+                candidates.initialize();
+
+                $('input[name=' + inputName + ']').tagsinput({
+                    typeaheadjs: {
+                        name: 'candidates',
+                        source: candidates.ttAdapter()
+                    }
+                });
+            });
+        })(window.jQuery);
     </script>
 </div>
