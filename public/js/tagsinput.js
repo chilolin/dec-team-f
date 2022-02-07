@@ -64,9 +64,6 @@
         this.candidatemap = element.hasAttribute("data-candidatemap")
             ? this.$element.data("candidatemap")
             : "";
-        // this.autocompleteList = element.hasAttribute("data-options")
-        //     ? this.$element.data("options").split(",")
-        //     : "";
 
         this.$container = $(
             '<div class="bootstrap-tagsinput form-control"></div>'
@@ -472,6 +469,8 @@
                             return false;
                         });
 
+                        console.log("typeahead");
+
                         // @TODO Dep: https://github.com/corejavascript/typeahead.js/issues/89
                         if (typeaheadjs[index].valueKey) {
                             self.add(datum[typeaheadjs[index].valueKey]);
@@ -494,32 +493,6 @@
                 }, self)
             );
 
-            // if (self.autocompleteList !== "") {
-            //     self.$container.on(
-            //         "click focus",
-            //         $.proxy(function (event) {
-            //             if (!self.$element.attr("disabled")) {
-            //                 self.$input.removeAttr("disabled");
-            //             }
-
-            //             self.$input.autocomplete({
-            //                 source: self.autocompleteList,
-            //                 minLength: 0,
-            //                 delay: 1,
-            //                 autoFocus: false,
-            //                 scroll: true,
-            //                 position: {
-            //                     my: "left top",
-            //                     at: "left bottom",
-            //                     collision: "flip",
-            //                 },
-            //             });
-
-            //             self.$input.autocomplete("search", "");
-            //         })
-            //     );
-            // }
-
             if (self.options.addOnBlur && self.options.freeInput) {
                 self.$input.on(
                     "focusout",
@@ -530,6 +503,7 @@
                             $(".typeahead, .twitter-typeahead", self.$container)
                                 .length === 0
                         ) {
+                            console.log("focusout");
                             self.add(self.$input.val());
                             self.$input.val("");
                         }
@@ -675,7 +649,21 @@
             // Only add existing value as tags when using strings as tags
             if (self.options.itemValue === defaultOptions.itemValue) {
                 if (self.$element[0].tagName === "INPUT") {
-                    self.add(self.$element.val());
+                    var defaultValue = self.$element.val();
+
+                    if (
+                        defaultValue &&
+                        Array.isArray($.parseJSON(defaultValue))
+                    ) {
+                        defaultValue = $.parseJSON(defaultValue).reduce(
+                            (defaultValue, skill) => {
+                                return defaultValue + "," + skill.value;
+                            },
+                            ""
+                        );
+                    }
+
+                    self.add(defaultValue);
                 } else {
                     $("option", self.$element).each(function () {
                         self.add($(this).attr("value"), true);
