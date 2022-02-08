@@ -17,7 +17,7 @@ class MatterController extends Controller
     }
 
     public function store(Request $request, Skill $skill) {
-        $validated = $request->validate([
+        $request->validate([
             'matter_name' => 'required|string|max:100',
             'client_name' => 'required|string|max:100',
             'matter_start_at' => 'required|date|before:matter_end_at',
@@ -47,30 +47,26 @@ class MatterController extends Controller
         foreach ($tagsinput_values as $skill_type => $tagsinput_skills) {
             if (!$tagsinput_skills) continue;
 
-            if (str_contains($skill_type, 'language')) {
-                $skill_type = 'language';
-            }
-            if (str_contains($skill_type, 'framework')) {
-                $skill_type = 'framework';
-            }
+            $skill_type = str_contains($skill_type, 'language') ? 'language' : $skill_type;
+            $skill_type = str_contains($skill_type, 'framework') ? 'framework' : $skill_type;
 
             array_push($skill_ids, ...$skill->createTagsinput($tagsinput_skills, $skill_type));
         }
 
         // 案件を作成し登録
         $matter = Matter::create([
-            'name' => $validated['matter_name'],
-            'client_id' => Client::create(['name' => $validated['client_name']])->id,
-            'start_at' => $validated['matter_start_at'],
-            'end_at' => $validated['matter_end_at']
+            'name' => $request->matter_name,
+            'client_id' => Client::create(['name' => $request->client_name])->id,
+            'start_at' => $request->matter_start_at,
+            'end_at' => $request->matter_end_at,
         ]);
         // 案件にスキルとエンジニアを登録
         $matter->skills()->sync($skill_ids);
         $matter->users()->syncWithPivotValues(
-            $validated['engineers'],
+            $request->engineers,
             [
-                'start_at' => $validated['matter_start_at'],
-                'end_at' => $validated['matter_end_at']
+                'start_at' => $request->matter_start_at,
+                'end_at' => $request->matter_end_at,
             ]
         );
 

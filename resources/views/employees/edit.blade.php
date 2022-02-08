@@ -21,7 +21,7 @@
     </style>
 
     <div class="container">
-        <h3 class="title">{{ $skill_type_translator[$skill_type] }}</h3>
+        <h3 class="title">{{ $skill_types_in_jp[$skill_type] }}</h3>
         <div style="padding: 50px 30px;">
             <form method="POST">
                 @foreach ($skill_list as $skill)

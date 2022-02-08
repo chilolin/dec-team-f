@@ -43,15 +43,15 @@
             </x-matters.create-input-group>
 
             <x-matters.create-input-group label="開発工程">
-                <x-forms.skill-input name="process" skill_type="process"/>
+                <x-forms.skill-input name="process" skill_type="{{ $process }}"/>
             </x-matters.create-input-group>
 
             <x-matters.create-input-group label="開発の進め方">
-                <x-forms.skill-input name="proceeding" skill_type="proceeding"/>
+                <x-forms.skill-input name="proceeding" skill_type="{{ $proceeding }}"/>
             </x-matters.create-input-group>
 
             <x-matters.create-input-group label="デザインパターン">
-                <x-forms.skill-input name="design_pattern" skill_type="design_pattern"/>
+                <x-forms.skill-input name="design_pattern" skill_type="{{ $design_pattern }}"/>
             </x-matters.create-input-group>
 
             <x-matters.create-input-group label="フロントエンド">
@@ -61,7 +61,7 @@
                             id="frontend_language"
                             name="frontend_language"
                             label="プログラミング言語"
-                            skill_type="language"
+                            skill_type="{{ $language }}"
                         />
                     </div>
                     <div class="col-12">
@@ -69,7 +69,7 @@
                             id="frontend_framework"
                             name="frontend_framework"
                             label="フレームワーク"
-                            skill_type="framework"
+                            skill_type="{{ $framework }}"
                         />
                     </div>
                 </div>
@@ -82,7 +82,7 @@
                             id="backend_language"
                             name="backend_language"
                             label="プログラミング言語"
-                            skill_type="language"
+                            skill_type="{{ $language }}"
                         />
                     </div>
                     <div class="col-12">
@@ -90,18 +90,18 @@
                             id="backend_framework"
                             name="backend_framework"
                             label="フレームワーク"
-                            skill_type="framework"
+                            skill_type="{{ $framework }}"
                         />
                     </div>
                 </div>
             </x-matters.create-input-group>
 
             <x-matters.create-input-group label="データベース">
-                <x-forms.skill-input name="database" skill_type="database" />
+                <x-forms.skill-input name="database" skill_type="{{ $database }}" />
             </x-matters.create-input-group>
 
             <x-matters.create-input-group label="インフラ技術">
-                <x-forms.skill-input name="infrastructure" skill_type="infrastructure" />
+                <x-forms.skill-input name="infrastructure" skill_type="{{ $infrastructure }}" />
             </x-matters.create-input-group>
 
             <x-matters.create-input-group label="エンジニア">

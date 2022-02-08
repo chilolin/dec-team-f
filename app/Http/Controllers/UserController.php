@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Consts\SkillType;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -17,23 +18,12 @@ class UserController extends Controller
         return view('employees.index', ['users' => $users]);
     }
 
-    public $skill_types = [
-        'language',
-        'framework',
-        'design_pattern',
-        'process',
-        'proceeding',
-        'engineer_type',
-        'position',
-        'database',
-        'infrastructure',
-    ];
     /**
      * 学習スキル編集画面を表示。
      */
     public function learning_edit($skill_type)
     {
-        if (array_search($skill_type, $this->skill_types) === false)
+        if (array_search($skill_type, SkillType::SKILL_TYPES) === false)
         {
             return redirect()->route('employees.show', ['id' => Auth::id()]);
         }
@@ -47,7 +37,7 @@ class UserController extends Controller
      */
     public function career_edit($skill_type)
     {
-        if (array_search($skill_type, $this->skill_types) === false)
+        if (array_search($skill_type, SkillType::SKILL_TYPES) === false)
         {
             return redirect()->route('employees.show', ['id' => Auth::id()]);
         }
