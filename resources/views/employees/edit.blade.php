@@ -21,12 +21,61 @@
     </style>
 
     <div class="container">
-        <h3 class="title">プログラミング言語</h3>
+        <h3 class="title">{{ $skill_type_translator[$skill_type] }}</h3>
         <div style="padding: 50px 30px;">
             <form method="POST">
+                @foreach ($skill_list as $skill)
+                    <div id="skill-input-group" class="skill-input-group form-group" style="margin-bottom: 50px;">
+                        <div class="row">
+                            <label for="skill-name-input" class="col-md-2 col-form-label">スキル名</label>
+                            <div class="col-md-10 skill-input-wrapper" style="margin-bottom: 10px;">
+                                <x-skill-input skill_type="{{ $skill_type }}" name="skill-name" value="{{ $skill->name }}" />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <label for="selectSkillLevel" class="col-md-2 col-form-label">レベル</label>
+                            <div class="col-md-7 level-select-wrapper" style="margin-bottom: 10px;">
+                                <input
+                                    id="level-select"
+                                    name="skill-level"
+                                    type="number"
+                                    class="rating rating-loading"
+                                    value="{{ $skill->pivot->level }}"
+                                    data-min='0'
+                                    data-max='5'
+                                    data-step='0.5'
+                                    data-size='sm'
+                                >
+                            </div>
+                        </div>
+
+                        <x-employees.delete-skill-input-button />
+                    </div>
+                @endforeach
+
                 <div id="skill-input-group" class="skill-input-group form-group" style="margin-bottom: 50px;">
-                    <x-employees.skill-input />
-                    <x-employees.level-select />
+                    <div class="row">
+                        <label for="skill-name-input" class="col-md-2 col-form-label">スキル名</label>
+                        <div class="col-md-10 skill-input-wrapper" style="margin-bottom: 10px;">
+                            <x-skill-input skill_type="{{ $skill_type }}" name="skill-name" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label for="selectSkillLevel" class="col-md-2 col-form-label">レベル</label>
+                        <div class="col-md-7 level-select-wrapper" style="margin-bottom: 10px;">
+                            <input
+                                id="level-select"
+                                name="skill-level"
+                                type="number"
+                                class="rating rating-loading"
+                                data-min='0'
+                                data-max='5'
+                                data-step='0.5'
+                                data-size='sm'
+                            >
+                        </div>
+                    </div>
                     <x-employees.delete-skill-input-button />
                 </div>
 
@@ -44,6 +93,22 @@
     <script>
         (function($) {
             'use strict';
+
+            $("#level-select").rating({
+                starCaptions: {
+                    0.5: '0.5',
+                    1: '1.0',
+                    1.5: '1.5',
+                    2: '2.0',
+                    2.5: '2.5',
+                    3: '3.0',
+                    3.5: '3.5',
+                    4: '4.0',
+                    4.5: '4.5',
+                    5: '5.0',
+                },
+                hoverChangeCaption: false,
+            });
 
             $('#add-button').click(function() {
                 $('#skill-input-group').clone(false).insertBefore('#add-button-container');
