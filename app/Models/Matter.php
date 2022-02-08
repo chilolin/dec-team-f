@@ -32,4 +32,13 @@ class Matter extends Model
         return $this->belongsToMany(Skill::class)
         ->withTimestamps();
     }
+
+    /**
+     * この案件にアサインされたエンジニア
+     */
+    public function users()
+    {
+        return $this->belongsToMany(User::class)
+        ->withTimestamps();
+    }
 }

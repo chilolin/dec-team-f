@@ -50,11 +50,12 @@ class Skill extends Model
     public function createTagsinput($input_skill, $skill_type) {
         $skill_id = $input_skill->id;
 
-        if (
-            $skill_id == 'new'
-            && !self::where(['name' => $input_skill->value, 'skill_type' => $skill_type])->exists()
-        ) {
-            $skill_id = self::create(['name' => $input_skill->value, 'skill_type' => $skill_type])->id;
+        if ($skill_id == 'new') {
+            if (self::where(['name' => $input_skill->value, 'skill_type' => $skill_type])->exists()) {
+                $skill_id = self::where(['name' => $input_skill->value, 'skill_type' => $skill_type])->get()[0]->id;
+            } else {
+                $skill_id = self::create(['name' => $input_skill->value, 'skill_type' => $skill_type])->id;
+            }
         }
 
         return $skill_id;
