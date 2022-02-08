@@ -1,3 +1,12 @@
 @import url("./light-bootstrap-dashboad.css");
 @import url("./tagsinput.css");
 @import url("./multi-select.css");
+
+/* custom css */
+@import url("custom-input.css");
+@import url("skill-input.css");
+@import url("datetimepicker.css");
+
+.custom-is-invalid {
+    border-color: #dc3545 !important;
+}

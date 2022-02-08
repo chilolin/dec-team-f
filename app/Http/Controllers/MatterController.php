@@ -18,8 +18,8 @@ class MatterController extends Controller
 
     public function store(Request $request, Skill $skill) {
         $validated = $request->validate([
-            'matter_name' => 'required',
-            'client_name' => 'required',
+            'matter_name' => 'required|string|max:100',
+            'client_name' => 'required|string|max:100',
             'matter_start_at' => 'required|date|before:matter_end_at',
             'matter_end_at' => 'required|date|after:matter_start_at',
             'process' => 'required|json',

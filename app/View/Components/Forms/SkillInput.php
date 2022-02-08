@@ -1,6 +1,6 @@
 <?php
 
-namespace App\View\Components;
+namespace App\View\Components\Forms;
 
 use App\Models\Skill;
 use Illuminate\View\Component;
@@ -34,6 +34,6 @@ class SkillInput extends Component
             return $candidates;
         }, []);
 
-        return view('components.skill-input', ['candidates' => $candidates, 'candidate_map' => $candidate_map]);
+        return view('components.forms.skill-input', ['candidates' => $candidates, 'candidate_map' => $candidate_map]);
     }
 }

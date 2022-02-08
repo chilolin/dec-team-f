@@ -46,6 +46,7 @@
         this.itemsMap = [];
 
         this.$element = $(element);
+        this.defaultClass = this.$element.attr("class");
         this.$element.addClass("sr-only");
 
         this.isSelect = element.tagName === "SELECT";
@@ -66,7 +67,7 @@
             : "";
 
         this.$container = $(
-            '<div class="bootstrap-tagsinput form-control"></div>'
+            `<div class="bootstrap-tagsinput ${this.defaultClass}"></div>`
         );
         this.$input = $(
             '<input type="' +

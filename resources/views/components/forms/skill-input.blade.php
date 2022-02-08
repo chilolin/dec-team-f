@@ -1,16 +1,19 @@
-<div>
-    <style scoped>
-        .skill-input-label {
-            margin-bottom: -4px;
-            font-size: 14px;
-            font-weight: 600;
-        }
-    </style>
-
+<div class="skill-input-wrapper">
     @if ($attributes->has('label'))
         <label class="skill-input-label" {{ $attributes->merge(['for' => $attributes->get('id')]) }}>{{ $attributes->get('label') }}</label>
     @endif
-    <input {{ $attributes->filter(fn ($value, $key) => $key != 'label') }} type="text" class="@error($attributes->get('name')) is-invalid @enderror" data-role="tagsinput" data-candidatemap="{{ json_encode($candidate_map) }}"/>
+
+    <input
+        {{ $attributes->filter(fn ($value, $key) => $key != 'label') }}
+        type="text"
+        class="form-control @error($attributes->get('name')) custom-is-invalid @enderror"
+        data-role="tagsinput"
+        data-candidatemap="{{ json_encode($candidate_map) }}"
+    />
+
+    @error($attributes->get('name'))
+        <div class="skill-input-error-message">{{ $message }}</div>
+    @enderror
 
     <script>
         (function($) {
