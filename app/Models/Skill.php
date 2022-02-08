@@ -39,4 +39,24 @@ class Skill extends Model
     {
         return self::where('skill_type', $skillType)->get();
     }
+
+    /**
+     * tagsinputからのスキルを登録する。
+     *
+     * @param mixed $input_skill
+     * @param 'language'|'framework'|'design_pattern'|'process'|'proceeding'|'engineer_type'|'position'|'database'|'infrastructure' $skill_type
+     * @return int $skill_id
+     */
+    public function createTagsinput($input_skill, $skill_type) {
+        $skill_id = $input_skill->id;
+
+        if (
+            $skill_id == 'new'
+            && !self::where(['name' => $input_skill->value, 'skill_type' => $skill_type])->exists()
+        ) {
+            $skill_id = self::create(['name' => $input_skill->value, 'skill_type' => $skill_type])->id;
+        }
+
+        return $skill_id;
+    }
 }

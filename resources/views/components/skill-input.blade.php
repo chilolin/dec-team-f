@@ -10,7 +10,7 @@
     @if ($attributes->has('label'))
         <label class="skill-input-label" {{ $attributes->merge(['for' => $attributes->get('id')]) }}>{{ $attributes->get('label') }}</label>
     @endif
-    <input id="{{ $attributes->get('id') }}" type="text" name="{{ $attributes->get('name') }}" data-role="tagsinput" data-candidatemap="{{ json_encode($candidate_map) }}"/>
+    <input {{ $attributes->filter(fn ($value, $key) => $key != 'label') }} type="text" class="@error($attributes->get('name')) is-invalid @enderror" data-role="tagsinput" data-candidatemap="{{ json_encode($candidate_map) }}"/>
 
     <script>
         (function($) {

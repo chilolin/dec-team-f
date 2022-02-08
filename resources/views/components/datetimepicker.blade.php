@@ -25,7 +25,7 @@
         <label class="datetimepicker-label" for="{{ $attributes->get('id') }}">{{ $attributes->get('label') }}</label>
     @endif
     <div class="input-group date" id="{{ $attributes->get('id') }}" data-target-input="nearest">
-        <input id="{{ $attributes->get('id') }}" type="text" name="{{ $attributes->get('name') }}" class="form-control datetimepicker-input" data-target="{{ '#' . $attributes->get('id') }}" />
+        <input {{ $attributes->filter(fn ($value, $key) => $key != 'label') }} type="text" class="form-control datetimepicker-input" data-target="{{ '#' . $attributes->get('id') }}" />
         <span class="input-group-append" data-target="{{ '#' . $attributes->get('id') }}" data-toggle="datetimepicker">
             <span class="input-group-text"><i class="fa fa-calendar"></i></span>
         </span>

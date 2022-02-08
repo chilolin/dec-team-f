@@ -22,22 +22,32 @@
     </style>
 
     <div class="container">
-        <form method="POST">
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+        <form method="POST" action="{{ route('matters.store') }}">
+            @csrf
             <x-matters.create-input-group label="案件名">
-                <input type="text" class="form-control" name="matter_name" />
+                <input type="text" class="form-control" name="matter_name" required/>
             </x-matters.create-input-group>
 
             <x-matters.create-input-group label="依頼者名">
-                <input type="text" class="form-control" name="client_name" />
+                <input type="text" class="form-control" name="client_name" required />
             </x-matters.create-input-group>
 
             <x-matters.create-input-group label="開始日 / 終了日">
                 <div class="row">
                     <div class="col-6">
-                        <x-datetimepicker id="matter_start_at" name="matter_start_at" label="開始日" />
+                        <x-datetimepicker id="matter_start_at" name="matter_start_at" label="開始日" required />
                     </div>
                     <div class="col-6">
-                        <x-datetimepicker id="matter_end_at" name="matter_end_at" label="終了日" />
+                        <x-datetimepicker id="matter_end_at" name="matter_end_at" label="終了日" required />
                     </div>
                 </div>
             </x-matters.create-input-group>
@@ -46,7 +56,7 @@
                 <x-skill-input name="process" skill_type="process"/>
             </x-matters.create-input-group>
 
-            {{-- <x-matters.create-input-group label="開発の進め方">
+            <x-matters.create-input-group label="開発の進め方">
                 <x-skill-input name="proceeding" skill_type="proceeding"/>
             </x-matters.create-input-group>
 
@@ -106,16 +116,14 @@
 
             <x-matters.create-input-group label="エンジニア">
                 <select multiple="multiple" id="enginners" name="engineers[]" data-role="multi-select">
-                    <option value='elem_1'>Aさん</option>
-                    <option value='elem_2'>Bさん</option>
-                    <option value='elem_3'>Cさん</option>
-                    <option value='elem_4'>Dさん</option>
-                    <option value='elem_100'>Eさん</option>
+                    @foreach ($employees as $employee)
+                        <option value='{{ $employee->id }}'>{{ $employee->name }}</option>
+                    @endforeach
                 </select>
-            </x-matters.create-input-group> --}}
+            </x-matters.create-input-group>
 
             <div class="row justify-content-center mt-5">
-                <button type="button" class="btn btn-fill btn-warning col-lg-4" onclick="event.preventDefault(); this.closest('form').submit();">登録する</button>
+                <button type="submit" class="btn btn-fill btn-warning col-lg-4">登録する</button>
             </div>
         </form>
     </div>

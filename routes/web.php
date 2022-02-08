@@ -56,6 +56,8 @@ Route::middleware('auth')->group(function() {
 
         Route::get('/create', [MatterController::class, 'create'])->name('matters.create');
 
+        Route::post('/store', [MatterController::class, 'store'])->name('matters.store');
+
         Route::get('/{id}', function($id) {
             return view('matters.show');
         })->name('matters.show');
