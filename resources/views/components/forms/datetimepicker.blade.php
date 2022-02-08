@@ -1,35 +1,24 @@
-<div>
-    <style scoped>
-        .datetimepicker-label {
-            margin-bottom: -4px;
-            font-size: 14px;
-            font-weight: 600;
-        }
-        .dropdown-menu {
-            width: 260px!important;
-        }
-        .datepicker-days th.dow:first-child,
-        .datepicker-days td:first-child {
-            color: #f00;
-        }
-        .datepicker-days th.dow:last-child,
-        .datepicker-days td:last-child {
-            color: #00f;
-        }
-        .input-group-text {
-            height: 38;
-        }
-    </style>
-
+<div class="datetimepicker-wrapper">
     @if ($attributes->has('label'))
         <label class="datetimepicker-label" for="{{ $attributes->get('id') }}">{{ $attributes->get('label') }}</label>
     @endif
+
     <div class="input-group date" id="{{ $attributes->get('id') }}" data-target-input="nearest">
-        <input id="{{ $attributes->get('id') }}" type="text" name="{{ $attributes->get('name') }}" class="form-control datetimepicker-input" data-target="{{ '#' . $attributes->get('id') }}" />
+        <input
+            {{ $attributes->filter(fn ($value, $key) => $key != 'label') }}
+            type="text"
+            class="form-control datetimepicker-input @error($attributes->get('name')) custom-is-invalid @enderror"
+            data-target="{{ '#' . $attributes->get('id') }}"
+            value="{{ old($attributes->get('name')) }}"
+        />
         <span class="input-group-append" data-target="{{ '#' . $attributes->get('id') }}" data-toggle="datetimepicker">
             <span class="input-group-text"><i class="fa fa-calendar"></i></span>
         </span>
     </div>
+
+    @error($attributes->get('name'))
+        <div class="alert datetimepicker-error-message">{{ $message }}</div>
+    @enderror
 
     @php
         $input_id = $attributes->get('id');

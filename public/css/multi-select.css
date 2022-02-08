@@ -1,5 +1,5 @@
 .ms-container {
-    background: transparent url("../img/switch.png") no-repeat 50% 50%;
+    /* background: transparent url("../img/switch.png") no-repeat 50% 50%; */
     width: 100%;
 }
 
@@ -94,4 +94,14 @@
     background-color: #eee;
     color: #aaa;
     cursor: text;
+}
+
+.custom-ms-wrapper {
+    position: relative;
+}
+.custom-ms-error-message {
+    position: absolute;
+    left: calc(55%);
+    font-size: 14px;
+    color: #dc3545;
 }

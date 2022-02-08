@@ -1,0 +1,35 @@
+.datetimepicker-wrapper {
+    position: relative;
+}
+
+.datetimepicker-label {
+    margin-bottom: -4px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.dropdown-menu {
+    width: 260px !important;
+}
+
+.datepicker-days th.dow:first-child,
+.datepicker-days td:first-child {
+    color: #f00;
+}
+
+.datepicker-days th.dow:last-child,
+.datepicker-days td:last-child {
+    color: #00f;
+}
+
+.input-group-text {
+    height: 38;
+}
+
+.datetimepicker-error-message {
+    position: absolute;
+    top: calc(85%);
+    left: -9px;
+    font-size: 14px;
+    color: #dc3545;
+}

@@ -43,8 +43,10 @@
     function TagsInput(element, options) {
         this.isInit = true;
         this.itemsArray = [];
+        this.itemsMap = [];
 
         this.$element = $(element);
+        this.defaultClass = this.$element.attr("class");
         this.$element.addClass("sr-only");
 
         this.isSelect = element.tagName === "SELECT";
@@ -60,12 +62,12 @@
             ? this.$element.attr("type")
             : "text";
         this.inputSize = Math.max(1, this.placeholderText.length);
-        this.autocompleteList = element.hasAttribute("data-options")
-            ? this.$element.data("options").split(",")
+        this.candidatemap = element.hasAttribute("data-candidatemap")
+            ? this.$element.data("candidatemap")
             : "";
 
         this.$container = $(
-            '<div class="bootstrap-tagsinput form-control"></div>'
+            `<div class="bootstrap-tagsinput ${this.defaultClass}"></div>`
         );
         this.$input = $(
             '<input type="' +
@@ -74,7 +76,7 @@
                 this.name +
                 '" placeholder="' +
                 this.placeholderText +
-                '"/>'
+                '" autocomplete="off" />'
         ).appendTo(this.$container);
 
         this.$element.before(this.$container);
@@ -176,6 +178,10 @@
 
             // register item in internal array and map
             self.itemsArray.push(item);
+            self.itemsMap.push({
+                id: self.candidatemap[item] || "new",
+                value: item,
+            });
 
             // add a tag element
 
@@ -282,8 +288,10 @@
                         return $(this).data("item") === item;
                     })
                     .remove();
-                if ($.inArray(item, self.itemsArray) !== -1)
+                if ($.inArray(item, self.itemsArray) !== -1) {
                     self.itemsArray.splice($.inArray(item, self.itemsArray), 1);
+                    self.itemsMap.splice($.inArray(item, self.itemsMap), 1);
+                }
             }
 
             if (!dontPushVal) self.pushVal(self.options.triggerChange);
@@ -306,7 +314,10 @@
             $(".badge", self.$container).remove();
             $("option", self.$element).remove();
 
-            while (self.itemsArray.length > 0) self.itemsArray.pop();
+            while (self.itemsArray.length > 0) {
+                self.itemsArray.pop();
+                self.itemsMap.pop();
+            }
 
             self.pushVal(self.options.triggerChange);
         },
@@ -357,7 +368,8 @@
                     return self.options.itemValue(item).toString();
                 });
 
-            self.$element.val(val.join(self.options.delimiter));
+            // self.$element.val(val.join(self.options.delimiter));
+            self.$element.val(JSON.stringify(self.itemsMap));
 
             if (self.options.triggerChange) self.$element.trigger("change");
         },
@@ -451,12 +463,14 @@
                     $.proxy(function (obj, datum, name) {
                         var index = 0;
                         typeaheadjs.some(function (dataset, _index) {
-                            if (dataset.name === name) {
+                            if (dataset && dataset.name === name) {
                                 index = _index;
                                 return true;
                             }
                             return false;
                         });
+
+                        console.log("typeahead");
 
                         // @TODO Dep: https://github.com/corejavascript/typeahead.js/issues/89
                         if (typeaheadjs[index].valueKey) {
@@ -480,32 +494,6 @@
                 }, self)
             );
 
-            if (self.autocompleteList !== "") {
-                self.$container.on(
-                    "click focus",
-                    $.proxy(function (event) {
-                        if (!self.$element.attr("disabled")) {
-                            self.$input.removeAttr("disabled");
-                        }
-
-                        self.$input.autocomplete({
-                            source: self.autocompleteList,
-                            minLength: 0,
-                            delay: 1,
-                            autoFocus: false,
-                            scroll: true,
-                            position: {
-                                my: "left top",
-                                at: "left bottom",
-                                collision: "flip",
-                            },
-                        });
-
-                        self.$input.autocomplete("search", "");
-                    })
-                );
-            }
-
             if (self.options.addOnBlur && self.options.freeInput) {
                 self.$input.on(
                     "focusout",
@@ -516,6 +504,7 @@
                             $(".typeahead, .twitter-typeahead", self.$container)
                                 .length === 0
                         ) {
+                            console.log("focusout");
                             self.add(self.$input.val());
                             self.$input.val("");
                         }
@@ -661,7 +650,21 @@
             // Only add existing value as tags when using strings as tags
             if (self.options.itemValue === defaultOptions.itemValue) {
                 if (self.$element[0].tagName === "INPUT") {
-                    self.add(self.$element.val());
+                    var defaultValue = self.$element.val();
+
+                    if (
+                        defaultValue &&
+                        Array.isArray($.parseJSON(defaultValue))
+                    ) {
+                        defaultValue = $.parseJSON(defaultValue).reduce(
+                            (defaultValue, skill) => {
+                                return defaultValue + "," + skill.value;
+                            },
+                            ""
+                        );
+                    }
+
+                    self.add(defaultValue);
                 } else {
                     $("option", self.$element).each(function () {
                         self.add($(this).attr("value"), true);
@@ -718,7 +721,7 @@
     $.fn.tagsinput = function (arg1, arg2, arg3) {
         var results = [];
 
-        this.each(function () {
+        this.each(function (index, element) {
             var tagsinput = $(this).data("tagsinput");
             // Initialize a new tags input
             if (!tagsinput) {

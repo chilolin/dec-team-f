@@ -61,4 +61,12 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Skill::class, 'careers', 'user_id', 'skill_id')->withTimestamps();
     }
+
+    /**
+     * このユーザーがアサインされた案件
+     */
+    public function matters()
+    {
+        return $this->belongsToMany(Matter::class, 'matter_user')->withTimestamps();
+    }
 }

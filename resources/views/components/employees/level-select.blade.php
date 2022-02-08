@@ -10,6 +10,7 @@
             data-max='5'
             data-step='0.5'
             data-size='sm'
+            data-show-clear="false"
         >
     </div>
 
