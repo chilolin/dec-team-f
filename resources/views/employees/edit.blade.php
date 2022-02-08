@@ -24,12 +24,12 @@
         <h3 class="title">{{ $skill_type_translator[$skill_type] }}</h3>
         <div style="padding: 50px 30px;">
             <form method="POST">
-                @foreach ($skill_list as $idx => $skill)
+                @foreach ($skill_list as $skill)
                     <div id="skill-input-group" class="skill-input-group form-group" style="margin-bottom: 50px;">
                         <div class="row">
                             <label for="skill-name-input" class="col-md-2 col-form-label">スキル名</label>
                             <div class="col-md-10 skill-input-wrapper" style="margin-bottom: 10px;">
-                                <x-forms.skill-input skill_type="{{ $skill_type }}" name="skill-name-{{ $idx+1 }}" value="{{ $skill->name }}" />
+                                <x-forms.skill-input skill_type="{{ $skill_type }}" name="skill-name" value="{{ $skill->name }}" />
                             </div>
                         </div>
 
@@ -58,7 +58,7 @@
                     <div class="row">
                         <label for="skill-name-input" class="col-md-2 col-form-label">スキル名</label>
                         <div class="col-md-10 skill-input-wrapper" style="margin-bottom: 10px;">
-                            <x-forms.skill-input skill_type="{{ $skill_type }}" name="skill-name-0" />
+                            <x-forms.skill-input skill_type="{{ $skill_type }}" name="skill-name" />
                         </div>
                     </div>
                     <div class="row">
@@ -116,11 +116,12 @@
                 $('.skill-input-group:last').find('.level-select-wrapper').remove();
 
                 // スキル入力欄を作成
-                var $dataOptions = $('.skill-input-group:first').find('.sr-only').data('options');
-                var $skillInput = $(
-                    '<input type="text" name="skill-name" data-role="tagsinput" data-options=' + $dataOptions + '>'
+                const $candidatemap = $('.skill-input-group:first').find('.sr-only').data('candidatemap');
+                const $list = $('.skill-input-group:first').find('.sr-only').data('candidates');
+                const $skillInput = $(
+                    '<input type="text" class="form-control" name="skill-name" data-role="tagsinput" data-candidatemap=' + $candidatemap + '>'
                 );
-                var $skillInputWrapper = $(
+                const $skillInputWrapper = $(
                     "<div>",
                     {
                         css: {
@@ -133,8 +134,8 @@
                 $('.skill-input-group:last .row:first').append($skillInputWrapper)
 
                 // レベル入力欄を作成
-                var $levelSelect = $('<input id="level-select" name="skill-level" type="number" class="rating rating-loading" data-min="0" data-max="5" data-step="0.5" data-size="sm">')
-                var $levelSelectWrapper = $(
+                const $levelSelect = $('<input id="level-select" name="skill-level" type="number" class="rating rating-loading" data-min="0" data-max="5" data-step="0.5" data-size="sm">')
+                const $levelSelectWrapper = $(
                     "<div>",
                     {
                         css: {
@@ -145,8 +146,20 @@
                 ).append($levelSelect);
                 $('.skill-input-group:last .row:nth-child(2)').append($levelSelectWrapper)
 
+                const candidates = new Bloodhound({
+                    datumTokenizer: Bloodhound.tokenizers.whitespace,
+                    queryTokenizer: Bloodhound.tokenizers.whitespace,
+                    local: $list,
+                });
+                candidates.initialize();
+
                 //  プラグインを適用
-                $skillInput.tagsinput();
+                $skillInput.tagsinput({
+                    typeaheadjs: {
+                        name: 'candidates',
+                        source: candidates.ttAdapter()
+                    }
+                });
                 $levelSelect.rating({
                     starCaptions: {
                         0.5: '0.5',

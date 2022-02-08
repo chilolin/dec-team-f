@@ -9,6 +9,7 @@
         class="form-control @error($attributes->get('name')) custom-is-invalid @enderror"
         value="{{ old($attributes->get('name')) }}"
         data-role="tagsinput"
+        data-candidates = "{{ json_encode($candidates) }}"
         data-candidatemap="{{ json_encode($candidate_map) }}"
     />
 
@@ -18,18 +19,17 @@
 
     <script>
         (function($) {
-            var list = @json($candidates);
-            var inputName = @json($attributes->get('name'));
+            const list = @json($candidates);
 
             $(function() {
-                var candidates = new Bloodhound({
+                const candidates = new Bloodhound({
                     datumTokenizer: Bloodhound.tokenizers.whitespace,
                     queryTokenizer: Bloodhound.tokenizers.whitespace,
                     local: list,
                 });
                 candidates.initialize();
 
-                $('input[name=' + inputName + ']').tagsinput({
+                $('input[data-role="tagsinput"]').tagsinput({
                     typeaheadjs: {
                         name: 'candidates',
                         source: candidates.ttAdapter()
