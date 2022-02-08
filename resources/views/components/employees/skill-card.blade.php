@@ -1,23 +1,22 @@
 <div {{ $attributes->merge(['class' => 'card']) }}>
     <style scoped>
-        .card-header {
-            display: flex;
-            justify-content: space-between;
+        .to-edit-link {
+            font-size: 13px;
         }
         .skill-list,.skill-list td{
             border: none !important;
         }
     </style>
 
-    <div class="card-header">
+    <div class="card-header d-flex justify-content-between">
         <span class="card-title">{{ $skill_types_in_jp[$skillType] }}</span>
         @if ($listType == "learning" && $is_auth)
-            <a href="{{ route('employees.learning_edit', ['skill_type' => $skillType]) }}" style="font-size: 13px;">
+            <a href="{{ route('employees.learning_edit', ['skill_type' => $skillType]) }}" class="to-edit-link">
                 編集
             </a>
         @endif
         @if ($listType == "career" && $is_auth)
-            <a href="{{ route('employees.career_edit', ['skill_type' => $skillType]) }}" style="font-size: 13px;">
+            <a href="{{ route('employees.career_edit', ['skill_type' => $skillType]) }}" class="to-edit-link">
                 編集
             </a>
         @endif
