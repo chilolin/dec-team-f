@@ -24,12 +24,12 @@
         <h3 class="title">{{ $skill_type_translator[$skill_type] }}</h3>
         <div style="padding: 50px 30px;">
             <form method="POST">
-                @foreach ($skill_list as $skill)
+                @foreach ($skill_list as $idx => $skill)
                     <div id="skill-input-group" class="skill-input-group form-group" style="margin-bottom: 50px;">
                         <div class="row">
                             <label for="skill-name-input" class="col-md-2 col-form-label">スキル名</label>
                             <div class="col-md-10 skill-input-wrapper" style="margin-bottom: 10px;">
-                                <x-skill-input skill_type="{{ $skill_type }}" name="skill-name" value="{{ $skill->name }}" />
+                                <x-forms.skill-input skill_type="{{ $skill_type }}" name="skill-name-{{ $idx+1 }}" value="{{ $skill->name }}" />
                             </div>
                         </div>
 
@@ -58,7 +58,7 @@
                     <div class="row">
                         <label for="skill-name-input" class="col-md-2 col-form-label">スキル名</label>
                         <div class="col-md-10 skill-input-wrapper" style="margin-bottom: 10px;">
-                            <x-skill-input skill_type="{{ $skill_type }}" name="skill-name" />
+                            <x-forms.skill-input skill_type="{{ $skill_type }}" name="skill-name-0" />
                         </div>
                     </div>
                     <div class="row">

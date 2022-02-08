@@ -654,7 +654,8 @@
 
                     if (
                         defaultValue &&
-                        Array.isArray($.parseJSON(defaultValue))
+                        defaultValue.slice(0, 1) == "[" &&
+                        defaultValue.slice(-1) == "]"
                     ) {
                         defaultValue = $.parseJSON(defaultValue).reduce(
                             (defaultValue, skill) => {
