@@ -4,81 +4,55 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
     /**
      * 社員一覧を表示。
      */
-    public function index()
+    public function search()
     {
         $users = User::all();
-        return view('employees', ['users' => $users]);
+        return view('employees.index', ['users' => $users]);
+    }
+
+    public $skill_types = [
+        'language',
+        'framework',
+        'design_pattern',
+        'process',
+        'proceeding',
+        'engineer_type',
+        'position',
+        'database',
+        'infrastructure',
+    ];
+    /**
+     * 学習スキル編集画面を表示。
+     */
+    public function learning_edit($skill_type)
+    {
+        if (array_search($skill_type, $this->skill_types) === false)
+        {
+            return redirect()->route('employees.show', ['id' => Auth::id()]);
+        }
+
+        $skill_list = User::find(Auth::id())->skills->where('skill_type', $skill_type)->where('pivot.is_learning', true);
+        return view('employees.edit', ['skill_type' => $skill_type, 'skill_list' => $skill_list]);
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * キャリアスキル編集画面を表示。
      */
-    public function create()
+    public function career_edit($skill_type)
     {
-        //
-    }
+        if (array_search($skill_type, $this->skill_types) === false)
+        {
+            return redirect()->route('employees.show', ['id' => Auth::id()]);
+        }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        $skill_list = User::find(Auth::id())->career_skills->where('skill_type', $skill_type);
+        return view('employees.edit', ['skill_type' => $skill_type, 'skill_list' => $skill_list]);
     }
 }

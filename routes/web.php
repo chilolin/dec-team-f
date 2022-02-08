@@ -29,9 +29,8 @@ Route::middleware('auth')->group(function() {
     // 社員画面
     Route::prefix('employees')->group(function() {
         // Route::resource('/', SearchController::class, ['only' => ['index']]);
-        Route::get('/', function () {
-            return view('employees.index');
-        })->name('employees.index');
+
+        Route::get('/', [UserController::class, 'search'])->name('employees.index');
 
         Route::get('/{id}', function ($id) {
             if (User::find($id) == null) {
@@ -40,12 +39,9 @@ Route::middleware('auth')->group(function() {
             return view('employees.show', [ 'uid' => $id ]);
         })->name('employees.show');
 
-        Route::get('/{id}/{skill_type}/edit', function ($id, $skill_type) {
-            if (Auth::id() != $id) {
-                return redirect()->route('employees.show', ['id' => $id]);
-            }
-            return view('employees.edit', ['uid' => $id, 'skill_type' => $skill_type]);
-        })->name('employees.edit');
+        Route::get('/learning/{skill_type}/edit', [UserController::class, 'learning_edit'])->name('employees.learning_edit');
+
+        Route::get('/career/{skill_type}/edit', [UserController::class, 'career_edit'])->name('employees.career_edit');
     });
 
     // 案件画面
@@ -73,7 +69,6 @@ Route::middleware('auth')->group(function() {
     Route::get('modal', function() {
         return view('modal');
     });
-
 });
 
 require __DIR__.'/auth.php';

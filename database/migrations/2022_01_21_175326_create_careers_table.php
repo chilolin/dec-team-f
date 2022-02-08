@@ -17,6 +17,7 @@ class CreateCareersTable extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignId('skill_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
+            $table->float('level');
             $table->timestamps();
         });
     }
