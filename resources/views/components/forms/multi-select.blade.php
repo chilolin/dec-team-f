@@ -8,14 +8,16 @@
         @foreach ($options as $option)
             <option
                 value='{{ $option->id }}'
-                {{
-                    array_search(
-                        $option->id,
-                        old(substr($attributes->get('name'), 0, strlen($attributes->get('name'))-2))
-                    ) !== false
-                    ? 'selected'
-                    : ''
-                }}
+                @if (old(substr($attributes->get('name'), 0, strlen($attributes->get('name'))-2)))
+                    {{
+                        array_search(
+                            $option->id,
+                            old(substr($attributes->get('name'), 0, strlen($attributes->get('name'))-2))
+                        ) !== false
+                        ? 'selected'
+                        : ''
+                    }}
+                @endif
             >
                 {{ $option->name }}
             </option>
