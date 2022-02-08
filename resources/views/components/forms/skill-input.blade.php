@@ -7,6 +7,7 @@
         {{ $attributes->filter(fn ($value, $key) => $key != 'label') }}
         type="text"
         class="form-control @error($attributes->get('name')) custom-is-invalid @enderror"
+        value="{{ old($attributes->get('name')) }}"
         data-role="tagsinput"
         data-candidatemap="{{ json_encode($candidate_map) }}"
     />

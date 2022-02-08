@@ -54,14 +54,7 @@ class MatterController extends Controller
                 $skill_type = 'framework';
             }
 
-            foreach ($tagsinput_skills as $tagsinput_skill) {
-                $skill_id = $skill->createTagsinput($tagsinput_skill, $skill_type);
-
-                // 同一スキルを登録しないようにする
-                if (array_search($skill_id, $skill_ids)) continue;
-
-                array_push($skill_ids, $skill_id);
-            }
+            array_push($skill_ids, ...$skill->createTagsinput($tagsinput_skills, $skill_type));
         }
 
         // 案件を作成し登録
@@ -73,7 +66,13 @@ class MatterController extends Controller
         ]);
         // 案件にスキルとエンジニアを登録
         $matter->skills()->sync($skill_ids);
-        $matter->users()->sync($validated['engineers']);
+        $matter->users()->syncWithPivotValues(
+            $validated['engineers'],
+            [
+                'start_at' => $validated['matter_start_at'],
+                'end_at' => $validated['matter_end_at']
+            ]
+        );
 
         return redirect()->route('matters.show', ['id' => $matter->id]);
     }

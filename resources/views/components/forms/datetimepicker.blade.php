@@ -9,6 +9,7 @@
             type="text"
             class="form-control datetimepicker-input @error($attributes->get('name')) custom-is-invalid @enderror"
             data-target="{{ '#' . $attributes->get('id') }}"
+            value="{{ old($attributes->get('name')) }}"
         />
         <span class="input-group-append" data-target="{{ '#' . $attributes->get('id') }}" data-toggle="datetimepicker">
             <span class="input-group-text"><i class="fa fa-calendar"></i></span>

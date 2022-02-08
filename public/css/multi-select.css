@@ -95,3 +95,13 @@
     color: #aaa;
     cursor: text;
 }
+
+.custom-ms-wrapper {
+    position: relative;
+}
+.custom-ms-error-message {
+    position: absolute;
+    left: calc(55%);
+    font-size: 14px;
+    color: #dc3545;
+}

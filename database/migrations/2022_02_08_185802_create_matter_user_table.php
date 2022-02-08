@@ -17,6 +17,8 @@ class CreateMatterUserTable extends Migration
             $table->id();
             $table->foreignId('matter_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignId('user_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
+            $table->date('start_at');
+            $table->date('end_at');
             $table->timestamps();
         });
     }

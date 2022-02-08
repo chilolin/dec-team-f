@@ -7,6 +7,7 @@
         {{ $attributes->filter(fn ($value, $key) => $key != 'label') }}
         type="text"
         class="form-control input @error($attributes->get('name')) custom-is-invalid @enderror"
+        value="{{ old($attributes->get('name')) }}"
     />
 
     @error($attributes->get('name'))
