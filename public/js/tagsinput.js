@@ -72,8 +72,8 @@
         this.$input = $(
             '<input type="' +
                 this.type +
-                '" name="' +
-                this.name +
+                // '" name="' +
+                // this.name +
                 '" placeholder="' +
                 this.placeholderText +
                 '" autocomplete="off" />'

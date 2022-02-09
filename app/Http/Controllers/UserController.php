@@ -17,32 +17,4 @@ class UserController extends Controller
         $users = User::all();
         return view('employees.index', ['users' => $users]);
     }
-
-    /**
-     * 学習スキル編集画面を表示。
-     */
-    public function learning_edit($skill_type)
-    {
-        if (array_search($skill_type, SkillType::SKILL_TYPES) === false)
-        {
-            return redirect()->route('employees.show', ['id' => Auth::id()]);
-        }
-
-        $skill_list = User::find(Auth::id())->skills->where('skill_type', $skill_type)->where('pivot.is_learning', true);
-        return view('employees.edit', ['skill_type' => $skill_type, 'skill_list' => $skill_list]);
-    }
-
-    /**
-     * キャリアスキル編集画面を表示。
-     */
-    public function career_edit($skill_type)
-    {
-        if (array_search($skill_type, SkillType::SKILL_TYPES) === false)
-        {
-            return redirect()->route('employees.show', ['id' => Auth::id()]);
-        }
-
-        $skill_list = User::find(Auth::id())->career_skills->where('skill_type', $skill_type);
-        return view('employees.edit', ['skill_type' => $skill_type, 'skill_list' => $skill_list]);
-    }
 }

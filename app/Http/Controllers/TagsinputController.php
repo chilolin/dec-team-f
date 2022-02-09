@@ -15,8 +15,12 @@ class TagsinputController extends Controller {
     * @return array $skill_ids
     */
     public function createSkills($tagsinput_skills, $skill_type) {
-        $tagsinput_skills = json_decode($tagsinput_skills);
         $skill_ids = [];
+        if (!$tagsinput_skills) {
+            return $skill_ids;
+        }
+
+        $tagsinput_skills = json_decode($tagsinput_skills);
 
         foreach ($tagsinput_skills as $tagsinput_skill) {
             $skill_id = $tagsinput_skill->id;

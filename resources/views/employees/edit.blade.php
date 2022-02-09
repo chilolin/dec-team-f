@@ -23,17 +23,80 @@
     <div class="container">
         <h3 class="title">{{ $skill_types_in_jp[$skill_type] }}</h3>
         <div style="padding: 50px 30px;">
-            <form method="POST">
-                @foreach ($skill_list as $skill)
-                    <x-employees.edit-input-group
-                        skill_type="{{ $skill_type }}"
-                        skill="{{ $skill }}"
-                    />
+            <form
+                method="POST"
+                action="{{
+                    strpos(url()->current(), 'career') != false ?
+                    route('employees.career_store', ['skill_type' => $skill_type]) :
+                    route('employees.learning_store', ['skill_type' => $skill_type])
+                }}"
+            >
+                @csrf
+                @foreach ($skill_list as $index => $skill)
+                    <div id="skill-input-group" class="skill-input-group form-group mb-5">
+                        <div class="row mb-3">
+                            <label for="skill-name-input" class="col-md-2 col-form-label">スキル名</label>
+                            <div class="col-md-10 skill-input-wrapper">
+                                <x-forms.skill-input
+                                    skill_type="{{ $skill_type }}"
+                                    name="skills[{{ $index+1 }}][name]"
+                                    value="{{ $skill->name }}"
+                                />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <label for="select-skill-level" class="col-md-2 col-form-label">レベル</label>
+                            <div class="col-7 level-select-wrapper">
+                                <input
+                                    id="level-select"
+                                    name="skills[{{ $index+1 }}][level]"
+                                    type="number"
+                                    class="rating rating-loading"
+                                    value="{{ $skill->pivot->level }}"
+                                    data-min='0'
+                                    data-max='5'
+                                    data-step='0.5'
+                                    data-size='sm'
+                                    data-show-clear="false"
+                                >
+                            </div>
+                        </div>
+
+                        <x-employees.delete-skill-input-button />
+                    </div>
                 @endforeach
 
-                <x-employees.edit-input-group
-                    skill_type="{{ $skill_type }}"
-                />
+                <div id="skill-input-group" class="skill-input-group form-group mb-5">
+                    <div class="row mb-3">
+                        <label for="skill-name-input" class="col-md-2 col-form-label">スキル名</label>
+                        <div class="col-md-10 skill-input-wrapper">
+                            <x-forms.skill-input
+                                skill_type="{{ $skill_type }}"
+                                name="skills[0][name]"
+                            />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <label for="select-skill-level" class="col-md-2 col-form-label">レベル</label>
+                        <div class="col-7 level-select-wrapper">
+                            <input
+                                id="level-select"
+                                name="skills[0][level]"
+                                type="number"
+                                class="rating rating-loading"
+                                data-min='0'
+                                data-max='5'
+                                data-step='0.5'
+                                data-size='sm'
+                                data-show-clear="false"
+                            >
+                        </div>
+                    </div>
+
+                    <x-employees.delete-skill-input-button />
+                </div>
 
                 <div id="add-button-container" class="row justify-content-md-center">
                     <button type="button" id="add-button" class="btn btn-sm btn-secondary add-button">＋</button>
@@ -50,7 +113,24 @@
         (function($) {
             'use strict';
 
+            $(".rating").rating({
+                starCaptions: {
+                    0.5: '0.5',
+                    1: '1.0',
+                    1.5: '1.5',
+                    2: '2.0',
+                    2.5: '2.5',
+                    3: '3.0',
+                    3.5: '3.5',
+                    4: '4.0',
+                    4.5: '4.5',
+                    5: '5.0',
+                },
+                hoverChangeCaption: false,
+            });
+
             $('#add-button').click(function() {
+                const index = $('.skill-input-group').length;
                 $('#skill-input-group').clone(false).insertBefore('#add-button-container');
                 $('.skill-input-group:last').find('.skill-input-wrapper').remove();
                 $('.skill-input-group:last').find('.level-select-wrapper').remove();
@@ -59,7 +139,7 @@
                 const $candidatemap = $('.skill-input-group:first').find('.sr-only').data('candidatemap');
                 const $list = $('.skill-input-group:first').find('.sr-only').data('candidates');
                 const $skillInput = $(
-                    '<input type="text" class="form-control" name="skill-name" data-role="tagsinput" data-candidatemap=' + $candidatemap + '>'
+                    `<input type="text" class="form-control" name="skills[${index}][name]" data-role="tagsinput" data-candidatemap="${$candidatemap}">`
                 );
                 const $skillInputWrapper = $(
                     "<div>",
@@ -74,7 +154,7 @@
                 $('.skill-input-group:last .row:first').append($skillInputWrapper)
 
                 // レベル入力欄を作成
-                const $levelSelect = $('<input id="level-select" name="skill-level" type="number" class="rating rating-loading" data-min="0" data-max="5" data-step="0.5" data-size="sm">')
+                const $levelSelect = $(`<input id="level-select" name="skills[${index}][level]" type="number" class="rating rating-loading" data-min="0" data-max="5" data-step="0.5" data-size="sm" data-show-clear="false">`)
                 const $levelSelectWrapper = $(
                     "<div>",
                     {
@@ -114,7 +194,6 @@
                         5: '5.0',
                     },
                     hoverChangeCaption: false,
-                    clearButton: '',
                 });
             });
         })(window.jQuery);

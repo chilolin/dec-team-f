@@ -8,6 +8,7 @@
         }
     </style>
 
+
     <div class="card-header d-flex justify-content-between">
         <span class="card-title">{{ $skill_types_in_jp[$skillType] }}</span>
         @if ($listType == "learning" && $is_auth)
