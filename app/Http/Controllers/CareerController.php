@@ -25,19 +25,27 @@ class CareerController extends Controller
 
     public function store(Request $request, TagsinputController $tagsinput, $skill_type)
     {
-        $user = User::find(Auth::id());
+        $career_skills = User::find(Auth::id())->career_skills();
 
-        $user->career_skills()->where(['skill_type' => $skill_type])->detach();
+        $career_skills->detach(
+            $career_skills
+            ->where(['skill_type' => $skill_type])
+            ->get()
+            ->map(function($career_skill) {
+                return $career_skill->id;
+            })
+            ->all()
+        );
 
-        foreach($request->skills as $skill) {
-            $skill_ids = $tagsinput->createSkills($skill['name'], $skill_type);
-
-            if (count($skill_ids)) {
-                foreach($skill_ids as $skill_id) {
-                    $user->career_skills()->attach($skill_id, ['level' => $skill['level']]);
+        $career_skills->attach(
+            collect($request->skills)
+            ->reduce(function($attach_skills, $skill) use($tagsinput, $skill_type) {
+                foreach($tagsinput->createSkills($skill['name'], $skill_type) as $skill_id) {
+                    $attach_skills[$skill_id] = ['level' => $skill['level']];
                 }
-            }
-        }
+                return $attach_skills;
+            }, [])
+        );
 
         return redirect()->route('employees.show', ['id' => Auth::id()]);
     }
