@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Consts\SkillType;
 use App\Models\Client;
 use App\Models\Matter;
 use App\Models\Skill;
@@ -16,7 +17,7 @@ class MatterController extends Controller
         return view('matters.create', ['employees' => $employees]);
     }
 
-    public function store(Request $request, Skill $skill) {
+    public function store(Request $request, TagsinputController $tagsinput) {
         $request->validate([
             'matter_name' => 'required|string|max:100',
             'client_name' => 'required|string|max:100',
@@ -34,23 +35,15 @@ class MatterController extends Controller
             'engineers' => 'required',
         ]);
 
-        // JSONをデコード
-        $tagsinput_values = [];
-        foreach (
-            $request->except(['matter_name', 'client_name', 'matter_start_at', 'matter_end_at', 'engineers'])
-            as $key => $value
-        ) {
-            $tagsinput_values[$key] = json_decode($value);
-        }
         // 案件に登録するスキルを取得
         $skill_ids = [];
-        foreach ($tagsinput_values as $skill_type => $tagsinput_skills) {
+        foreach ($request->except(['matter_name', 'client_name', 'matter_start_at', 'matter_end_at', 'engineers']) as $skill_type => $tagsinput_skills) {
             if (!$tagsinput_skills) continue;
 
-            $skill_type = str_contains($skill_type, 'language') ? 'language' : $skill_type;
-            $skill_type = str_contains($skill_type, 'framework') ? 'framework' : $skill_type;
+            $skill_type = str_contains($skill_type, 'language') ? SkillType::LANGUAGE : $skill_type;
+            $skill_type = str_contains($skill_type, 'framework') ? SkillType::FRAMEWORK : $skill_type;
 
-            array_push($skill_ids, ...$skill->createTagsinput($tagsinput_skills, $skill_type));
+            array_push($skill_ids, ...$tagsinput->createSkills($tagsinput_skills, $skill_type));
         }
 
         // 案件を作成し登録
