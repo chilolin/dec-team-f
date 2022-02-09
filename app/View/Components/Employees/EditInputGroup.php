@@ -4,16 +4,17 @@ namespace App\View\Components\Employees;
 
 use Illuminate\View\Component;
 
-class SkillInput extends Component
+class EditInputGroup extends Component
 {
+    public $skillType;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($skillType)
     {
-        //
+        $this->skillType = $skillType;
     }
 
     /**
@@ -23,6 +24,6 @@ class SkillInput extends Component
      */
     public function render()
     {
-        return view('components.employees.skill-input');
+        return view('components.employees.edit-input-group');
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Consts\SkillType;
 use App\Models\Client;
 use App\Models\Matter;
 use App\Models\Skill;
@@ -16,8 +17,8 @@ class MatterController extends Controller
         return view('matters.create', ['employees' => $employees]);
     }
 
-    public function store(Request $request, Skill $skill) {
-        $validated = $request->validate([
+    public function store(Request $request, TagsinputController $tagsinput) {
+        $request->validate([
             'matter_name' => 'required|string|max:100',
             'client_name' => 'required|string|max:100',
             'matter_start_at' => 'required|date|before:matter_end_at',
@@ -34,43 +35,31 @@ class MatterController extends Controller
             'engineers' => 'required',
         ]);
 
-        // JSONをデコード
-        $tagsinput_values = [];
-        foreach (
-            $request->except(['matter_name', 'client_name', 'matter_start_at', 'matter_end_at', 'engineers'])
-            as $key => $value
-        ) {
-            $tagsinput_values[$key] = json_decode($value);
-        }
         // 案件に登録するスキルを取得
         $skill_ids = [];
-        foreach ($tagsinput_values as $skill_type => $tagsinput_skills) {
-            if (!$tagsinput_skills) continue;
+        foreach ($request->except(['matter_name', 'client_name', 'matter_start_at', 'matter_end_at', 'engineers']) as $skill_type => $tagsinput_skills) {
+            if ($skill_type == '_token') continue;
 
-            if (str_contains($skill_type, 'language')) {
-                $skill_type = 'language';
-            }
-            if (str_contains($skill_type, 'framework')) {
-                $skill_type = 'framework';
-            }
+            $skill_type = str_contains($skill_type, 'language') ? SkillType::LANGUAGE : $skill_type;
+            $skill_type = str_contains($skill_type, 'framework') ? SkillType::FRAMEWORK : $skill_type;
 
-            array_push($skill_ids, ...$skill->createTagsinput($tagsinput_skills, $skill_type));
+            array_push($skill_ids, ...$tagsinput->createSkills($tagsinput_skills, $skill_type));
         }
 
         // 案件を作成し登録
         $matter = Matter::create([
-            'name' => $validated['matter_name'],
-            'client_id' => Client::create(['name' => $validated['client_name']])->id,
-            'start_at' => $validated['matter_start_at'],
-            'end_at' => $validated['matter_end_at']
+            'name' => $request->matter_name,
+            'client_id' => Client::create(['name' => $request->client_name])->id,
+            'start_at' => $request->matter_start_at,
+            'end_at' => $request->matter_end_at,
         ]);
         // 案件にスキルとエンジニアを登録
         $matter->skills()->sync($skill_ids);
         $matter->users()->syncWithPivotValues(
-            $validated['engineers'],
+            $request->engineers,
             [
-                'start_at' => $validated['matter_start_at'],
-                'end_at' => $validated['matter_end_at']
+                'start_at' => $request->matter_start_at,
+                'end_at' => $request->matter_end_at,
             ]
         );
 

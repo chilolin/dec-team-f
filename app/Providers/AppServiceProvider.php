@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Consts\SkillType;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -24,30 +25,15 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $skill_types = [
-            'language',
-            'framework',
-            'design_pattern',
-            'process',
-            'proceeding',
-            'engineer_type',
-            'position',
-            'database',
-            'infrastructure',
-        ];
-        $skill_type_translator = [
-            'language' => 'プログラミング言語',
-            'framework' => 'フレームワーク',
-            'design_pattern' => 'デザインパターン',
-            'process' => '開発工程',
-            'proceeding' => '開発の進め方',
-            'engineer_type' => 'エンジニアの種類',
-            'position' => '役職',
-            'database' => 'データベース',
-            'infrastructure' => 'インフラ技術',
-        ];
-
-        View::share('skill_type', $skill_types);
-        View::share('skill_type_translator', $skill_type_translator);
+        View::share('skill_types', SkillType::SKILL_TYPES);
+        View::share('skill_types_in_jp', SkillType::SKILL_TYPES_IN_JP);
+        View::share('language', SkillType::LANGUAGE);
+        View::share('framework', SkillType::FRAMEWORK);
+        View::share('design_pattern', SkillType::DESIGN_PATTERN);
+        View::share('process', SkillType::PROCESS);
+        View::share('proceeding', SkillType::PROCEEDING);
+        View::share('position', SkillType::POSITION);
+        View::share('database', SkillType::DATABASE);
+        View::share('infrastructure', SkillType::INFRASTRUCTURE);
     }
 }
