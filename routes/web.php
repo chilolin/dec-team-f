@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CareerController;
 use App\Http\Controllers\MatterController;
 use App\Http\Controllers\UserController;
 use App\Models\User;
@@ -39,7 +40,9 @@ Route::middleware('auth')->group(function() {
             return view('employees.show', [ 'uid' => $id ]);
         })->name('employees.show');
 
-        Route::get('/learning/{skill_type}/edit', [UserController::class, 'learning_edit'])->name('employees.learning_edit');
+        Route::get('/learning/{skill_type}/edit', [CareerController::class, 'edit'])->name('employees.learning_edit');
+
+        Route::post('/learning/{skill_type}/store', [CareerController::class, 'store'])->name('employees.learning_store');
 
         Route::get('/career/{skill_type}/edit', [UserController::class, 'career_edit'])->name('employees.career_edit');
     });
