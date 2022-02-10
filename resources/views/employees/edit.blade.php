@@ -32,71 +32,45 @@
                 }}"
             >
                 @csrf
-                @foreach ($skill_list as $index => $skill)
-                    <div id="skill-input-group" class="skill-input-group form-group mb-5">
-                        <div class="row mb-3">
-                            <label for="skill-name-input" class="col-md-2 col-form-label">スキル名</label>
-                            <div class="col-md-10 skill-input-wrapper">
-                                <x-forms.skill-input
-                                    skill_type="{{ $skill_type }}"
-                                    name="skills[{{ $index+1 }}][name]"
-                                    value="{{ $skill->name }}"
-                                />
-                            </div>
-                        </div>
 
-                        <div class="row">
-                            <label for="select-skill-level" class="col-md-2 col-form-label">レベル</label>
-                            <div class="col-7 level-select-wrapper">
-                                <input
-                                    id="level-select"
-                                    name="skills[{{ $index+1 }}][level]"
-                                    type="number"
-                                    class="rating rating-loading"
-                                    value="{{ $skill->pivot->level }}"
-                                    data-min='0'
-                                    data-max='5'
-                                    data-step='0.5'
-                                    data-size='sm'
-                                    data-show-clear="false"
-                                >
-                            </div>
-                        </div>
+                @if (old('skills'))
+                    @foreach (old('skills') as $index => $old_skill)
+                        @php
+                            $tagsinput_default = '';
+                            if (json_decode($old_skill['name'])) {
+                                $tagsinput_default = array_reduce(
+                                    json_decode($old_skill['name']),
+                                    function ($tagsinput_default, $tagsinput_skill) {
+                                        if (!$tagsinput_default) return $tagsinput_skill->value;
+                                        return $tagsinput_default . ',' . $tagsinput_skill->value;
+                                    },
+                                    ''
+                                );
+                            }
+                        @endphp
 
-                        <x-employees.delete-skill-input-button />
-                    </div>
-                @endforeach
+                        <x-employees.edit-input-group
+                            skill_type="{{ $skill_type }}"
+                            index="{{ $index }}"
+                            default_skill_name="{{ $tagsinput_default }}"
+                            default_skill_level="{{ $old_skill['level'] }}"
+                        />
+                    @endforeach
+                @else
+                    @foreach ($skill_list as $index => $skill)
+                        <x-employees.edit-input-group
+                            skill_type="{{ $skill_type }}"
+                            index="{{ $index+1 }}"
+                            default_skill_name="{{ $skill->name }}"
+                            default_skill_level="{{ $skill->pivot->level }}"
+                        />
+                    @endforeach
 
-                <div id="skill-input-group" class="skill-input-group form-group mb-5">
-                    <div class="row mb-3">
-                        <label for="skill-name-input" class="col-md-2 col-form-label">スキル名</label>
-                        <div class="col-md-10 skill-input-wrapper">
-                            <x-forms.skill-input
-                                skill_type="{{ $skill_type }}"
-                                name="skills[0][name]"
-                            />
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <label for="select-skill-level" class="col-md-2 col-form-label">レベル</label>
-                        <div class="col-7 level-select-wrapper">
-                            <input
-                                id="level-select"
-                                name="skills[0][level]"
-                                type="number"
-                                class="rating rating-loading"
-                                data-min='0'
-                                data-max='5'
-                                data-step='0.5'
-                                data-size='sm'
-                                data-show-clear="false"
-                            >
-                        </div>
-                    </div>
-
-                    <x-employees.delete-skill-input-button />
-                </div>
+                    <x-employees.edit-input-group
+                        skill_type="{{ $skill_type }}"
+                        index=0
+                    />
+                @endif
 
                 <div id="add-button-container" class="row justify-content-md-center">
                     <button type="button" id="add-button" class="btn btn-sm btn-secondary add-button">＋</button>

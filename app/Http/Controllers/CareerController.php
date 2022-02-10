@@ -25,6 +25,12 @@ class CareerController extends Controller
 
     public function store(Request $request, TagsinputController $tagsinput, $skill_type)
     {
+        $request->validate([
+            'skills' => 'required|array',
+            'skills.*.name' => 'required_with:skills.*.level|json',
+            'skills.*.level' => 'required_with:skills.*.name|string',
+        ]);
+
         $career_skills = User::find(Auth::id())->career_skills();
 
         $career_skills->detach(
