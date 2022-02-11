@@ -1,3 +1,11 @@
+<?php
+
+//変数動作確認
+// var_dump($uid);
+// var_export($detail);
+// exit();
+?>
+
 <x-app-layout>
     <x-slot name="title">
         社員詳細
