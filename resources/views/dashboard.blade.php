@@ -1,3 +1,20 @@
+<?php
+// var_dump($process[0]["name"]);
+// var_dump($language[0]["name"]);
+// var_dump($design_pattern[0]["name"]);
+// var_dump($engineer_type[0]["name"]);
+// var_dump($position[0]["name"]);
+// var_dump($proceeding[0]["name"]);
+// var_dump($framework[0]["name"]);
+// var_dump($infrastructure[0]["name"]);
+// // var_dump($database[0]["name"]);
+
+// var_dump(array_key_exists("name",$language));
+// exit();
+
+?>
+
+
 <x-app-layout>
     <x-slot name="title">
         Dashboard
@@ -31,7 +48,11 @@
 
                     <div class="card-footer">
                         <select class="form-select form-control text-center" size="5"  multiple aria-label=" .form-select-lg example">
-                            <option value="Bash">
+                            @for ($i = 0; $i < count($language); $i++){
+                                <option value="<?php echo($language[$i]['name']) ?>"><?php echo($language[$i]["name"])?></option>
+                            }
+                            @endfor
+                            <!-- <option value="Bash">
                             Bash</option>
                             <option value="C">
                             C</option>
@@ -94,7 +115,7 @@
                             <option value="TypeScript">
                             TypeScript</option>
                             <option value="VB">
-                            VB</option>
+                            VB</option> -->
                         </select>
                     </div>
                 </div>
@@ -111,7 +132,11 @@
 
                     <div class="card-footer">
                         <select class="form-select form-control text-center" size="5"  multiple aria-label=" .form-select-lg example">
-                            <option value="Ruby on Rails">
+                            @for ($i = 0; $i < count($framework); $i++){
+                                <option value="<?php echo($framework[$i]['name'] )?>"><?php echo($framework[$i]["name"])?></option>
+                            }
+                            @endfor
+                            <!-- <option value="Ruby on Rails">
                             Ruby on Rails</option>
                             <option value="Sinatra">
                             Sinatra</option>
@@ -144,7 +169,7 @@
                             <option value="Foundation">
                             Foundation</option>
                             <option value="UIkit">
-                            UIkit</option>
+                            UIkit</option> -->
                         </select>
                     </div>
                 </div>
@@ -161,10 +186,14 @@
 
                     <div class="card-footer">
                         <select class="form-select form-control text-center" size="5"  multiple aria-label=" .form-select-lg example">
-                            <option selected>Open this select menu</option>
+                            @for ($i = 0; $i < count($design_pattern); $i++){
+                                <option value="<?php echo($design_pattern[$i]['name'] )?>"><?php echo($design_pattern[$i]["name"])?></option>
+                            }
+                            @endfor
+                            <!-- <option selected>Open this select menu</option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
-                            <option value="3">Three</option>
+                            <option value="3">Three</option> -->
                         </select>
                     </div>
                 </div>
@@ -182,8 +211,12 @@
 
                     <div class="card-footer">
                         <select class="form-select form-control text-center" size="5"  multiple aria-label=" .form-select-lg example">
-                            <option value="設計">設計</option>
-                            <option value="実装">実装</option>
+                            @for ($i = 0; $i < count($process); $i++){
+                                <option value="<?php echo($process[$i]['name'] )?>"><?php echo($process[$i]["name"])?></option>
+                            }
+                            @endfor
+                            <!-- <option value="設計">設計</option>
+                            <option value="実装">実装</option> -->
                         </select>
                     </div>
                 </div>
@@ -200,8 +233,12 @@
 
                     <div class="card-footer">
                         <select class="form-select form-control text-center" size="5"  multiple aria-label=" .form-select-lg example">
-                            <option value="ウォーターフォール">ウォーターフォール</option>
-                            <option value="アジャイル">アジャイル</option>
+                            @for ($i = 0; $i < count($proceeding); $i++){
+                                <option value="<?php echo($proceeding[$i]['name'] )?>"><?php echo($proceeding[$i]["name"])?></option>
+                            }
+                            @endfor
+                            <!-- <option value="ウォーターフォール">ウォーターフォール</option>
+                            <option value="アジャイル">アジャイル</option> -->
                         </select>
                     </div>
                 </div>
@@ -218,10 +255,14 @@
 
                     <div class="card-footer">
                         <select class="form-select form-control text-center" size="5"  multiple aria-label=" .form-select-lg example">
-                            <option selected>Open this select menu</option>
+                            @for ($i = 0; $i < count($engineer_type); $i++){
+                                <option value="<?php echo($engineer_type[$i]['name'] )?>"><?php echo($engineer_type[$i]["name"])?></option>
+                            }
+                            @endfor
+                            <!-- <option selected>Open this select menu</option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
-                            <option value="3">Three</option>
+                            <option value="3">Three</option> -->
                             </select>
                     </div>
                 </div>
@@ -238,7 +279,11 @@
 
                     <div class="card-footer">
                         <select class="form-select form-control text-center" size="5"  multiple aria-label=" .form-select-lg example">
-                            <option  value="PM">
+                            @for ($i = 0; $i < count($position); $i++){
+                                <option value="<?php echo($position[$i]['name'] )?>"><?php echo($position[$i]["name"])?></option>
+                            }
+                            @endfor
+                            <!-- <option  value="PM">
                             PM</option>
                             <option  value="PL">
                             PL</option>
@@ -249,7 +294,7 @@
                             <option  value="EM">
                             EM</option>
                             <option  value="SE">
-                            SE</option>
+                            SE</option> -->
                         </select>
                     </div>
                 </div>
@@ -266,6 +311,10 @@
 
                     <div class="card-footer">
                         <select class="form-select form-control text-center" size="5"  multiple aria-label=" .form-select-lg example">
+                            <!-- @for ($i = 0; $i < count($database); $i++){
+                                <option value="<?php echo($database[$i]['name'] )?>"><?php echo($database[$i]["name"])?></option>
+                            }
+                            @endfor -->
                             <option selected>Open this select menu</option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
@@ -286,10 +335,14 @@
 
                     <div class="card-footer">
                         <select class="form-select form-control text-center" size="5"  multiple aria-label=" .form-select-lg example">
-                            <option selected>Open this select menu</option>
+                            @for ($i = 0; $i < count($infrastructure); $i++){
+                                <option value="<?php echo($infrastructure[$i]['name'] )?>"><?php echo($infrastructure[$i]["name"])?></option>
+                            }
+                            @endfor
+                            <!-- <option selected>Open this select menu</option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
-                            <option value="3">Three</option>
+                            <option value="3">Three</option> -->
                         </select>
                     </div>
                 </div>

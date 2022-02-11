@@ -35,7 +35,8 @@ class Skill extends Model
         ->withTimestamps();
     }
 
-    public function specific_skills($skillType)
+    //DashboardControllerで使用するためstaticを追加
+    public static function specific_skills($skillType)
     {
         return self::where('skill_type', $skillType)->get();
     }
