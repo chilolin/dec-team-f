@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 //検索用コントローラー
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,9 +23,7 @@ use App\Http\Controllers\SearchController;
 
 Route::middleware('auth')->group(function() {
     // ダッシュボード
-    Route::get('/', function () {
-        return view('dashboard');
-    })->name('dashboard');
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
     // 社員画面
     Route::prefix('employees')->group(function() {
@@ -32,12 +31,7 @@ Route::middleware('auth')->group(function() {
 
         Route::get('/', [UserController::class, 'search'])->name('employees.index');
 
-        Route::get('/{id}', function ($id) {
-            if (User::find($id) == null) {
-                return redirect()->route('employees.index');
-            }
-            return view('employees.show', [ 'uid' => $id ]);
-        })->name('employees.show');
+        Route::get('/{id}', [UserController::class, 'show'])->name('employees.show');
 
         Route::get('/learning/{skill_type}/edit', [UserController::class, 'learning_edit'])->name('employees.learning_edit');
 
