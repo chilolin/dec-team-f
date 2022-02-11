@@ -30,7 +30,7 @@
                     </div>
 
                     <div class="card-footer">
-                        <select class="form-select" size="5"  multiple aria-label=" .form-select-lg example">
+                        <select class="form-select form-control text-center" size="5"  multiple aria-label=" .form-select-lg example">
                             <option value="Bash">
                             Bash</option>
                             <option value="C">
@@ -110,7 +110,7 @@
                     </div>
 
                     <div class="card-footer">
-                        <select class="form-select" size="5"  multiple aria-label=" .form-select-lg example">
+                        <select class="form-select form-control text-center" size="5"  multiple aria-label=" .form-select-lg example">
                             <option value="Ruby on Rails">
                             Ruby on Rails</option>
                             <option value="Sinatra">
@@ -160,7 +160,7 @@
                     </div>
 
                     <div class="card-footer">
-                        <select class="form-select" size="5"  multiple aria-label=" .form-select-lg example">
+                        <select class="form-select form-control text-center" size="5"  multiple aria-label=" .form-select-lg example">
                             <option selected>Open this select menu</option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
@@ -181,7 +181,7 @@
                     </div>
 
                     <div class="card-footer">
-                        <select class="form-select" size="5"  multiple aria-label=" .form-select-lg example">
+                        <select class="form-select form-control text-center" size="5"  multiple aria-label=" .form-select-lg example">
                             <option value="設計">設計</option>
                             <option value="実装">実装</option>
                         </select>
@@ -199,7 +199,7 @@
                     </div>
 
                     <div class="card-footer">
-                        <select class="form-select" size="5"  multiple aria-label=" .form-select-lg example">
+                        <select class="form-select form-control text-center" size="5"  multiple aria-label=" .form-select-lg example">
                             <option value="ウォーターフォール">ウォーターフォール</option>
                             <option value="アジャイル">アジャイル</option>
                         </select>
@@ -217,7 +217,7 @@
                     </div>
 
                     <div class="card-footer">
-                        <select class="form-select" size="5"  multiple aria-label=" .form-select-lg example">
+                        <select class="form-select form-control text-center" size="5"  multiple aria-label=" .form-select-lg example">
                             <option selected>Open this select menu</option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
@@ -237,7 +237,7 @@
                     </div>
 
                     <div class="card-footer">
-                        <select class="form-select" size="5"  multiple aria-label=" .form-select-lg example">
+                        <select class="form-select form-control text-center" size="5"  multiple aria-label=" .form-select-lg example">
                             <option  value="PM">
                             PM</option>
                             <option  value="PL">
@@ -265,7 +265,7 @@
                     </div>
 
                     <div class="card-footer">
-                        <select class="form-select" size="5"  multiple aria-label=" .form-select-lg example">
+                        <select class="form-select form-control text-center" size="5"  multiple aria-label=" .form-select-lg example">
                             <option selected>Open this select menu</option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
@@ -285,7 +285,7 @@
                     </div>
 
                     <div class="card-footer">
-                        <select class="form-select" size="5"  multiple aria-label=" .form-select-lg example">
+                        <select class="form-select form-control text-center" size="5"  multiple aria-label=" .form-select-lg example">
                             <option selected>Open this select menu</option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
