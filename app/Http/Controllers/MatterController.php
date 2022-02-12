@@ -11,13 +11,22 @@ use Illuminate\Http\Request;
 
 class MatterController extends Controller
 {
-    public function create() {
+    private $tagsinput;
+
+    public function __construct()
+    {
+        $this->tagsinput = new TagsinputController();
+    }
+
+    public function create()
+    {
         $employees = User::all();
 
         return view('matters.create', ['employees' => $employees]);
     }
 
-    public function store(Request $request, TagsinputController $tagsinput) {
+    public function store(Request $request)
+    {
         $request->validate([
             'matter_name' => 'required|string|max:100',
             'client_name' => 'required|string|max:100',
@@ -37,13 +46,11 @@ class MatterController extends Controller
 
         // 案件に登録するスキルを取得
         $skill_ids = [];
-        foreach ($request->except(['matter_name', 'client_name', 'matter_start_at', 'matter_end_at', 'engineers']) as $skill_type => $tagsinput_skills) {
-            if ($skill_type == '_token') continue;
-
+        foreach ($request->except(['_token', 'matter_name', 'client_name', 'matter_start_at', 'matter_end_at', 'engineers']) as $skill_type => $tagsinput_skills) {
             $skill_type = str_contains($skill_type, 'language') ? SkillType::LANGUAGE : $skill_type;
             $skill_type = str_contains($skill_type, 'framework') ? SkillType::FRAMEWORK : $skill_type;
 
-            array_push($skill_ids, ...$tagsinput->createSkills($tagsinput_skills, $skill_type));
+            array_push($skill_ids, ...$this->tagsinput->createSkills($tagsinput_skills, $skill_type));
         }
 
         // 案件を作成し登録
