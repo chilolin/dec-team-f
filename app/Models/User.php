@@ -69,6 +69,8 @@ class User extends Authenticatable
      */
     public function matters()
     {
-        return $this->belongsToMany(Matter::class, 'matter_user')->withTimestamps();
+        return $this->belongsToMany(Matter::class, 'matter_user')
+        ->withPivot(['start_at', 'end_at'])
+        ->withTimestamps();
     }
 }

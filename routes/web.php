@@ -54,9 +54,7 @@ Route::middleware('auth')->group(function() {
 
         Route::post('/store', [MatterController::class, 'store'])->name('matters.store');
 
-        Route::get('/{id}', function($id) {
-            return view('matters.show');
-        })->name('matters.show');
+        Route::get('/{id}', [MatterController::class, 'show'])->name('matters.show');
 
         Route::get('/{id}/edit', function($id) {
             return view('matters.edit');

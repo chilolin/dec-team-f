@@ -72,4 +72,35 @@ class MatterController extends Controller
 
         return redirect()->route('matters.show', ['id' => $matter->id]);
     }
+
+    public function show($id)
+    {
+        $matter = Matter::find($id);
+        $skills = [];
+
+        foreach(SkillType::SKILL_TYPES as $skill_type)
+        {
+            $skill_names = $matter
+                            ->skills()
+                            ->where('skill_type', $skill_type)
+                            ->get()
+                            ->reduce(
+                                function($skill_names, $skill) {
+                                    if (!$skill_names) return $skill->name;
+                                    return $skill_names . ',' . $skill->name;
+                                }, ''
+                            );
+
+            if (!$skill_names) continue;
+
+            $skills[$skill_type] = $skill_names;
+        }
+
+        return view('matters.show', [
+            'matter' => $matter,
+            'client' => $matter->client()->get()[0]->name,
+            'skills' => $skills,
+            'engineers' => $matter->users,
+        ]);
+    }
 }
