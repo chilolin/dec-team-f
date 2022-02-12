@@ -1,15 +1,8 @@
 <?php
-// var_dump($process[0]["name"]);
-// var_dump($language[0]["name"]);
-// var_dump($design_pattern[0]["name"]);
-// var_dump($engineer_type[0]["name"]);
-// var_dump($position[0]["name"]);
-// var_dump($proceeding[0]["name"]);
-// var_dump($framework[0]["name"]);
-// var_dump($infrastructure[0]["name"]);
-// // var_dump($database[0]["name"]);
 
-// var_dump(array_key_exists("name",$language));
+// var_dump($matter);
+// var_dump($id);
+// var_dump($users);
 // exit();
 
 ?>
@@ -27,6 +20,21 @@
 
     <div class="content">
         <div class="container">
+            <!-- <button type="button"class="nav-link" data-toggle="modal" data-target="#myModal1"  data-whatever="@$id" href="">
+                <i class="bi bi-speedometer"></i>
+                <p>進行中案件</p>
+            </button>
+            <script>
+                $('#myModal1').on('show.bs.modal', function (event) {
+                // ボタンを取得
+                var button = $(event.relatedTarget);
+                // data-matterの部分を取得
+                var matter = button.data('whatever');
+                var modal = $(this);
+                // モーダルに取得したパラメータを表示
+                modal.find('.modal-title').val(matter);
+            })
+            </script> -->
 
 
             <form method="GET">

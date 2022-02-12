@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
-//Skill追加
+
 use App\Models\Skill;
+use App\Models\User;
+use App\Models\Matter;
+use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Http\Request;
 
@@ -23,6 +26,9 @@ class DashboardController extends Controller
         $framework = Skill::specific_skills('framework');
         $infrastructure = Skill::specific_skills('infrastructure');
         $database = Skill::specific_skills('database');
+
+        $id = Auth::id();
+        $matter = User::find($id) -> matters[0] ->skills;
         
         return view('dashboard', [
             'process' => $process,
@@ -34,7 +40,20 @@ class DashboardController extends Controller
             'framework' => $framework,
             'infrastructure' => $infrastructure,
             'database' => $database,
-
+            'id' => $id,
+            'users' => $users,
+            'matter' => $matter
         ]);
     }
+
+    /**
+     * ダッシュボードを表示。
+     */
+    public function modal()
+    {
+        // $matter = User::matters();
+        //これ使えない $thisって何？
+        return view ('layouts/modal', ['id' => $id]);
+    }
+
 }

@@ -1,10 +1,15 @@
+<?php
+// var_dump($id);
+// exit();
+
+?>
 
 <!-- Mini Modal -->
 <div class="modal fade modal-primary" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content" style="margin-top: -175px;">
             <div class="modal-header justify-content-center">
-                <h4>現在アサインされている案件</h4>
+                <h4 class="modal-title" id="myModalLabel">現在アサインされている案件</h4>
             </div>
             <div class="modal-body text-center">
 

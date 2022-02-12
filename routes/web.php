@@ -24,6 +24,9 @@ use App\Http\Controllers\DashboardController;
 Route::middleware('auth')->group(function() {
     // ダッシュボード
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+    //モーダルはbootstrapで出したり消したりしてた。ここでルーティングする、/modalで侵入可能になってしまう。
+    //ダッシュボードからパラメータを渡す
+    // Route::get('/modal', [DashboardController::class, 'modal'] )->name('layouts/modal');
 
     // 社員画面
     Route::prefix('employees')->group(function() {
@@ -62,9 +65,7 @@ Route::middleware('auth')->group(function() {
         return view('master');
     });
 
-    Route::get('modal', function() {
-        return view('modal');
-    });
+    
 });
 
 require __DIR__.'/auth.php';
