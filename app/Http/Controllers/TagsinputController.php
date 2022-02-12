@@ -15,27 +15,23 @@ class TagsinputController extends Controller {
     * @return array $skill_ids
     */
     public function createSkills($tagsinput_skills, $skill_type) {
-        $tagsinput_skills = json_decode($tagsinput_skills);
-        $skill_ids = [];
-
-        foreach ($tagsinput_skills as $tagsinput_skill) {
-            $skill_id = $tagsinput_skill->id;
-            $skill_name = $tagsinput_skill->value;
-
-            if ($skill_id === 'new') {
-                if (Skill::where(['name' => $skill_name, 'skill_type' => $skill_type])->exists()) {
-                    $skill_id = Skill::where(['name' => $skill_name, 'skill_type' => $skill_type])->get()[0]->id;
-                } else {
-                    $skill_id = Skill::create(['name' => $skill_name, 'skill_type' => $skill_type])->id;
-                }
-            }
-
-            // 同一スキルを登録しないようにする
-            if (array_search($skill_id, $skill_ids)) continue;
-
-            $skill_ids[count($skill_ids)] = $skill_id;
+        if (!$tagsinput_skills) {
+            return [];
         }
 
-        return $skill_ids;
+        return collect(json_decode($tagsinput_skills))
+                ->map(function($tagsinput_skill) use($skill_type) {
+                    $skill_name = $tagsinput_skill->value;
+
+                    if ($tagsinput_skill->id === 'new') {
+                        if (Skill::where(['name' => $skill_name, 'skill_type' => $skill_type])->exists()) {
+                            return Skill::where(['name' => $skill_name, 'skill_type' => $skill_type])->get()[0]->id;
+                        }
+                        return Skill::create(['name' => $skill_name, 'skill_type' => $skill_type])->id;
+                    }
+
+                    return $tagsinput_skill->id;
+                })
+                ->all();
     }
 }

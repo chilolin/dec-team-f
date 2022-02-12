@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\LearningController;
+use App\Http\Controllers\CareerController;
 use App\Http\Controllers\MatterController;
 use App\Http\Controllers\UserController;
 use App\Models\User;
@@ -36,9 +38,13 @@ Route::middleware('auth')->group(function() {
 
         Route::get('/{id}', [UserController::class, 'show'])->name('employees.show');
 
-        Route::get('/learning/{skill_type}/edit', [UserController::class, 'learning_edit'])->name('employees.learning_edit');
+        Route::get('/learning/{skill_type}/edit', [LearningController::class, 'edit'])->name('employees.learning_edit');
 
-        Route::get('/career/{skill_type}/edit', [UserController::class, 'career_edit'])->name('employees.career_edit');
+        Route::post('/learning/{skill_type}/store', [LearningController::class, 'store'])->name('employees.learning_store');
+
+        Route::get('/career/{skill_type}/edit', [CareerController::class, 'edit'])->name('employees.career_edit');
+
+        Route::post('/career/{skill_type}/store', [CareerController::class, 'store'])->name('employees.career_store');
     });
 
     // 案件画面
@@ -51,9 +57,7 @@ Route::middleware('auth')->group(function() {
 
         Route::post('/store', [MatterController::class, 'store'])->name('matters.store');
 
-        Route::get('/{id}', function($id) {
-            return view('matters.show');
-        })->name('matters.show');
+        Route::get('/{id}', [MatterController::class, 'show'])->name('matters.show');
 
         Route::get('/{id}/edit', function($id) {
             return view('matters.edit');

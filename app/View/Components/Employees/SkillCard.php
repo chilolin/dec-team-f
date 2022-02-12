@@ -43,7 +43,5 @@ class SkillCard extends Component
                 break;
         }
         return view('components.employees.skill-card', ['skillList' => $skillList, 'is_auth' => Auth::id() == $this->uid,]);
-
-
     }
 }

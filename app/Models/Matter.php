@@ -39,6 +39,7 @@ class Matter extends Model
     public function users()
     {
         return $this->belongsToMany(User::class)
+        ->withPivot(['start_at', 'end_at'])
         ->withTimestamps();
     }
 }

@@ -4,8 +4,8 @@
         <div class="col-md-10 skill-input-wrapper">
             <x-forms.skill-input
                 skill_type="{{ $skillType }}"
-                name="skill-name"
-                value="{{ $attributes->get('skill') ? $attributes->get('skill')->name : '' }}"
+                name="skills[{{ $index }}][name]"
+                value="{{ $attributes->get('default_skill_name') }}"
             />
         </div>
     </div>
@@ -15,10 +15,10 @@
         <div class="col-7 level-select-wrapper">
             <input
                 id="level-select"
-                name="skill-level"
+                name="skills[{{ $index }}][level]"
                 type="number"
                 class="rating rating-loading"
-                value="{{ $attributes->get('skill') ? $attributes->get('skill')->pivot->level : '' }}"
+                value="{{ $attributes->get('default_skill_level') }}"
                 data-min='0'
                 data-max='5'
                 data-step='0.5'
