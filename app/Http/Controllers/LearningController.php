@@ -9,6 +9,13 @@ use Illuminate\Support\Facades\Auth;
 
 class LearningController extends Controller
 {
+    private $tagsinput;
+
+    public function __construct()
+    {
+        $this->tagsinput = new TagsinputController();
+    }
+
     /**
      * 学習スキル編集画面を表示。
      */

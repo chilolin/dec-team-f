@@ -9,6 +9,13 @@ use Illuminate\Support\Facades\Auth;
 
 class CareerController extends Controller
 {
+    private $tagsinput;
+
+    public function __construct()
+    {
+        $this->tagsinput = new TagsinputController();
+    }
+
     /**
      * キャリアスキル編集画面を表示。
      */
@@ -23,7 +30,7 @@ class CareerController extends Controller
         return view('employees.edit', ['skill_type' => $skill_type, 'skill_list' => $skill_list]);
     }
 
-    public function store(Request $request, TagsinputController $tagsinput, $skill_type)
+    public function store(Request $request, $skill_type)
     {
         $request->validate([
             'skills' => 'required|array',
@@ -45,8 +52,8 @@ class CareerController extends Controller
 
         $career_skills->attach(
             collect($request->skills)
-            ->reduce(function($attach_skills, $skill) use($tagsinput, $skill_type) {
-                foreach($tagsinput->createSkills($skill['name'], $skill_type) as $skill_id) {
+            ->reduce(function($attach_skills, $skill) use($skill_type) {
+                foreach($this->tagsinput->createSkills($skill['name'], $skill_type) as $skill_id) {
                     $attach_skills[$skill_id] = ['level' => $skill['level']];
                 }
                 return $attach_skills;
