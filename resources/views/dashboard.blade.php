@@ -1,8 +1,7 @@
 <?php
 
-// var_dump($matter);
 // var_dump($id);
-// var_dump($users);
+// var_dump($matter);
 // exit();
 
 ?>
@@ -20,9 +19,9 @@
 
     <div class="content">
         <div class="container">
-            <!-- <button type="button"class="nav-link" data-toggle="modal" data-target="#myModal1"  data-whatever="@$id" href="">
+            <button type="button"class="nav-link" data-toggle="modal" data-target="#myModal1"  data-whatever="<?php echo($id)?>" href="">
                 <i class="bi bi-speedometer"></i>
-                <p>進行中案件</p>
+                <p>進行中案件（実験用）</p>
             </button>
             <script>
                 $('#myModal1').on('show.bs.modal', function (event) {
@@ -32,9 +31,9 @@
                 var matter = button.data('whatever');
                 var modal = $(this);
                 // モーダルに取得したパラメータを表示
-                modal.find('.modal-title').val(matter);
+                modal.find('.modal-title').text('現在アサインされている案件 UserNo.' + matter) 
             })
-            </script> -->
+            </script>
 
 
             <form method="GET">
@@ -319,14 +318,14 @@
 
                     <div class="card-footer">
                         <select class="form-select form-control text-center" size="5"  multiple aria-label=" .form-select-lg example">
-                            <!-- @for ($i = 0; $i < count($database); $i++){
+                            @for ($i = 0; $i < count($database); $i++){
                                 <option value="<?php echo($database[$i]['name'] )?>"><?php echo($database[$i]["name"])?></option>
                             }
-                            @endfor -->
-                            <option selected>Open this select menu</option>
+                            @endfor
+                            <!-- <option selected>Open this select menu</option>
                             <option value="1">One</option>
                             <option value="2">Two</option>
-                            <option value="3">Three</option>
+                            <option value="3">Three</option> -->
                         </select>
                     </div>
                 </div>

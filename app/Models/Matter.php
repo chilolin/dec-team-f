@@ -27,7 +27,7 @@ class Matter extends Model
     /**
      * この案件が使用するスキル
      */
-    public function skills()
+    public function matter_skills()
     {
         return $this->belongsToMany(Skill::class)
         ->withTimestamps();

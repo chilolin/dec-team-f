@@ -38,21 +38,22 @@
                 </a>
             </li>
 
-            <!-- <li>
-                <a class="nav-link" data-toggle="modal" data-target="#myModal1"  data-matter="" href="">
+            <li>
+                <a class="nav-link" data-toggle="modal" data-target="#myModal1"  data-matter="@$id" href="">
                     <i class="bi bi-speedometer"></i>
                     <p>進行中案件</p>
                 </a>
             </li>
-            <script>
+            <!-- ここはサイドバーのゾーン -->
+            <!-- <script>
                 $('#myModal1').on('show.bs.modal', function (event) {
                 // ボタンを取得
                 var button = $(event.relatedTarget);
                 // data-matterの部分を取得
-                var matter = button.data('matter');
+                var matter = button.data('whatever');
                 var modal = $(this);
                 // モーダルに取得したパラメータを表示
-                modal.find('.modal-title').val(matter);
+                modal.find('.modal-title').text('現在アサインされている案件 ' + matter) 
             })
             </script> -->
         </ul>

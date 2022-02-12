@@ -28,7 +28,10 @@ class DashboardController extends Controller
         $database = Skill::specific_skills('database');
 
         $id = Auth::id();
-        $matter = User::find($id) -> matters[0] ->skills;
+        $matter = User::find($id) -> matters;
+        for ($i=0; $i < count($matter); $i++){ 
+            $matter[$i] = $matter[$i] -> matter_skills;
+        }
         
         return view('dashboard', [
             'process' => $process,
@@ -41,7 +44,6 @@ class DashboardController extends Controller
             'infrastructure' => $infrastructure,
             'database' => $database,
             'id' => $id,
-            'users' => $users,
             'matter' => $matter
         ]);
     }
