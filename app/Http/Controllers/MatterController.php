@@ -98,7 +98,6 @@ class MatterController extends Controller
 
         return view('matters.show', [
             'matter' => $matter,
-            'client' => $matter->client()->get()[0]->name,
             'skills' => $skills,
             'engineers' => $matter->users,
         ]);

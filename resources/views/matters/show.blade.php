@@ -7,7 +7,7 @@
         {{ $matter->name }}
     </x-matters.create-input-group>
     <x-matters.create-input-group label="依頼者">
-        {{ $client }}
+        {{ $matter->client->name }}
     </x-matters.create-input-group>
     <x-matters.create-input-group label="開始日">
         {{ $matter->start_at }}
