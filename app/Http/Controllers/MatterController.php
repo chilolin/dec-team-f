@@ -11,6 +11,12 @@ use Illuminate\Http\Request;
 
 class MatterController extends Controller
 {
+    public function index() {
+        $matters = Matter::all();  
+        
+        return view('matters.index', ['matters' => $matters]);
+    }
+
     public function create() {
         $employees = User::all();
 
