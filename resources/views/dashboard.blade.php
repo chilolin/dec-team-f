@@ -29,7 +29,7 @@
         <div class="container">
 
 
-            <form method="GET">
+            <form method="GET" action={{ route('employees.index') }}>
             @csrf
             <h4>
                 ctrlボタン・<i class="bi bi-command">ボタン</i>を押しながら選択で複数選択が可能です

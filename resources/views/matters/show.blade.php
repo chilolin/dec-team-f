@@ -21,27 +21,45 @@
     <x-matters.create-input-group label="開発の進め方">
         {{ $skills['proceeding'] }}
     </x-matters.create-input-group>
-    <x-matters.create-input-group label="デザインパターン">
-        {{ $skills['design_pattern'] }}
-    </x-matters.create-input-group>
-    <x-matters.create-input-group label="フロントエンド">
-        <ul class="list-group">
-            <li class="list-group-item">言語：{{ $skills['language'] }}</li>
-            <li class="list-group-item">フレームワーク：{{ $skills['framework'] }}</li>
-        </ul>
-    </x-matters.create-input-group>
-    <x-matters.create-input-group label="バックエンド">
-        <ul class="list-group">
-            <li class="list-group-item">言語：{{ $skills['language'] }}</li>
-            <li class="list-group-item">フレームワーク：{{ $skills['framework'] }}</li>
-        </ul>
-    </x-matters.create-input-group>
-    <x-matters.create-input-group label="データベース">
-        {{ $skills['database'] }}
-    </x-matters.create-input-group>
-    <x-matters.create-input-group label="インフラ技術">
-        {{ $skills['infrastructure'] }}
-    </x-matters.create-input-group>
+    @if (array_key_exists('design_pattern', $skills))
+        <x-matters.create-input-group label="デザインパターン">
+            {{ $skills['design_pattern'] }}
+        </x-matters.create-input-group>
+    @endif
+    @if (array_key_exists('language', $skills) || array_key_exists('framework', $skills))
+        <x-matters.create-input-group label="フロントエンド">
+            <ul class="list-group">
+                @if (array_key_exists('language', $skills))
+                    <li class="list-group-item">言語：{{ $skills['language'] }}</li>
+                @endif
+                @if (array_key_exists('framework', $skills))
+                    <li class="list-group-item">フレームワーク：{{ $skills['framework'] }}</li>
+                @endif
+            </ul>
+        </x-matters.create-input-group>
+    @endif
+    @if (array_key_exists('language', $skills) || array_key_exists('framework', $skills))
+        <x-matters.create-input-group label="バックエンド">
+            <ul class="list-group">
+                @if (array_key_exists('language', $skills))
+                    <li class="list-group-item">言語：{{ $skills['language'] }}</li>
+                @endif
+                @if (array_key_exists('framework', $skills))
+                    <li class="list-group-item">フレームワーク：{{ $skills['framework'] }}</li>
+                @endif
+            </ul>
+        </x-matters.create-input-group>
+    @endif
+    @if (array_key_exists('database', $skills))
+        <x-matters.create-input-group label="データベース">
+            {{ $skills['database'] }}
+        </x-matters.create-input-group>
+    @endif
+    @if (array_key_exists('infrastructure', $skills))
+        <x-matters.create-input-group label="インフラ技術">
+            {{ $skills['infrastructure'] }}
+        </x-matters.create-input-group>
+    @endif
     <x-matters.create-input-group label="エンジニア">
     <table class="table">
         <thead>

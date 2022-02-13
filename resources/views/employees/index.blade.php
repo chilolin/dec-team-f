@@ -19,8 +19,8 @@
       }
 
       .icon{
-        width: 13%; 
-        height: auto;  
+        width: 13%;
+        height: auto;
         margin: 16px 8px;
       }
 
@@ -290,5 +290,5 @@
         </ul>
       </div>
     </div>
- 
-</x-app-layout> 
+
+</x-app-layout>

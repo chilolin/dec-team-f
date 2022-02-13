@@ -34,13 +34,6 @@ class MatterController extends Controller
             'matter_end_at' => 'required|date|after:matter_start_at',
             'process' => 'required|json',
             'proceeding' => 'required|json',
-            'design_pattern' => 'required|json',
-            'frontend_language' => 'required|json',
-            'frontend_framework' => 'required|json',
-            'backend_language' => 'required|json',
-            'backend_framework' => 'required|json',
-            'database' => 'required|json',
-            'infrastructure' => 'required|json',
             'engineers' => 'required',
         ]);
 
