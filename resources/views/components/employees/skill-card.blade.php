@@ -13,7 +13,7 @@
     <div class="card-header d-flex justify-content-between">
         <span class="card-title" style="margin-left: -8px; font-size: 18px; font-weight: 560;">{{ $skill_types_in_jp[$skillType] }}</span>
         @if ($listType == "practice_learning" && $is_auth)
-            <a href="{{ route('employees.edit', ['skill_type' => $skillType]) }}" class="to-edit-link">
+            <a href="{{ route('employees.practice_learning_edit', ['skill_type' => $skillType]) }}" class="to-edit-link">
                 編集
             </a>
         @endif

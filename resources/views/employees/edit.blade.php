@@ -28,7 +28,7 @@
                 action="{{
                     strpos(url()->current(), 'career') != false ?
                     route('employees.career_store', ['skill_type' => $skill_type]) :
-                    route('employees.learning_store', ['skill_type' => $skill_type])
+                    route('employees.practice_learning_store', ['skill_type' => $skill_type])
                 }}"
             >
                 @csrf

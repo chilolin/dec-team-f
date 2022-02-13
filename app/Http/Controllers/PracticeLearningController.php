@@ -7,7 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class LearningController extends Controller
+class PracticeLearningController extends Controller
 {
     private $tagsinput;
 
@@ -26,7 +26,7 @@ class LearningController extends Controller
             return redirect()->route('employees.show', ['id' => Auth::id()]);
         }
 
-        $skill_list = User::find(Auth::id())->skills->where('skill_type', $skill_type)->where('pivot.is_learning', true);
+        $skill_list = User::find(Auth::id())->skills->where('skill_type', $skill_type);
         return view('employees.edit', ['skill_type' => $skill_type, 'skill_list' => $skill_list]);
     }
 

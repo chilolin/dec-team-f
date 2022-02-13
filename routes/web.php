@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\LearningController;
+use App\Http\Controllers\PracticeLearningController;
 use App\Http\Controllers\CareerController;
 use App\Http\Controllers\MatterController;
 use App\Http\Controllers\UserController;
@@ -35,9 +35,9 @@ Route::middleware('auth')->group(function() {
 
         Route::get('/{id}', [UserController::class, 'show'])->name('employees.show');
 
-        Route::get('/learning/{skill_type}/edit', [LearningController::class, 'edit'])->name('employees.edit');
+        Route::get('/practice_learning/{skill_type}/edit', [PracticeLearningController::class, 'edit'])->name('employees.practice_learning_edit');
 
-        Route::post('/learning/{skill_type}/store', [LearningController::class, 'store'])->name('employees.learning_store');
+        Route::post('/practice_learning/{skill_type}/store', [PracticeLearningController::class, 'store'])->name('employees.practice_learning_store');
 
         Route::get('/career/{skill_type}/edit', [CareerController::class, 'edit'])->name('employees.career_edit');
 
