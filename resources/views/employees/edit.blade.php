@@ -6,8 +6,8 @@
     <style scoped>
         .container {
             width: 100%;
-            padding-left: 150px;
-            padding-right: 150px;
+            padding-left: 100px;
+            padding-right: 100px;
             margin-left: auto;
             margin-right: auto;
         }
@@ -36,13 +36,13 @@
                 @if (old('skills'))
                     @foreach (old('skills') as $index => $old_skill)
                         @php
-                            $tagsinput_default = '';
+                            $default_skill_name = '';
                             if (json_decode($old_skill['name'])) {
-                                $tagsinput_default = array_reduce(
+                                $default_skill_name = array_reduce(
                                     json_decode($old_skill['name']),
-                                    function ($tagsinput_default, $tagsinput_skill) {
-                                        if (!$tagsinput_default) return $tagsinput_skill->value;
-                                        return $tagsinput_default . ',' . $tagsinput_skill->value;
+                                    function ($default_skill_name, $tagsinput_skill) {
+                                        if (!$default_skill_name) return $tagsinput_skill->value;
+                                        return $default_skill_name . ',' . $tagsinput_skill->value;
                                     },
                                     ''
                                 );
@@ -52,8 +52,9 @@
                         <x-employees.edit-input-group
                             skill_type="{{ $skill_type }}"
                             index="{{ $index }}"
-                            default_skill_name="{{ $tagsinput_default }}"
+                            default_skill_name="{{ $default_skill_name }}"
                             default_skill_level="{{ $old_skill['level'] }}"
+                            default_skill_is_practice="{{ array_key_exists('is_practice', $old_skill) }}"
                         />
                     @endforeach
                 @else
@@ -63,6 +64,7 @@
                             index="{{ $index+1 }}"
                             default_skill_name="{{ $skill->name }}"
                             default_skill_level="{{ $skill->pivot->level }}"
+                            default_skill_is_practice="{{ $skill->pivot->is_practice }}"
                         />
                     @endforeach
 

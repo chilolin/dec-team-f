@@ -38,8 +38,7 @@
                 </div>
             </div>
 
-            <x-employees.skill-card-list list-type="practice" uid="{{ $uid }}" />
-            <x-employees.skill-card-list list-type="learning" uid="{{ $uid }}" />
+            <x-employees.skill-card-list list-type="practice_learning" uid="{{ $uid }}" />
             <x-employees.skill-card-list list-type="career" uid="{{ $uid }}" />
         </div>
     </div>

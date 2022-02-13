@@ -32,11 +32,8 @@ class SkillCard extends Component
     public function render()
     {
         switch ($this->listType) {
-            case "practice":
-                $skillList = User::find($this->uid)->skills->where('skill_type', $this->skillType)->where('pivot.is_practice', true);
-                break;
-            case "learning":
-                $skillList = User::find($this->uid)->skills->where('skill_type', $this->skillType)->where('pivot.is_learning', true);
+            case "practice_learning":
+                $skillList = User::find($this->uid)->skills->where('skill_type', $this->skillType);
                 break;
             case "career":
                 $skillList = User::find($this->uid)->career_skills->where('skill_type', $this->skillType);

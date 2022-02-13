@@ -35,7 +35,7 @@ Route::middleware('auth')->group(function() {
 
         Route::get('/{id}', [UserController::class, 'show'])->name('employees.show');
 
-        Route::get('/learning/{skill_type}/edit', [LearningController::class, 'edit'])->name('employees.learning_edit');
+        Route::get('/learning/{skill_type}/edit', [LearningController::class, 'edit'])->name('employees.edit');
 
         Route::post('/learning/{skill_type}/store', [LearningController::class, 'store'])->name('employees.learning_store');
 

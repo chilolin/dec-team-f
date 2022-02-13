@@ -6,6 +6,7 @@
 @import url("custom-input.css");
 @import url("skill-input.css");
 @import url("datetimepicker.css");
+@import url("toggle-input.css");
 
 .custom-is-invalid {
     border-color: #dc3545 !important;

@@ -12,7 +12,7 @@
 
     <div class="row">
         <label for="select-skill-level" class="col-md-2 col-form-label">レベル</label>
-        <div class="col-7 level-select-wrapper">
+        <div class="col-6 level-select-wrapper">
             <input
                 id="level-select"
                 name="skills[{{ $index }}][level]"
@@ -26,6 +26,23 @@
                 data-show-clear="false"
             >
         </div>
+
+        @if (strpos(url()->current(), 'career') == false)
+            <label for="is-practice-switch-{{ $index }}" class="col-md-2 col-form-label">実務経験</label>
+            <div class="col-1 mt-1">
+                <label class="switch">
+                    <input
+                        type="checkbox"
+                        class="toggle-input"
+                        id="is-practice-switch-{{ $index }}"
+                        name="skills[{{ $index }}][is_practice]"
+                        style="height: 24px"
+                        {{ $attributes->get('default_skill_is_practice') ? 'checked' : null }}
+                    >
+                    <span class="slider round"></span>
+                </label>
+            </div>
+        @endif
     </div>
 
     <x-employees.delete-skill-input-button />
@@ -50,6 +67,10 @@
                 },
                 hoverChangeCaption: false,
             });
+
+            $('.slider').on('click', function() {
+
+            })
         })(window.jQuery)
     </script>
 </div>

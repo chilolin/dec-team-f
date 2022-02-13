@@ -30,8 +30,36 @@ class LearningController extends Controller
         return view('employees.edit', ['skill_type' => $skill_type, 'skill_list' => $skill_list]);
     }
 
-    public function store()
+    public function store(Request $request, $skill_type)
     {
-        return redirect();
+        $request->validate([
+            'skills' => 'required|array',
+            'skills.*.name' => 'required_with:skills.*.level|json',
+            'skills.*.level' => 'required_with:skills.*.name|string',
+        ]);
+
+        $employee_skills = User::find(Auth::id())->skills();
+
+        $employee_skills->detach(
+            $employee_skills
+            ->where(['skill_type' => $skill_type])
+            ->get()
+            ->map(function($career_skill) {
+                return $career_skill->id;
+            })
+            ->all()
+        );
+
+        $employee_skills->attach(
+            collect($request->skills)
+            ->reduce(function($attach_skills, $skill) use($skill_type) {
+                foreach($this->tagsinput->createSkills($skill['name'], $skill_type) as $skill_id) {
+                    $attach_skills[$skill_id] = ['level' => $skill['level'], 'is_practice' => array_key_exists('is_practice', $skill), 'is_learning' => true];
+                }
+                return $attach_skills;
+            }, [])
+        );
+
+        return redirect()->route('employees.show', ['id' => Auth::id()]);
     }
 }
