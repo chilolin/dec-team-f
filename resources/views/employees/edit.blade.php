@@ -74,7 +74,7 @@
                     />
                 @endif
 
-                <div id="add-button-container" class="row justify-content-md-center">
+                <div id="add-button-container" class="row justify-content-md-center mt-5">
                     <button type="button" id="add-button" class="btn btn-sm btn-secondary add-button">＋</button>
                 </div>
 
@@ -110,6 +110,7 @@
                 $('#skill-input-group').clone(false).insertBefore('#add-button-container');
                 $('.skill-input-group:last').find('.skill-input-wrapper').remove();
                 $('.skill-input-group:last').find('.level-select-wrapper').remove();
+                $('.skill-input-group:last').find('.switch-wrapper').remove();
 
                 // スキル入力欄を作成
                 const $candidatemap = $('.skill-input-group:first').find('.sr-only').data('candidatemap');
@@ -137,10 +138,30 @@
                         css: {
                             marginBottom: "10px"
                         },
-                        addClass: "col-md-7 level-select-wrapper",
+                        addClass: "col-6 level-select-wrapper",
                     }
                 ).append($levelSelect);
-                $('.skill-input-group:last .row:nth-child(2)').append($levelSelectWrapper)
+                $('.skill-input-group:last .row:nth-child(2) #select-skill-level-label').after($levelSelectWrapper)
+
+                if("career" == location.hash) {
+                    const $switch = $(
+                        `<label class="switch">
+                            <input
+                                type="checkbox"
+                                class="toggle-input"
+                                id="is-practice-switch-${index}"
+                                name="skills[${index}][is_practice]"
+                            >
+                            <span class="slider round"></span>
+                        </label>`)
+                    const $switchWrapper = $(
+                        "<div>",
+                        {
+                            addClass: "col-1 mt-1 switch-wrapper",
+                        }
+                    ).append($switch);
+                    $('.skill-input-group:last .row:nth-child(2)').append($switch)
+                }
 
                 const candidates = new Bloodhound({
                     datumTokenizer: Bloodhound.tokenizers.whitespace,

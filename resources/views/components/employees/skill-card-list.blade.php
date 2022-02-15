@@ -1,17 +1,23 @@
 <div>
     <style scoped>
+        .title {
+            font-weight: 500;
+            color: #333333;
+        }
         .skill-card-row {
             margin: 0px;
+            margin-bottom: 10px;
         }
         .skill-card-row div:nth-child(1n) {
-            margin-right: 10px;
+            margin-left: 0px;
+            margin-right: 5px;
         }
         .skill-card-row div:nth-child(2n) {
             margin-left: 5px;
             margin-right: 5px;
         }
         .skill-card-row div:nth-child(3n) {
-            margin-left: 10px;
+            margin-left: 5px;
             margin-right: 0px;
         }
     </style>

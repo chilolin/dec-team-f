@@ -1,11 +1,18 @@
 <div {{ $attributes->merge(['class' => 'card']) }}>
     <style scoped>
+        .card {
+            color: #333333;
+            margin-bottom: 0px;
+        }
+        .card-title {
+            color: #333333;
+        }
         .to-edit-link {
             font-size: 13px;
         }
         .list-group-item {
-            padding: 8px 7px 0 10px;
-            margin-bottom: -18px;
+            padding: 11px 7px 0 10px;
+            margin-bottom: -15px;
         }
     </style>
 
@@ -24,7 +31,7 @@
         @endif
     </div>
 
-    <div style="padding: 4px 0px;">
+    <div style="padding: 7px 0px;">
         <ul class="list-group list-group-flush">
             @foreach ($skillList as $skill)
                 <li class="list-group-item">
