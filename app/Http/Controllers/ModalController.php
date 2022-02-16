@@ -10,6 +10,11 @@ class ModalController extends Controller
 {
     public function store(Request $request)
     {
+        $request->validate([
+            'skills.*.level' => 'float',
+            'skills.*.id' => 'int',
+        ]);
+
         User::find(Auth::id())
         ->skills()
         ->attach(
