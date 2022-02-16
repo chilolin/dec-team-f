@@ -851,7 +851,7 @@ body > .navbar-collapse[data-color="purple"]:after {
     right: -15px;
 }
 
-.modal.show .modal-dialog {
+/* .modal.show .modal-dialog {
     -webkit-transform: translate(0, 30%);
     -o-transform: translate(0, 30%);
     transform: translate(0, 30%);
@@ -915,7 +915,7 @@ body > .navbar-collapse[data-color="purple"]:after {
 .modal .modal-content .modal-footer .btn:hover,
 .modal .modal-content .modal-footer .btnfocus {
     text-decoration: none;
-}
+} */
 
 .btn {
     border-width: 2px;

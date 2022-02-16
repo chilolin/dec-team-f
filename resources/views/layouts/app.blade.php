@@ -42,9 +42,9 @@
     </head>
     <body>
         <div class="wrapper">
+            <x-modal />
             @include('layouts.sidebar')
             <main class="main-panel">
-                @include('layouts.modal')
                 @include('layouts.navigation')
 
                 <div class="content">
@@ -52,6 +52,7 @@
                 </div>
             </main>
         </div>
+
 
         <script src="{{ asset('js/tagsinput.js') }}" defer></script>
         <script src="{{ asset('js/jquery.multi-select.js') }}" defer></script>
