@@ -18,8 +18,8 @@ class UserController extends Controller
         if (User::find($id) == null) {
             return redirect()->route('employees.index');
         }
-        $detail = User::find($id);
-        return view('employees.show', [ 'uid' => $id, 'detail' => $detail]);
+
+        return view('employees.show', [ 'uid' => $id, 'user' => User::find($id)]);
     }
 
     /**
