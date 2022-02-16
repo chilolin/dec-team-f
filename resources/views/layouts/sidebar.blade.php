@@ -39,7 +39,7 @@
             </li>
 
             <li>
-                <a class="nav-link" data-toggle="modal" data-target="#myModal1" href="#modal">
+                <a class="nav-link" data-toggle="modal" data-target="#myMatterModal" href="#modal">
                     <i class="bi bi-speedometer"></i>
                     <p>進行中案件</p>
                 </a>

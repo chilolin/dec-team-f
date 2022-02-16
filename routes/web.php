@@ -4,12 +4,10 @@ use App\Http\Controllers\PracticeLearningController;
 use App\Http\Controllers\CareerController;
 use App\Http\Controllers\MatterController;
 use App\Http\Controllers\UserController;
-use App\Models\User;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 //検索用コントローラー
-use App\Http\Controllers\SearchController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ModalController;
 
 /*
 |--------------------------------------------------------------------------
@@ -61,14 +59,13 @@ Route::middleware('auth')->group(function() {
         })->name('matters.edit');
     });
 
+    Route::post('modal', [ModalController::class, 'store'])->name('modal.store');
+
     // 管理者画面
     Route::get('master', function($id) {
         return view('master');
     });
 
-    Route::get('modal', function() {
-        return view('modal');
-    });
 });
 
 require __DIR__.'/auth.php';
