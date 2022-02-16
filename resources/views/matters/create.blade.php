@@ -56,7 +56,7 @@
 
             <x-matters.create-input-group label="フロントエンド">
                 <div class="row">
-                    <div class="col-12 mb-4">
+                    <div class="col-12 mb-3">
                         <x-forms.skill-input
                             id="frontend_language"
                             name="frontend_language"
@@ -77,7 +77,7 @@
 
             <x-matters.create-input-group label="バックエンド">
                 <div class="row">
-                    <div class="col-12 mb-4">
+                    <div class="col-12 mb-3">
                         <x-forms.skill-input
                             id="backend_language"
                             name="backend_language"
