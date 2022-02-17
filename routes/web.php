@@ -42,9 +42,11 @@ Route::middleware('auth')->group(function() {
 
     // 案件画面
     Route::prefix('matters')->group(function() {
-        Route::get('/', function() {
-            return view('matters.index');
-        })->name('matters.index');
+        // Route::get('/', function() {
+        //     return view('matters.index');
+        // })->name('matters.index');
+        
+        Route::get('/', [MatterController::class, 'index'])->name('matters.index');
 
         Route::get('/create', [MatterController::class, 'create'])->name('matters.create');
 

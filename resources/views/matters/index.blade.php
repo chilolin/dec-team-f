@@ -18,114 +18,16 @@
         text-align: center;
       }
     </style>
+    @foreach($matters as $matter)
      <div class="card">
-        <h3 class="subject">〇〇〇〇の開発</h3>
+        <h3 class="subject">{{ $matter->name }}</h3>
         <ul class="list-group list-group-flush">
-          <li class="list-group-item">依頼者：<p>（株）〇〇〇〇様</p></li>
-          <li class="list-group-item">開始日：<p>2018年1月31日</p></li>
-          <li class="list-group-item">終了日：<p>2018年12月31日</p></li>
-          <li class="list-group-item">担当：<p>佐藤、田中、鈴木</p></li>
+          <li class="list-group-item">依頼者：<p>{{ $matter->client->name }}</p></li>
+          <li class="list-group-item">開始日：<p>{{ $matter->start_at }}</p></li>
+          <li class="list-group-item">終了日：<p>{{ $matter->end_at }}</p></li>
+          <li class="list-group-item">担当：<p>{{ $matter->users->reduce(function ($engineer_names, $engineer) { if (!$engineer_names) return $engineer->name; return $engineer_names . ',' . $engineer->name; }) }}</p></li>
         </ul>
         <a href="http://localhost/matters/1" class="btn btn-primary">詳細画面へ</a>
-    </div>
-     <div class="card">
-        <h3 class="subject">〇〇〇〇の開発</h3>
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item">依頼者：<p>（株）〇〇〇〇様</p></li>
-          <li class="list-group-item">開始日：<p>2018年1月31日</p></li>
-          <li class="list-group-item">終了日：<p>2018年12月31日</p></li>
-          <li class="list-group-item">担当：<p>佐藤、田中、鈴木</p></</li>
-        </ul>
-        <a href="http://localhost/matters/1" class="btn btn-primary">詳細画面へ</a>
-    </div>
-     <div class="card">
-        <h3 class="subject">〇〇〇〇の開発</h3>
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item">依頼者：<p>（株）〇〇〇〇様</p></li>
-          <li class="list-group-item">開始日：<p>2018年1月31日</p></li>
-          <li class="list-group-item">終了日：<p>2018年12月31日</p></li>
-          <li class="list-group-item">担当：<p>佐藤、田中、鈴木</p></</li>
-        </ul>
-        <a href="http://localhost/matters/1" class="btn btn-primary">詳細画面へ</a>
-    </div>
-     <div class="card">
-        <h3 class="subject">〇〇〇〇の開発</h3>
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item">依頼者：<p>（株）〇〇〇〇様</p></li>
-          <li class="list-group-item">開始日：<p>2018年1月31日</p></li>
-          <li class="list-group-item">終了日：<p>2018年12月31日</p></li>
-          <li class="list-group-item">担当：<p>佐藤、田中、鈴木</p></</li>
-        </ul>
-        <a href="http://localhost/matters/1" class="btn btn-primary">詳細画面へ</a>
-    </div>
-     <div class="card">
-        <h3 class="subject">〇〇〇〇の開発</h3>
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item">依頼者：<p>（株）〇〇〇〇様</p></li>
-          <li class="list-group-item">開始日：<p>2018年1月31日</p></li>
-          <li class="list-group-item">終了日：<p>2018年12月31日</p></li>
-          <li class="list-group-item">担当：<p>佐藤、田中、鈴木</p></</li>
-        </ul>
-        <a href="http://localhost/matters/1" class="btn btn-primary">詳細画面へ</a>
-    </div>
-     <div class="card">
-        <h3 class="subject">〇〇〇〇の開発</h3>
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item">依頼者：<p>（株）〇〇〇〇様</p></li>
-          <li class="list-group-item">開始日：<p>2018年1月31日</p></li>
-          <li class="list-group-item">終了日：<p>2018年12月31日</p></li>
-          <li class="list-group-item">担当：<p>佐藤、田中、鈴木</p></</li>
-        </ul>
-        <a href="http://localhost/matters/1" class="btn btn-primary">詳細画面へ</a>
-    </div>
-     <div class="card">
-        <h3 class="subject">〇〇〇〇の開発</h3>
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item">依頼者：<p>（株）〇〇〇〇様</p></li>
-          <li class="list-group-item">開始日：<p>2018年1月31日</p></li>
-          <li class="list-group-item">終了日：<p>2018年12月31日</p></li>
-          <li class="list-group-item">担当：<p>佐藤、田中、鈴木</p></</li>
-        </ul>
-        <a href="http://localhost/matters/1" class="btn btn-primary">詳細画面へ</a>
-    </div>
-     <div class="card">
-        <h3 class="subject">〇〇〇〇の開発</h3>
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item">依頼者：<p>（株）〇〇〇〇様</p></li>
-          <li class="list-group-item">開始日：<p>2018年1月31日</p></li>
-          <li class="list-group-item">終了日：<p>2018年12月31日</p></li>
-          <li class="list-group-item">担当：<p>佐藤、田中、鈴木</p></</li>
-        </ul>
-        <a href="http://localhost/matters/1" class="btn btn-primary">詳細画面へ</a>
-    </div>
-     <div class="card">
-        <h3 class="subject">〇〇〇〇の開発</h3>
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item">依頼者：<p>（株）〇〇〇〇様</p></li>
-          <li class="list-group-item">開始日：<p>2018年1月31日</p></li>
-          <li class="list-group-item">終了日：<p>2018年12月31日</p></li>
-          <li class="list-group-item">担当：<p>佐藤、田中、鈴木</p></</li>
-        </ul>
-        <a href="http://localhost/matters/1" class="btn btn-primary">詳細画面へ</a>
-    </div>
-     <div class="card">
-        <h3 class="subject">〇〇〇〇の開発</h3>
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item">依頼者：<p>（株）〇〇〇〇様</p></li>
-          <li class="list-group-item">開始日：<p>2018年1月31日</p></li>
-          <li class="list-group-item">終了日：<p>2018年12月31日</p></li>
-          <li class="list-group-item">担当：<p>佐藤、田中、鈴木</p></</li>
-        </ul>
-        <a href="http://localhost/matters/1" class="btn btn-primary">詳細画面へ</a>
-    </div>
-     <div class="card">
-        <h3 class="subject">〇〇〇〇の開発</h3>
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item">依頼者：<p>（株）〇〇〇〇様</p></li>
-          <li class="list-group-item">開始日：<p>2018年1月31日</p></li>
-          <li class="list-group-item">終了日：<p>2018年12月31日</p></li>
-          <li class="list-group-item">担当：<p>佐藤、田中、鈴木</p></</li>
-        </ul>
-        <a href="http://localhost/matters/1" class="btn btn-primary">詳細画面へ</a>
-    </div>
+      </div>
+    @endforeach
 </x-app-layout>
