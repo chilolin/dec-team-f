@@ -7,7 +7,7 @@
 
     <div class="card-body">
         <div class="row mb-2">
-            <label for="skill-name-input" class="col-md-2 col-form-label" style="font-size: 16px; color: #333333;">スキル名</label>
+            <label for="skill-name-input" class="col-md-2 col-form-label" style="font-weight: 600; font-size: 16px; color: #333333;">スキル名</label>
             <div class="col-md-10 skill-input-wrapper">
                 <x-forms.skill-input
                     skill_type="{{ $skillType }}"
@@ -18,7 +18,7 @@
         </div>
 
         <div class="row">
-            <label id="select-skill-level-label" for="select-skill-level" class="col-md-2 col-form-label" style="font-size: 16px; color: #333333;">レベル</label>
+            <label id="select-skill-level-label" for="select-skill-level" class="col-md-2 col-form-label" style="font-weight: 600; font-size: 16px; color: #333333;">レベル</label>
             <div class="col-6 level-select-wrapper">
                 <input
                     id="level-select"
@@ -35,7 +35,7 @@
             </div>
 
             @if (strpos(url()->current(), 'career') == false)
-                <label for="is-practice-switch-{{ $index }}" class="col-md-2 col-form-label" style="font-size: 16px; color: #333333;">実務経験</label>
+                <label for="is-practice-switch-{{ $index }}" class="col-md-2 col-form-label" style="font-weight: 600; font-size: 16px; color: #333333;">実務経験</label>
                 <div class="col-1 mt-1 switch-wrapper">
                     <label class="switch">
                         <input
