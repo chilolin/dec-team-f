@@ -3,6 +3,12 @@
 		.modal-content {
 			padding: 30px 60px 60px;
 		}
+        .modal-content .nav-item {
+            background: #f2f2f2;
+        }
+        .modal-content .nav-link {
+            color: #333333;
+        }
 		.modal-body {
 			padding: 30px 10px 20px;
 		}
@@ -18,7 +24,7 @@
 			font-size: 14px;
 		}
 		.modal-body .modal-text {
-			padding-bottom: 16px!important;
+			padding-bottom: 17px!important;
 			font-size: 16px;
 		}
         .modal-body .custom-control-label::before,.custom-control-label::after {
