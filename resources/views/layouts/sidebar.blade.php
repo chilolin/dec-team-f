@@ -25,6 +25,13 @@
             </li>
 
             <li>
+                <a class="nav-link" href="{{ route('matters.index')}}">
+                <i class="bi bi-book"></i>
+                    <p>案件一覧</p>
+                </a>
+            </li>
+
+            <li>
                 <a class="nav-link" href="{{ route('matters.create')}}">
                     <i class="bi bi-card-checklist"></i>
                     <p>案件入力</p>
