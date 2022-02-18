@@ -36,6 +36,18 @@ class Skill extends Model
         ->withTimestamps();
     }
 
+    /**
+     * このスキルを有する案件
+     */
+    public function include_skill()
+    {
+        // return $this->belongsToMany(Matter::class, 'matter_skill')
+        // ->withPivot(['created_at', 'updated_at'])
+        // ->withTimestamps();
+        return $this->belongsToMany(Matter::class);
+    }    
+
+
     //DashboardControllerで使用するためstaticを追加
     public static function specific_skills($skillType)
     {

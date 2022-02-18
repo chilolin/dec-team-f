@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Consts\SkillType;
 use App\Models\User;
 use App\Models\Matter;
+use App\Models\Skill;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -29,15 +30,50 @@ class UserController extends Controller
     public function search(Request $request)
     {
         $search = array();
-        $search["language"] = $request ->language;
-        $search["design_pattern"] = $request ->design_pattern;
-        $search["position"] =  $request ->position;
-        $search["process"] =  $request ->process;
-        $search["proceeding"] =  $request ->proceeding;
-        $search["framework"] =  $request ->framework;
-        $search["infrastructure"] =  $request ->infrastructure;
-        $search["database"] =  $request ->database;
-        $search["engineer_type"] =  $request ->engineer_type;
+        if ($request ->language != NULL){
+            $search["language"] = $request ->language;
+        }
+        if ($request ->design_pattern != NULL){
+            $search["design_pattern"] = $request ->design_pattern;
+        }
+        if ($request ->position != NULL){
+
+            $search["position"] =  $request ->position;
+        }
+        if ($request ->process != NULL){
+
+            $search["process"] =  $request ->process;
+        }
+        if ($request ->proceeding != NULL){
+            
+            $search["proceeding"] =  $request ->proceeding;
+        }        
+        if ($request ->framework != NULL){
+            
+            $search["framework"] =  $request ->framework;
+        }
+        if ($request ->infrastructure != NULL){
+            
+            $search["infrastructure"] =  $request ->infrastructure;
+        }
+        if ($request ->database != NULL){
+
+            $search["database"] =  $request ->database;
+        }
+        if ($request ->engineer_type != NULL){
+
+            $search["engineer_type"] =  $request ->engineer_type;
+        }
+
+        $matter_hit = array(Skill::find(1) -> include_skill);
+        foreach($search as $output){
+            $corresponding_skill = Skill::where('name', $output)->get();
+            foreach($corresponding_skill as $corr){
+                $corr -> include_skill;
+            }
+            array_push($matter_hit, $corresponding_skill);
+        }
+
 
 
 
@@ -49,6 +85,12 @@ class UserController extends Controller
         }
 
 
-        return view('employees.index', ['users' => $users, 'matters' => $matters,'skills' => $skills, 'search' => $search]);
+        return view('employees.index', 
+                                        ['users' => $users,
+                                        'matters' => $matters,
+                                        'skills' => $skills, 
+                                        'search' => $search,
+                                        'matter_hit' => $matter_hit
+                                    ]);
     }
 }
