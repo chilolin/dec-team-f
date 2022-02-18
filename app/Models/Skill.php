@@ -41,9 +41,6 @@ class Skill extends Model
      */
     public function include_skill()
     {
-        // return $this->belongsToMany(Matter::class, 'matter_skill')
-        // ->withPivot(['created_at', 'updated_at'])
-        // ->withTimestamps();
         return $this->belongsToMany(Matter::class);
     }    
 
