@@ -5,7 +5,9 @@
 // var_dump($skills[1]);
 
 // var_dump($search);
-// var_dump($matter_hit);
+
+// var_dump($matter_hit_each);
+// var_dump($matter_hits);
 // exit();
 ?>
 

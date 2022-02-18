@@ -29,6 +29,7 @@ class UserController extends Controller
      */
     public function search(Request $request)
     {
+        //選択したスキルセットをNULLじゃなければ配列に入れる
         $search = array();
         if ($request ->language != NULL){
             $search["language"] = $request ->language;
@@ -65,14 +66,31 @@ class UserController extends Controller
             $search["engineer_type"] =  $request ->engineer_type;
         }
 
-        $matter_hit = array(Skill::find(1) -> include_skill);
+
+        
+        
+        $matter_hit_each = array();
+        $matter_hits = array();
         foreach($search as $output){
+            //文字列で取ってきているのでスキルidを取得。
+            //オブジェクトで返ってきているため、foreachで探すことに注意。
             $corresponding_skill = Skill::where('name', $output)->get();
+            //各スキルに対してそれを含む案件が複数ある場合がある
             foreach($corresponding_skill as $corr){
+                //選択したスキルを持ってる案件をとりあえず取ってくる
                 $corr -> include_skill;
             }
-            array_push($matter_hit, $corresponding_skill);
+            //foreachですべて一つのスキルを持つ案件に変換した
+            array_push($matter_hit_each, $corresponding_skill);
+            //ヒットした案件数をカウント。共起率の分母をそれぞれ取得。
+            //案件数で0の可能性があるので注意
+            array_push($matter_hits, count($corresponding_skill));
         }
+        
+
+
+        // //とりあえず取ってきた入れ子の可能性のある配列を漸化式的にすべてのスキルを含む案件
+        // foreach
 
 
 
@@ -90,7 +108,8 @@ class UserController extends Controller
                                         'matters' => $matters,
                                         'skills' => $skills, 
                                         'search' => $search,
-                                        'matter_hit' => $matter_hit
+                                        'matter_hit_each' => $matter_hit_each,
+                                        'matter_hits' => $matter_hits
                                     ]);
     }
 }
