@@ -1,3 +1,13 @@
+<?php
+
+// var_dump($users[0]);
+
+// var_dump($skills[1]);
+
+// var_dump($search);
+// exit();
+?>
+
 <x-app-layout>
     <x-slot name="title">
         社員一覧
