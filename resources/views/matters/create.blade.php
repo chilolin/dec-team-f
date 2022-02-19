@@ -54,6 +54,10 @@
                 <x-forms.skill-input name="design_pattern" skill_type="{{ $design_pattern }}"/>
             </x-matters.create-input-group>
 
+            <x-matters.create-input-group label="必要な役職">
+                <x-forms.skill-input name="position" skill_type="{{ $position }}"/>
+            </x-matters.create-input-group>
+
             <x-matters.create-input-group label="フロントエンド">
                 <div class="row">
                     <div class="col-12 mb-3">
