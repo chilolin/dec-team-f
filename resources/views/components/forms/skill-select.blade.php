@@ -1,5 +1,6 @@
 <div class="skill-select-wrapper">
     <input
+        {{ $attributes }}
         type="text"
         class="form-control"
         data-role="tagsinput"
