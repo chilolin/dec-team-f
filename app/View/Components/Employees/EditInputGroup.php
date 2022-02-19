@@ -7,14 +7,16 @@ use Illuminate\View\Component;
 class EditInputGroup extends Component
 {
     public $skillType;
+    public $index;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($skillType)
+    public function __construct($skillType, $index)
     {
         $this->skillType = $skillType;
+        $this->index = (int)$index;
     }
 
     /**

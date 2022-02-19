@@ -1,13 +1,13 @@
 <?php
 
+use App\Http\Controllers\PracticeLearningController;
+use App\Http\Controllers\CareerController;
 use App\Http\Controllers\MatterController;
 use App\Http\Controllers\UserController;
-use App\Models\User;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 //検索用コントローラー
-use App\Http\Controllers\SearchController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ModalController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,9 +35,13 @@ Route::middleware('auth')->group(function() {
 
         Route::get('/{id}', [UserController::class, 'show'])->name('employees.show');
 
-        Route::get('/learning/{skill_type}/edit', [UserController::class, 'learning_edit'])->name('employees.learning_edit');
+        Route::get('/practice_learning/{skill_type}/edit', [PracticeLearningController::class, 'edit'])->name('employees.practice_learning_edit');
 
-        Route::get('/career/{skill_type}/edit', [UserController::class, 'career_edit'])->name('employees.career_edit');
+        Route::post('/practice_learning/{skill_type}/store', [PracticeLearningController::class, 'store'])->name('employees.practice_learning_store');
+
+        Route::get('/career/{skill_type}/edit', [CareerController::class, 'edit'])->name('employees.career_edit');
+
+        Route::post('/career/{skill_type}/store', [CareerController::class, 'store'])->name('employees.career_store');
     });
 
     // 案件画面
@@ -52,23 +56,20 @@ Route::middleware('auth')->group(function() {
 
         Route::post('/store', [MatterController::class, 'store'])->name('matters.store');
 
-        Route::get('/{id}', function($id) {
-            return view('matters.show');
-        })->name('matters.show');
+        Route::get('/{id}', [MatterController::class, 'show'])->name('matters.show');
 
         Route::get('/{id}/edit', function($id) {
             return view('matters.edit');
         })->name('matters.edit');
     });
 
+    Route::post('modal', [ModalController::class, 'store'])->name('modal.store');
+
     // 管理者画面
     Route::get('master', function($id) {
         return view('master');
     });
 
-    Route::get('modal', function() {
-        return view('modal');
-    });
 });
 
 require __DIR__.'/auth.php';

@@ -1,11 +1,3 @@
-<?php
-
-//変数動作確認
-// var_dump($uid);
-// var_export($detail);
-// exit();
-?>
-
 <x-app-layout>
     <x-slot name="title">
         社員詳細
@@ -26,20 +18,18 @@
         <div class="container">
             <div class="card card-user">
                 <div class="card-body row">
-                    <div class="col-md-4">
+                    <div class="col-4 py-3 px-6">
                         <img class="avatar border-gray" src="{{asset('img/dinosaur.jfif')}}" alt="dinosaur">
                     </div>
-                    <div class="col-md-8">
-                        <h4 class="title">Mike Andrew</h4>
-                        <p class="description">
-                            michael24
-                        </p>
+                    <div class="col-7 py-3">
+                        <h4 class="title">{{ $user->name }}</h4>
+                        <p>github: </p><p></p>
+                        <p>twitter: </p>
                     </div>
                 </div>
             </div>
 
-            <x-employees.skill-card-list list-type="practice" uid="{{ $uid }}" />
-            <x-employees.skill-card-list list-type="learning" uid="{{ $uid }}" />
+            <x-employees.skill-card-list list-type="practice_learning" uid="{{ $uid }}" />
             <x-employees.skill-card-list list-type="career" uid="{{ $uid }}" />
         </div>
     </div>

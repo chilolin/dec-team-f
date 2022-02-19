@@ -7,8 +7,8 @@ use Illuminate\View\Component;
 class SkillCardList extends Component
 {
     public $listTypes = [
-        "practice" => [
-            "title" => "実務スキル",
+        "practice_learning" => [
+            "title" => "実務・学習スキル",
             "skillTypeList" => [
                 'language',
                 'framework',
@@ -19,16 +19,6 @@ class SkillCardList extends Component
                 'position',
                 'database',
                 'infrastructure',
-            ],
-        ],
-        "learning" => [
-            "title" => "学習スキル",
-            "skillTypeList" => [
-                'language',
-                'framework',
-                'design_pattern',
-                'process',
-                'proceeding',
             ],
         ],
         "career" => [

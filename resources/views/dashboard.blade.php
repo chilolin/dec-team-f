@@ -29,7 +29,7 @@
         <div class="container">
 
 
-            <form method="GET">
+            <form method="GET" action="{{ route('employees.index') }}">
             @csrf
             <h4>
                 ctrlボタン・<i class="bi bi-command">ボタン</i>を押しながら選択で複数選択が可能です
@@ -47,7 +47,7 @@
                     </div>
 
                     <div class="card-footer">
-                        <select class="form-select form-control text-center" size="5"  multiple aria-label=" .form-select-lg example">
+                        <select name="language" class="form-select form-control text-center" size="5"  multiple aria-label=" .form-select-lg example">
                             @for ($i = 0; $i < count($language); $i++){
                                 <option value="<?php echo($language[$i]['name']) ?>"><?php echo($language[$i]["name"])?></option>
                             }
@@ -131,7 +131,7 @@
                     </div>
 
                     <div class="card-footer">
-                        <select class="form-select form-control text-center" size="5"  multiple aria-label=" .form-select-lg example">
+                        <select name="framework" class="form-select form-control text-center" size="5"  multiple aria-label=" .form-select-lg example">
                             @for ($i = 0; $i < count($framework); $i++){
                                 <option value="<?php echo($framework[$i]['name'] )?>"><?php echo($framework[$i]["name"])?></option>
                             }
@@ -185,7 +185,7 @@
                     </div>
 
                     <div class="card-footer">
-                        <select class="form-select form-control text-center" size="5"  multiple aria-label=" .form-select-lg example">
+                        <select name="design_pattern" class="form-select form-control text-center" size="5"  multiple aria-label=" .form-select-lg example">
                             @for ($i = 0; $i < count($design_pattern); $i++){
                                 <option value="<?php echo($design_pattern[$i]['name'] )?>"><?php echo($design_pattern[$i]["name"])?></option>
                             }
@@ -210,7 +210,7 @@
                     </div>
 
                     <div class="card-footer">
-                        <select class="form-select form-control text-center" size="5"  multiple aria-label=" .form-select-lg example">
+                        <select name="process" class="form-select form-control text-center" size="5"  multiple aria-label=" .form-select-lg example">
                             @for ($i = 0; $i < count($process); $i++){
                                 <option value="<?php echo($process[$i]['name'] )?>"><?php echo($process[$i]["name"])?></option>
                             }
@@ -232,7 +232,7 @@
                     </div>
 
                     <div class="card-footer">
-                        <select class="form-select form-control text-center" size="5"  multiple aria-label=" .form-select-lg example">
+                        <select name="proceeding" class="form-select form-control text-center" size="5"  multiple aria-label=" .form-select-lg example">
                             @for ($i = 0; $i < count($proceeding); $i++){
                                 <option value="<?php echo($proceeding[$i]['name'] )?>"><?php echo($proceeding[$i]["name"])?></option>
                             }
@@ -254,7 +254,7 @@
                     </div>
 
                     <div class="card-footer">
-                        <select class="form-select form-control text-center" size="5"  multiple aria-label=" .form-select-lg example">
+                        <select name="engineer_type" class="form-select form-control text-center" size="5"  multiple aria-label=" .form-select-lg example">
                             @for ($i = 0; $i < count($engineer_type); $i++){
                                 <option value="<?php echo($engineer_type[$i]['name'] )?>"><?php echo($engineer_type[$i]["name"])?></option>
                             }
@@ -278,7 +278,7 @@
                     </div>
 
                     <div class="card-footer">
-                        <select class="form-select form-control text-center" size="5"  multiple aria-label=" .form-select-lg example">
+                        <select name="position" class="form-select form-control text-center" size="5"  multiple aria-label=" .form-select-lg example">
                             @for ($i = 0; $i < count($position); $i++){
                                 <option value="<?php echo($position[$i]['name'] )?>"><?php echo($position[$i]["name"])?></option>
                             }
@@ -310,7 +310,7 @@
                     </div>
 
                     <div class="card-footer">
-                        <select class="form-select form-control text-center" size="5"  multiple aria-label=" .form-select-lg example">
+                        <select name="database" class="form-select form-control text-center" size="5"  multiple aria-label=" .form-select-lg example">
                             <!-- @for ($i = 0; $i < count($database); $i++){
                                 <option value="<?php echo($database[$i]['name'] )?>"><?php echo($database[$i]["name"])?></option>
                             }
@@ -334,7 +334,7 @@
                     </div>
 
                     <div class="card-footer">
-                        <select class="form-select form-control text-center" size="5"  multiple aria-label=" .form-select-lg example">
+                        <select name="infrastructure" class="form-select form-control text-center" size="5"  multiple aria-label=" .form-select-lg example">
                             @for ($i = 0; $i < count($infrastructure); $i++){
                                 <option value="<?php echo($infrastructure[$i]['name'] )?>"><?php echo($infrastructure[$i]["name"])?></option>
                             }

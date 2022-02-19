@@ -72,8 +72,8 @@
         this.$input = $(
             '<input type="' +
                 this.type +
-                '" name="' +
-                this.name +
+                // '" name="' +
+                // this.name +
                 '" placeholder="' +
                 this.placeholderText +
                 '" autocomplete="off" />'
@@ -470,8 +470,6 @@
                             return false;
                         });
 
-                        console.log("typeahead");
-
                         // @TODO Dep: https://github.com/corejavascript/typeahead.js/issues/89
                         if (typeaheadjs[index].valueKey) {
                             self.add(datum[typeaheadjs[index].valueKey]);
@@ -504,7 +502,6 @@
                             $(".typeahead, .twitter-typeahead", self.$container)
                                 .length === 0
                         ) {
-                            console.log("focusout");
                             self.add(self.$input.val());
                             self.$input.val("");
                         }

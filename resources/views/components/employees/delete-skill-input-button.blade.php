@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row" style="margin-top: -9px;">
     <div class="col-md-10">
         <button type="button" id="delete-skill-input-button" class="btn btn-danger btn-sm">削除する</button>
     </div>

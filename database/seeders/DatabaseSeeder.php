@@ -18,14 +18,16 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         User::factory(10)->create();
-        Client::factory(10)->create();
-        Matter::factory(10)->create();
-        Skill::factory(10)->create();
+        Skill::factory(1)->create();
+        // Client::factory(10)->create();
+        Matter::factory(48)->create();
 
         $this->call([
+            // SkillSeeder::class,
             CareerSeeder::class,
             MatterSkillSeeder::class,
             SkillUserSeeder::class,
+            MatterUserSeeder::class
         ]);
     }
 }

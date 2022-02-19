@@ -4,74 +4,89 @@
     </x-slot>
 
     <x-matters.create-input-group label="案件名">
-      〇〇〇〇の開発
+        {{ $matter->name }}
     </x-matters.create-input-group>
     <x-matters.create-input-group label="依頼者">
-      （株）〇〇〇〇様
+        {{ $matter->client->name }}
     </x-matters.create-input-group>
     <x-matters.create-input-group label="開始日">
-      2018年1月31日
+        {{ $matter->start_at }}
     </x-matters.create-input-group>
     <x-matters.create-input-group label="終了日">
-      2018年12月31日
+        {{ $matter->end_at }}
     </x-matters.create-input-group>
     <x-matters.create-input-group label="開発工程">
-      設計、コーディング、テスト、保守、運用
+        {{ $skills['process'] }}
     </x-matters.create-input-group>
-    <x-matters.create-input-group label="開発の進め方">
-      アジャイル開発
-    </x-matters.create-input-group>
-    <x-matters.create-input-group label="デザインパターン">
-      GoFデザインパターン
-    </x-matters.create-input-group>
-    <x-matters.create-input-group label="フロントエンド">
-      <ul class="list-group">
-        <li class="list-group-item">言語：HTML,CSS,JavaScript</li>
-        <li class="list-group-item">フレームワーク：Bootstorap</li>
-      </ul>
-    </x-matters.create-input-group>
-    <x-matters.create-input-group label="バックエンド">
-      <ul class="list-group">
-        <li class="list-group-item">言語：php</li>
-        <li class="list-group-item">フレームワーク：Laravel</li>
-      </ul>
-    </x-matters.create-input-group>
-    <x-matters.create-input-group label="データベース">
-      Mysql
-    </x-matters.create-input-group>
-    <x-matters.create-input-group label="インフラ技術">
-      circleci
-    </x-matters.create-input-group>
+    @if (array_key_exists('proceeding', $skills))
+        <x-matters.create-input-group label="開発の進め方">
+            {{ $skills['proceeding'] }}
+        </x-matters.create-input-group>
+    @endif
+    @if (array_key_exists('design_pattern', $skills))
+        <x-matters.create-input-group label="デザインパターン">
+            {{ $skills['design_pattern'] }}
+        </x-matters.create-input-group>
+    @endif
+    @if (array_key_exists('position', $skills))
+        <x-matters.create-input-group label="役職">
+            {{ $skills['position'] }}
+        </x-matters.create-input-group>
+    @endif
+    @if (array_key_exists('language', $skills) || array_key_exists('framework', $skills))
+        <x-matters.create-input-group label="フロントエンド">
+            <ul class="list-group">
+                @if (array_key_exists('language', $skills))
+                    <li class="list-group-item">言語：{{ $skills['language'] }}</li>
+                @endif
+                @if (array_key_exists('framework', $skills))
+                    <li class="list-group-item">フレームワーク：{{ $skills['framework'] }}</li>
+                @endif
+            </ul>
+        </x-matters.create-input-group>
+    @endif
+    @if (array_key_exists('language', $skills) || array_key_exists('framework', $skills))
+        <x-matters.create-input-group label="バックエンド">
+            <ul class="list-group">
+                @if (array_key_exists('language', $skills))
+                    <li class="list-group-item">言語：{{ $skills['language'] }}</li>
+                @endif
+                @if (array_key_exists('framework', $skills))
+                    <li class="list-group-item">フレームワーク：{{ $skills['framework'] }}</li>
+                @endif
+            </ul>
+        </x-matters.create-input-group>
+    @endif
+    @if (array_key_exists('database', $skills))
+        <x-matters.create-input-group label="データベース">
+            {{ $skills['database'] }}
+        </x-matters.create-input-group>
+    @endif
+    @if (array_key_exists('infrastructure', $skills))
+        <x-matters.create-input-group label="インフラ技術">
+            {{ $skills['infrastructure'] }}
+        </x-matters.create-input-group>
+    @endif
     <x-matters.create-input-group label="エンジニア">
     <table class="table">
-      <thead>
-        <tr>
-          <th scope="col">Name</th>
-          <th scope="col">役職</th>
-          <th scope="col">開始日</th>
-          <th scope="col">終了日</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th scope="row">佐藤</th>
-          <td>PM</td>
-          <td>2018年1月31日</td>
-          <td>2018年12月31日</td>
-        </tr>
-        <tr>
-          <th scope="row">鈴木</th>
-          <td>フロントエンド</td>
-          <td>2018年1月31日</td>
-          <td>2018年1月31日</td>
-        </tr>
-        <tr>
-          <th scope="row">田中</th>
-          <td>バックエンド</td>
-          <td>2018年1月31日</td>
-          <td>2018年1月31日</td>
-        </tr>
-      </tbody>
+        <thead>
+            <tr>
+            <th scope="col">Name</th>
+            {{-- <th scope="col">役職</th> --}}
+            <th scope="col">開始日</th>
+            <th scope="col">終了日</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($engineers as $engineer)
+                <tr>
+                    <th scope="row">{{ $engineer->name }}</th>
+                    {{-- <td>PM</td> --}}
+                    <td>{{ $engineer->pivot->start_at }}</td>
+                    <td>{{ $engineer->pivot->end_at }}</td>
+                </tr>
+            @endforeach
+        </tbody>
     </table>
     </x-matters.create-input-group>
 

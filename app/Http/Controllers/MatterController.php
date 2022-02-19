@@ -11,19 +11,22 @@ use Illuminate\Http\Request;
 
 class MatterController extends Controller
 {
-    public function index() {
-        $matters = Matter::all();  
-        
-        return view('matters.index', ['matters' => $matters]);
+    private $tagsinput;
+
+    public function __construct()
+    {
+        $this->tagsinput = new TagsinputController();
     }
 
-    public function create() {
+    public function create()
+    {
         $employees = User::all();
 
         return view('matters.create', ['employees' => $employees]);
     }
 
-    public function store(Request $request, TagsinputController $tagsinput) {
+    public function store(Request $request)
+    {
         $request->validate([
             'matter_name' => 'required|string|max:100',
             'client_name' => 'required|string|max:100',
@@ -31,25 +34,16 @@ class MatterController extends Controller
             'matter_end_at' => 'required|date|after:matter_start_at',
             'process' => 'required|json',
             'proceeding' => 'required|json',
-            'design_pattern' => 'required|json',
-            'frontend_language' => 'required|json',
-            'frontend_framework' => 'required|json',
-            'backend_language' => 'required|json',
-            'backend_framework' => 'required|json',
-            'database' => 'required|json',
-            'infrastructure' => 'required|json',
             'engineers' => 'required',
         ]);
 
         // 案件に登録するスキルを取得
         $skill_ids = [];
-        foreach ($request->except(['matter_name', 'client_name', 'matter_start_at', 'matter_end_at', 'engineers']) as $skill_type => $tagsinput_skills) {
-            if ($skill_type == '_token') continue;
-
+        foreach ($request->except(['_token', 'matter_name', 'client_name', 'matter_start_at', 'matter_end_at', 'engineers']) as $skill_type => $tagsinput_skills) {
             $skill_type = str_contains($skill_type, 'language') ? SkillType::LANGUAGE : $skill_type;
             $skill_type = str_contains($skill_type, 'framework') ? SkillType::FRAMEWORK : $skill_type;
 
-            array_push($skill_ids, ...$tagsinput->createSkills($tagsinput_skills, $skill_type));
+            array_push($skill_ids, ...$this->tagsinput->createSkills($tagsinput_skills, $skill_type));
         }
 
         // 案件を作成し登録
@@ -70,5 +64,35 @@ class MatterController extends Controller
         );
 
         return redirect()->route('matters.show', ['id' => $matter->id]);
+    }
+
+    public function show($id)
+    {
+        $matter = Matter::find($id);
+        $skills = [];
+
+        foreach(SkillType::SKILL_TYPES as $skill_type)
+        {
+            $skill_names = $matter
+                            ->skills()
+                            ->where('skill_type', $skill_type)
+                            ->get()
+                            ->reduce(
+                                function($skill_names, $skill) {
+                                    if (!$skill_names) return $skill->name;
+                                    return $skill_names . ',' . $skill->name;
+                                }, ''
+                            );
+
+            if (!$skill_names) continue;
+
+            $skills[$skill_type] = $skill_names;
+        }
+
+        return view('matters.show', [
+            'matter' => $matter,
+            'skills' => $skills,
+            'engineers' => $matter->users,
+        ]);
     }
 }

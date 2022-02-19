@@ -19,7 +19,10 @@
 
     <script>
         (function($) {
+            'use strict';
+
             const list = @json($candidates);
+            const inputName = @json($attributes->get('name'));
 
             $(function() {
                 const candidates = new Bloodhound({
@@ -29,7 +32,7 @@
                 });
                 candidates.initialize();
 
-                $('input[data-role="tagsinput"]').tagsinput({
+                $(`input[name="${inputName}"]`).tagsinput({
                     typeaheadjs: {
                         name: 'candidates',
                         source: candidates.ttAdapter()
