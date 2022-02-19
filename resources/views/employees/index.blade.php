@@ -1,294 +1,67 @@
+<?php
+
+// var_dump($users[0]);
+
+// var_dump($skills[1]);
+
+// var_dump($search);
+
+// var_dump($matter_hit_each);
+// var_dump($matter_hits);
+// exit();
+?>
+
 <x-app-layout>
-    <x-slot name="title">
-        社員一覧
-    </x-slot>
+  <x-slot name="title">
+    社員一覧
+  </x-slot>
 
-    <style>
-      .content{
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-around;
-      }
-      .card-body{
-        text-align: center;
-      }
-      .employees-img{
-        width: 200px;
-        height: 200px;
-        margin-bottom: 8px;
-      }
+  <style>
+    .content {
+      display: flex;
+      flex-flow: row wrap;
+      justify-content: space-around;
+    }
 
-      .icon{
-        width: 13%;
-        height: auto;
-        margin: 16px 8px;
-      }
+    .card {
+      flex-direction: row;
+      width: 30rem;
+      height: auto;
+    }
 
-      .h4{
-        margin: 8px;
-      }
-    </style>
+    .card-info {
+      margin: 28px 16px;
+    }
+     
+    .icon {
+      width: 24px; 
+      height: auto;  
+      margin: 8px 4px;
+    }
 
-    <script>
-      $(function () {
-        $('[data-toggle="tooltip"]').tooltip()
-      })
-    </script>
+    .card-text {
+      margin-top: 16px; 
+    }
+  </style>
+  <script>
+    $(function () {
+      $('[data-toggle="tooltip"]').tooltip()
+    })
+  </script>
 
-    <div class="card" style="width: 18rem; height: auto;">
-      <div class="card-body">
-        <img src="{{ asset('img/human.png')}}" class="employees-img">
-        <h3 class="card-title"><a href="http://localhost/employees/1">佐藤太郎</a></h3>
-        <div class="card-icon">
-          <a href="https://twitter.com/?lang=ja"><img src="{{ asset('img/twitter.png')}}" alt="Twitterのアイコン" class="icon"></a>
-          <a href="https://github.co.jp/"><img src="{{ asset('img/github.png')}}" alt="GitHubのアイコン" class="icon"></a>
-        </div>
-        <h4 class="h4">PM </h4>
-        <h5>言語</h5>
-        <ul>
-          <li data-toggle="tooltip" data-placement="top" title="Tooltip on top">HTML</li>
-          <li data-toggle="tooltip" data-placement="top" title="Tooltip on top">CSS</li>
-          <li data-toggle="tooltip" data-placement="top" title="Tooltip on top">JavaScript</li>
-        </ul>
+  @foreach($users as $user)
+    <div class="card">
+      <div class="card-info">
+        <h3 class="card-title"><a href="{{ route('employees.show', ['id' => Auth::id()])}}">{{ $user-> name }}</a></h3>
+        <a href="https://twitter.com/?lang=ja"><img src="{{ asset('img/twitter.png')}}" alt="Twitterのアイコン" class="icon"></a>
+        <a href="https://github.co.jp/"><img src="{{ asset('img/github.png')}}" alt="GitHubのアイコン" class="icon"></a>
       </div>
-    </div>
-    <div class="card" style="width: 18rem; height: auto;">
       <div class="card-body">
-        <img src="{{ asset('img/human.png')}}" class="employees-img">
-        <h3 class="card-title"><a href="http://localhost/employees/1">佐藤太郎</a></h3>
-        <div class="card-icon">
-          <a href="https://twitter.com/?lang=ja"><img src="{{ asset('img/twitter.png')}}" alt="Twitterのアイコン" class="icon"></a>
-          <a href="https://github.co.jp/"><img src="{{ asset('img/github.png')}}" alt="GitHubのアイコン" class="icon"></a>
-        </div>
-        <h4 class="h4">PM </h4>
-        <h5>言語</h5>
-        <ul>
-          <li data-toggle="tooltip" data-placement="top" title="Tooltip on top">HTML</li>
-          <li data-toggle="tooltip" data-placement="top" title="Tooltip on top">CSS</li>
-          <li data-toggle="tooltip" data-placement="top" title="Tooltip on top">JavaScript</li>
-        </ul>
-      </div>
+        <p class="card-text">役職：</p>
+        <p class="card-text">言語：</p>
+       </div>
     </div>
-    <div class="card" style="width: 18rem; height: auto;">
-      <div class="card-body">
-        <img src="{{ asset('img/human.png')}}" class="employees-img">
-        <h3 class="card-title"><a href="http://localhost/employees/1">佐藤太郎</a></h3>
-        <div class="card-icon">
-          <a href="https://twitter.com/?lang=ja"><img src="{{ asset('img/twitter.png')}}" alt="Twitterのアイコン" class="icon"></a>
-          <a href="https://github.co.jp/"><img src="{{ asset('img/github.png')}}" alt="GitHubのアイコン" class="icon"></a>
-        </div>
-        <h4 class="h4">PM </h4>
-        <h5>言語</h5>
-        <ul>
-          <li data-toggle="tooltip" data-placement="top" title="Tooltip on top">HTML</li>
-          <li data-toggle="tooltip" data-placement="top" title="Tooltip on top">CSS</li>
-          <li data-toggle="tooltip" data-placement="top" title="Tooltip on top">JavaScript</li>
-        </ul>
-      </div>
-    </div>
-    <div class="card" style="width: 18rem; height: auto;">
-      <div class="card-body">
-        <img src="{{ asset('img/human.png')}}" class="employees-img">
-        <h3 class="card-title"><a href="http://localhost/employees/1">佐藤太郎</a></h3>
-        <div class="card-icon">
-          <a href="https://twitter.com/?lang=ja"><img src="{{ asset('img/twitter.png')}}" alt="Twitterのアイコン" class="icon"></a>
-          <a href="https://github.co.jp/"><img src="{{ asset('img/github.png')}}" alt="GitHubのアイコン" class="icon"></a>
-        </div>
-        <h4 class="h4">PM </h4>
-        <h5>言語</h5>
-        <ul>
-          <li data-toggle="tooltip" data-placement="top" title="Tooltip on top">HTML</li>
-          <li data-toggle="tooltip" data-placement="top" title="Tooltip on top">CSS</li>
-          <li data-toggle="tooltip" data-placement="top" title="Tooltip on top">JavaScript</li>
-        </ul>
-      </div>
-    </div>
-    <div class="card" style="width: 18rem; height: auto;">
-      <div class="card-body">
-        <img src="{{ asset('img/human.png')}}" class="employees-img">
-        <h3 class="card-title"><a href="http://localhost/employees/1">佐藤太郎</a></h3>
-        <div class="card-icon">
-          <a href="https://twitter.com/?lang=ja"><img src="{{ asset('img/twitter.png')}}" alt="Twitterのアイコン" class="icon"></a>
-          <a href="https://github.co.jp/"><img src="{{ asset('img/github.png')}}" alt="GitHubのアイコン" class="icon"></a>
-        </div>
-        <h4 class="h4">PM </h4>
-        <h5>言語</h5>
-        <ul>
-          <li data-toggle="tooltip" data-placement="top" title="Tooltip on top">HTML</li>
-          <li data-toggle="tooltip" data-placement="top" title="Tooltip on top">CSS</li>
-          <li data-toggle="tooltip" data-placement="top" title="Tooltip on top">JavaScript</li>
-        </ul>
-      </div>
-    </div>
-    <div class="card" style="width: 18rem; height: auto;">
-      <div class="card-body">
-        <img src="{{ asset('img/human.png')}}" class="employees-img">
-        <h3 class="card-title"><a href="http://localhost/employees/1">佐藤太郎</a></h3>
-        <div class="card-icon">
-          <a href="https://twitter.com/?lang=ja"><img src="{{ asset('img/twitter.png')}}" alt="Twitterのアイコン" class="icon"></a>
-          <a href="https://github.co.jp/"><img src="{{ asset('img/github.png')}}" alt="GitHubのアイコン" class="icon"></a>
-        </div>
-        <h4 class="h4">PM </h4>
-        <h5>言語</h5>
-        <ul>
-          <li data-toggle="tooltip" data-placement="top" title="Tooltip on top">HTML</li>
-          <li data-toggle="tooltip" data-placement="top" title="Tooltip on top">CSS</li>
-          <li data-toggle="tooltip" data-placement="top" title="Tooltip on top">JavaScript</li>
-        </ul>
-      </div>
-    </div>
-    <div class="card" style="width: 18rem; height: auto;">
-      <div class="card-body">
-        <img src="{{ asset('img/human.png')}}" class="employees-img">
-        <h3 class="card-title"><a href="http://localhost/employees/1">佐藤太郎</a></h3>
-        <div class="card-icon">
-          <a href="https://twitter.com/?lang=ja"><img src="{{ asset('img/twitter.png')}}" alt="Twitterのアイコン" class="icon"></a>
-          <a href="https://github.co.jp/"><img src="{{ asset('img/github.png')}}" alt="GitHubのアイコン" class="icon"></a>
-        </div>
-        <h4 class="h4">PM </h4>
-        <h5>言語</h5>
-        <ul>
-          <li data-toggle="tooltip" data-placement="top" title="Tooltip on top">HTML</li>
-          <li data-toggle="tooltip" data-placement="top" title="Tooltip on top">CSS</li>
-          <li data-toggle="tooltip" data-placement="top" title="Tooltip on top">JavaScript</li>
-        </ul>
-      </div>
-    </div>
-    <div class="card" style="width: 18rem; height: auto;">
-      <div class="card-body">
-        <img src="{{ asset('img/human.png')}}" class="employees-img">
-        <h3 class="card-title"><a href="http://localhost/employees/1">佐藤太郎</a></h3>
-        <div class="card-icon">
-          <a href="https://twitter.com/?lang=ja"><img src="{{ asset('img/twitter.png')}}" alt="Twitterのアイコン" class="icon"></a>
-          <a href="https://github.co.jp/"><img src="{{ asset('img/github.png')}}" alt="GitHubのアイコン" class="icon"></a>
-        </div>
-        <h4 class="h4">PM </h4>
-        <h5>言語</h5>
-        <ul>
-          <li data-toggle="tooltip" data-placement="top" title="Tooltip on top">HTML</li>
-          <li data-toggle="tooltip" data-placement="top" title="Tooltip on top">CSS</li>
-          <li data-toggle="tooltip" data-placement="top" title="Tooltip on top">JavaScript</li>
-        </ul>
-      </div>
-    </div>
-    <div class="card" style="width: 18rem; height: auto;">
-      <div class="card-body">
-        <img src="{{ asset('img/human.png')}}" class="employees-img">
-        <h3 class="card-title"><a href="http://localhost/employees/1">佐藤太郎</a></h3>
-        <div class="card-icon">
-          <a href="https://twitter.com/?lang=ja"><img src="{{ asset('img/twitter.png')}}" alt="Twitterのアイコン" class="icon"></a>
-          <a href="https://github.co.jp/"><img src="{{ asset('img/github.png')}}" alt="GitHubのアイコン" class="icon"></a>
-        </div>
-        <h4 class="h4">PM </h4>
-        <h5>言語</h5>
-        <ul>
-          <li data-toggle="tooltip" data-placement="top" title="Tooltip on top">HTML</li>
-          <li data-toggle="tooltip" data-placement="top" title="Tooltip on top">CSS</li>
-          <li data-toggle="tooltip" data-placement="top" title="Tooltip on top">JavaScript</li>
-        </ul>
-      </div>
-    </div>
-    <div class="card" style="width: 18rem; height: auto;">
-      <div class="card-body">
-        <img src="{{ asset('img/human.png')}}" class="employees-img">
-        <h3 class="card-title"><a href="http://localhost/employees/1">佐藤太郎</a></h3>
-        <div class="card-icon">
-          <a href="https://twitter.com/?lang=ja"><img src="{{ asset('img/twitter.png')}}" alt="Twitterのアイコン" class="icon"></a>
-          <a href="https://github.co.jp/"><img src="{{ asset('img/github.png')}}" alt="GitHubのアイコン" class="icon"></a>
-        </div>
-        <h4 class="h4">PM </h4>
-        <h5>言語</h5>
-        <ul>
-          <li data-toggle="tooltip" data-placement="top" title="Tooltip on top">HTML</li>
-          <li data-toggle="tooltip" data-placement="top" title="Tooltip on top">CSS</li>
-          <li data-toggle="tooltip" data-placement="top" title="Tooltip on top">JavaScript</li>
-        </ul>
-      </div>
-    </div>
-    <div class="card" style="width: 18rem; height: auto;">
-      <div class="card-body">
-        <img src="{{ asset('img/human.png')}}" class="employees-img">
-        <h3 class="card-title"><a href="http://localhost/employees/1">佐藤太郎</a></h3>
-        <div class="card-icon">
-          <a href="https://twitter.com/?lang=ja"><img src="{{ asset('img/twitter.png')}}" alt="Twitterのアイコン" class="icon"></a>
-          <a href="https://github.co.jp/"><img src="{{ asset('img/github.png')}}" alt="GitHubのアイコン" class="icon"></a>
-        </div>
-        <h4 class="h4">PM </h4>
-        <h5>言語</h5>
-        <ul>
-          <li data-toggle="tooltip" data-placement="top" title="Tooltip on top">HTML</li>
-          <li data-toggle="tooltip" data-placement="top" title="Tooltip on top">CSS</li>
-          <li data-toggle="tooltip" data-placement="top" title="Tooltip on top">JavaScript</li>
-        </ul>
-      </div>
-    </div>
-    <div class="card" style="width: 18rem; height: auto;">
-      <div class="card-body">
-        <img src="{{ asset('img/human.png')}}" class="employees-img">
-        <h3 class="card-title"><a href="http://localhost/employees/1">佐藤太郎</a></h3>
-        <div class="card-icon">
-          <a href="https://twitter.com/?lang=ja"><img src="{{ asset('img/twitter.png')}}" alt="Twitterのアイコン" class="icon"></a>
-          <a href="https://github.co.jp/"><img src="{{ asset('img/github.png')}}" alt="GitHubのアイコン" class="icon"></a>
-        </div>
-        <h4 class="h4">PM </h4>
-        <h5>言語</h5>
-        <ul>
-          <li data-toggle="tooltip" data-placement="top" title="Tooltip on top">HTML</li>
-          <li data-toggle="tooltip" data-placement="top" title="Tooltip on top">CSS</li>
-          <li data-toggle="tooltip" data-placement="top" title="Tooltip on top">JavaScript</li>
-        </ul>
-      </div>
-    </div>
-    <div class="card" style="width: 18rem; height: auto;">
-      <div class="card-body">
-        <img src="{{ asset('img/human.png')}}" class="employees-img">
-        <h3 class="card-title"><a href="http://localhost/employees/1">佐藤太郎</a></h3>
-        <div class="card-icon">
-          <a href="https://twitter.com/?lang=ja"><img src="{{ asset('img/twitter.png')}}" alt="Twitterのアイコン" class="icon"></a>
-          <a href="https://github.co.jp/"><img src="{{ asset('img/github.png')}}" alt="GitHubのアイコン" class="icon"></a>
-        </div>
-        <h4 class="h4">PM </h4>
-        <h5>言語</h5>
-        <ul>
-          <li data-toggle="tooltip" data-placement="top" title="Tooltip on top">HTML</li>
-          <li data-toggle="tooltip" data-placement="top" title="Tooltip on top">CSS</li>
-          <li data-toggle="tooltip" data-placement="top" title="Tooltip on top">JavaScript</li>
-        </ul>
-      </div>
-    </div>
-    <div class="card" style="width: 18rem; height: auto;">
-      <div class="card-body">
-        <img src="{{ asset('img/human.png')}}" class="employees-img">
-        <h3 class="card-title"><a href="http://localhost/employees/1">佐藤太郎</a></h3>
-        <div class="card-icon">
-          <a href="https://twitter.com/?lang=ja"><img src="{{ asset('img/twitter.png')}}" alt="Twitterのアイコン" class="icon"></a>
-          <a href="https://github.co.jp/"><img src="{{ asset('img/github.png')}}" alt="GitHubのアイコン" class="icon"></a>
-        </div>
-        <h4 class="h4">PM </h4>
-        <h5>言語</h5>
-        <ul>
-          <li data-toggle="tooltip" data-placement="top" title="Tooltip on top">HTML</li>
-          <li data-toggle="tooltip" data-placement="top" title="Tooltip on top">CSS</li>
-          <li data-toggle="tooltip" data-placement="top" title="Tooltip on top">JavaScript</li>
-        </ul>
-      </div>
-    </div>
-    <div class="card" style="width: 18rem; height: auto;">
-      <div class="card-body">
-        <img src="{{ asset('img/human.png')}}" class="employees-img">
-        <h3 class="card-title"><a href="http://localhost/employees/1">佐藤太郎</a></h3>
-        <div class="card-icon">
-          <a href="https://twitter.com/?lang=ja"><img src="{{ asset('img/twitter.png')}}" alt="Twitterのアイコン" class="icon"></a>
-          <a href="https://github.co.jp/"><img src="{{ asset('img/github.png')}}" alt="GitHubのアイコン" class="icon"></a>
-        </div>
-        <h4 class="h4">PM </h4>
-        <h5>言語</h5>
-        <ul>
-          <li data-toggle="tooltip" data-placement="top" title="Tooltip on top">HTML</li>
-          <li data-toggle="tooltip" data-placement="top" title="Tooltip on top">CSS</li>
-          <li data-toggle="tooltip" data-placement="top" title="Tooltip on top">JavaScript</li>
-        </ul>
-      </div>
-    </div>
+  @endforeach
+</x-app-layout> 
 
-</x-app-layout>
+<!-- data-toggle="tooltip" data-placement="top" title="Tooltip on top" -->
