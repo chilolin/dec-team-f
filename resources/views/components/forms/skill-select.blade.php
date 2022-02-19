@@ -1,6 +1,6 @@
-<div class="skill-select-wrapper">
+<div class="{{ $attributes->get('class') }}">
     <input
-        {{ $attributes }}
+        id="{{ $attributes->get('id') }}"
         type="text"
         class="form-control"
         data-role="tagsinput"
@@ -17,6 +17,19 @@
                 candidates.initialize();
 
                 $('input[data-role="tagsinput"]').tagsinput({
+                    tagClass: function(item) {
+                        switch (item.skillType) {
+                            case 'language': return 'badge badge-primary';
+                            case 'framework': return 'badge badge-secondary';
+                            case 'design_pattern': return 'badge badge-success';
+                            case 'process': return 'badge badge-danger';
+                            case 'proceeding': return 'badge badge-warning';
+                            case 'engineer_type': return 'badge badge-info';
+                            case 'position': return 'badge badge-light';
+                            case 'database': return 'badge badge-dark';
+                            case 'infrastructure': return 'badge badge-default';
+                        }
+                    },
                     itemValue: 'value',
                     itemText: 'text',
                     typeaheadjs: {

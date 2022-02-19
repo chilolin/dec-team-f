@@ -27,18 +27,7 @@
 
     <div class="content">
         <div class="container">
-            <x-forms.skill-select skill_type="all" id="accordion-search-tagsinput" />
-            <div class="row">
-                <x-employees.search-accordion skill_type="language" class="col"/>
-                <x-employees.search-accordion skill_type="framework" class="col"/>
-                <x-employees.search-accordion skill_type="design_pattern" class="col"/>
-                <x-employees.search-accordion skill_type="process" class="col"/>
-                <x-employees.search-accordion skill_type="proceeding" class="col"/>
-                <x-employees.search-accordion skill_type="engineer_type" class="col"/>
-                <x-employees.search-accordion skill_type="position" class="col"/>
-                <x-employees.search-accordion skill_type="database" class="col"/>
-                <x-employees.search-accordion skill_type="infrastructure" class="col"/>
-            </div>
+            <x-employees.search-box />
 
             <form method="GET" action={{ route('employees.index') }}>
             @csrf

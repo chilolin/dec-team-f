@@ -7,12 +7,13 @@
         }
         .accordion .card {
             position: unset;
+            margin-bottom: 0px;
         }
         .accordion .card-header {
             width: 100%;
             height: 40px;
             padding: 0px;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.125)!important;
+            border-bottom: 1px solid!important;
         }
         .accordion .card-header-text {
             width: 100%;
@@ -23,9 +24,10 @@
             font-size: 14px;
             color: #333333;
             cursor: pointer;
+            border-bottom: 1px solid rgba(0,0,0,.15);
         }
         .accordion .collapsed {
-            background-color: #FFCC66;
+            background-color: #fff7e7;
         }
         .accordion .collapse {
             width: 100%;
@@ -38,6 +40,12 @@
             top: 40px;
             background-color: #fff;
         }
+        .accordion .collapse.show {
+            display: block;
+        }
+        .accordion.upper .collapse {
+            z-index: 1100;
+        }
         .accordion .collapsing {
             width: 100%;
             position: absolute;
@@ -49,8 +57,8 @@
             border: 1px solid rgba(0,0,0,.15);
             top: 40px;
         }
-        .accordion .collapse.show {
-            display: block;
+        .accordion.upper .collapsing {
+            z-index: 1100;
         }
         .accordion .custom-control-label::before,.custom-control-label::after {
             top: 0.2px;
@@ -72,29 +80,44 @@
 
         <div id="collapse-{{ $skillType }}" class="collapse" aria-labelledby="heading-{{ $skillType }}" data-parent="#accordion-{{ $skillType }}">
             <div class="card-body">
-                @foreach ($skills as $index => $skill)
+                @foreach ($skills as $skill)
                     <div class="custom-control custom-checkbox ml-2 mb-2">
                         <input
                             type="checkbox"
-                            class="custom-control-input accordion-check-{{ $skillType }}-{{ $index }}"
-                            id="accordion-check-{{ $skillType }}-{{ $index }}"
+                            class="custom-control-input accordion-check-{{ $skillType }}-{{ $skill['id'] }}"
+                            id="accordion-check-{{ $skillType }}-{{ $skill['id'] }}"
                         >
-                        <label class="custom-control-label" for="accordion-check-{{ $skillType }}-{{ $index }}">{{ $skill['name'] }}</label>
+                        <label class="custom-control-label" for="accordion-check-{{ $skillType }}-{{ $skill['id'] }}">{{ $skill['name'] }}</label>
                     </div>
                     <script>
                         (function($) {
                             const skillType = @json($skillType);
-                            const checkboxIndex = @json($index);
                             const skillId = @json($skill['id']);
                             const skillName = @json($skill['name']);
 
-                            $(`#accordion-check-${skillType}-${checkboxIndex}`).change(function(event) {
+                            $(`#accordion-check-${skillType}-${skillId}`).change(function(event) {
                                 if (event.target.checked) {
-                                    $('#accordion-search-tagsinput').tagsinput('add', { value: skillId, text: skillName});
+                                    $('#accordion-search-tagsinput').tagsinput('add', { value: skillId, text: skillName, skillType: skillType});
                                 } else {
-                                    $('#accordion-search-tagsinput').tagsinput('remove', { value: skillId, text: skillName});
+                                    $('#accordion-search-tagsinput').tagsinput('remove', { value: skillId, text: skillName, skillType: skillType});
                                 }
                             })
+
+                            $('#accordion-search-tagsinput').on('beforeItemAdd', function(event) {
+                                const tagCheckbox = $(`#accordion-check-${event.item.skill_type}-${event.item.value}`);
+
+                                if(!tagCheckbox.prop('checked')) {
+                                    tagCheckbox.prop('checked', true);
+                                }
+                            });
+
+                            $('#accordion-search-tagsinput').on('beforeItemRemove', function(event) {
+                                const tagCheckbox = $(`#accordion-check-${event.item.skill_type}-${event.item.value}`);
+
+                                if(tagCheckbox.prop('checked')) {
+                                    tagCheckbox.prop('checked', false);
+                                }
+                            });
                         })(window.jQuery);
                     </script>
                 @endforeach

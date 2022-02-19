@@ -33,6 +33,7 @@ class SkillSelect extends Component
             return [
                 'value' => $skill->id,
                 'text' => $skill->name,
+                'skillType' => $skill->skill_type,
             ];
         });
 
