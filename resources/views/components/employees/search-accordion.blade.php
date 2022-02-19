@@ -27,7 +27,7 @@
             border-bottom: 1px solid rgba(0,0,0,.15);
         }
         .accordion .collapsed {
-            background-color: #fff7e7;
+            background-color: #f1f1f1;
         }
         .accordion .collapse {
             width: 100%;
@@ -104,7 +104,7 @@
                             })
 
                             $('#accordion-search-tagsinput').on('beforeItemAdd', function(event) {
-                                const tagCheckbox = $(`#accordion-check-${event.item.skill_type}-${event.item.value}`);
+                                const tagCheckbox = $(`#accordion-check-${event.item.skillType}-${event.item.value}`);
 
                                 if(!tagCheckbox.prop('checked')) {
                                     tagCheckbox.prop('checked', true);
@@ -112,7 +112,7 @@
                             });
 
                             $('#accordion-search-tagsinput').on('beforeItemRemove', function(event) {
-                                const tagCheckbox = $(`#accordion-check-${event.item.skill_type}-${event.item.value}`);
+                                const tagCheckbox = $(`#accordion-check-${event.item.skillType}-${event.item.value}`);
 
                                 if(tagCheckbox.prop('checked')) {
                                     tagCheckbox.prop('checked', false);
