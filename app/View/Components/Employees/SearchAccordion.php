@@ -2,18 +2,22 @@
 
 namespace App\View\Components\Employees;
 
+use App\Models\Skill;
 use Illuminate\View\Component;
 
 class SearchAccordion extends Component
 {
+    public $skillType;
+    public $skills;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($skillType)
     {
-        //
+        $this->skillType = $skillType;
+        $this->skills = Skill::where('skill_type', $skillType)->get();
     }
 
     /**

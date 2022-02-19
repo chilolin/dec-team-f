@@ -15,7 +15,11 @@ class SkillSelect extends Component
      */
     public function __construct($skillType)
     {
-        $this->candidateSkills = Skill::where('skill_type', $skillType)->get();
+        if ($skillType == 'all') {
+            $this->candidateSkills = Skill::all();
+        } else {
+            $this->candidateSkills = Skill::where('skill_type', $skillType)->get();
+        }
     }
 
     /**
