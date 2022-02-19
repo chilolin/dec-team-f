@@ -18,9 +18,11 @@
     <x-matters.create-input-group label="開発工程">
         {{ $skills['process'] }}
     </x-matters.create-input-group>
-    <x-matters.create-input-group label="開発の進め方">
-        {{ $skills['proceeding'] }}
-    </x-matters.create-input-group>
+    @if (array_key_exists('proceeding', $skills))
+        <x-matters.create-input-group label="開発の進め方">
+            {{ $skills['proceeding'] }}
+        </x-matters.create-input-group>
+    @endif
     @if (array_key_exists('design_pattern', $skills))
         <x-matters.create-input-group label="デザインパターン">
             {{ $skills['design_pattern'] }}
