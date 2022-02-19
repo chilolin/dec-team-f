@@ -7,7 +7,7 @@
 
     <form method='POST' action='{{ route('employees.index') }}'>
         <div class="row">
-            <x-forms.skill-select skill_type="all" id="accordion-search-tagsinput" class="col-10" />
+            <x-forms.skill-select skill_type="all" id="accordion-search-tagsinput" class="col-10" name="search-box-input" />
             <button type="submit" class="col-2 btn btn-fill btn-warning btn-sm">検索する</button>
         </div>
     </form>

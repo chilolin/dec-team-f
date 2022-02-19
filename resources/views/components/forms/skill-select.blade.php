@@ -1,6 +1,7 @@
 <div class="{{ $attributes->get('class') }}">
     <input
         id="{{ $attributes->get('id') }}"
+        name="{{ $attributes->get('name') }}"
         type="text"
         class="form-control"
         data-role="tagsinput"

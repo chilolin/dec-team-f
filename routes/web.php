@@ -27,8 +27,6 @@ Route::middleware('auth')->group(function() {
 
     // 社員画面
     Route::prefix('employees')->group(function() {
-        // Route::resource('/', SearchController::class, ['only' => ['index']]);
-
         Route::get('/', [UserController::class, 'search'])->name('employees.index');
 
         Route::get('/{id}', [UserController::class, 'show'])->name('employees.show');
