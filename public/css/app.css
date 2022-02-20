@@ -11,3 +11,7 @@
 .custom-is-invalid {
     border-color: #dc3545 !important;
 }
+
+.rating-container .caption-secondary {
+    display: none;
+}

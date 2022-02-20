@@ -1,22 +1,12 @@
 <?php
 
-namespace Database\Factories;
+namespace Database\Seeders;
 
-use App\Models\Skill;
-use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
-class SkillFactory extends Factory
+class SkillSeeder extends Seeder
 {
-    /**
-     * The name of the factory's corresponding model.
-     *
-     * @var string
-     */
-    protected $model = Skill::class;
-
-    /**
-     * スキル一覧
-     */
     public static $skills = [
         [
             'skill_type' => 'language',
@@ -291,16 +281,28 @@ class SkillFactory extends Factory
             'version' => null,
         ],
     ];
-
     /**
-     * Define the model's default state.
+     * Run the database seeds.
      *
-     * @return array
+     * @return void
      */
-    public function definition()
+    public function run()
     {
-
-
-        return self::$skills[random_int(0, count(self::$skills)-1)];
+        foreach (self::$skills as $skill) {
+            if(
+                DB::table('skills')
+                ->where([
+                    ['skill_type', '=', $skill['skill_type']],
+                    ['name', '=', $skill['name']],
+                ])
+                ->get()
+                ->isEmpty()
+            ){
+                DB::table('skills')->insert(array_merge($skill, [
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]));
+            }
+        }
     }
 }

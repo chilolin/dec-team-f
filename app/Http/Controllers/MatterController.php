@@ -17,7 +17,13 @@ class MatterController extends Controller
     {
         $this->tagsinput = new TagsinputController();
     }
-
+    
+    public function index() {
+        $matters = Matter::all();  
+        
+        return view('matters.index', ['matters' => $matters]);
+    }
+    
     public function create()
     {
         $employees = User::all();

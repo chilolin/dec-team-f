@@ -29,6 +29,8 @@ Route::middleware('auth')->group(function() {
     Route::prefix('employees')->group(function() {
         // Route::resource('/', SearchController::class, ['only' => ['index']]);
 
+        Route::get('/', [UserController::class, 'index'])->name('employees.index');
+
         Route::get('/', [UserController::class, 'search'])->name('employees.index');
 
         Route::get('/{id}', [UserController::class, 'show'])->name('employees.show');
@@ -44,9 +46,11 @@ Route::middleware('auth')->group(function() {
 
     // 案件画面
     Route::prefix('matters')->group(function() {
-        Route::get('/', function() {
-            return view('matters.index');
-        })->name('matters.index');
+        // Route::get('/', function() {
+        //     return view('matters.index');
+        // })->name('matters.index');
+        
+        Route::get('/', [MatterController::class, 'index'])->name('matters.index');
 
         Route::get('/create', [MatterController::class, 'create'])->name('matters.create');
 
