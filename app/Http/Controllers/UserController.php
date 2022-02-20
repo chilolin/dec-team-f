@@ -197,7 +197,7 @@ class UserController extends Controller
 
 
 
-        $users = array();
+        $users = User::all();
 
 
 
