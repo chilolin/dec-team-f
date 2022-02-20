@@ -68,12 +68,13 @@
 		.accordion .custom-control-input,.custom-control-label {
             font-size: 14px!important;
 			cursor: pointer;
+            text-transform: none!important;
 		}
     </style>
 
-    <div class="card">
-        <div class="card-header" id="heading-{{ $skillType }}">
-            <div class="card-header-text collapsed dropdown-toggle" data-toggle="collapse" data-target="#collapse-{{ $skillType }}" aria-expanded="false" aria-controls="collapse-{{ $skillType }}">
+    <div class="card {{ $borderType }}">
+        <div class="card-header {{ $borderType }}" id="heading-{{ $skillType }}">
+            <div class="card-header-text collapsed dropdown-toggle {{ $borderType }}" data-toggle="collapse" data-target="#collapse-{{ $skillType }}" aria-expanded="false" aria-controls="collapse-{{ $skillType }}">
                 {{ $skill_types_in_jp[$skillType] }}
             </div>
         </div>

@@ -26,9 +26,9 @@
                             case 'process': return 'badge badge-danger';
                             case 'proceeding': return 'badge badge-warning';
                             case 'engineer_type': return 'badge badge-info';
-                            case 'position': return 'badge badge-light';
+                            case 'position': return 'badge badge-pink';
                             case 'database': return 'badge badge-dark';
-                            case 'infrastructure': return 'badge badge-default';
+                            case 'infrastructure': return 'badge badge-purple';
                         }
                     },
                     itemValue: 'value',

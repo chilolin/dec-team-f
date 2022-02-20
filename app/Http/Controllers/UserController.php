@@ -16,8 +16,8 @@ class UserController extends Controller
         $users = User::all();
         return view('employees.index', ['users' => $users]);
     }
-    
-    
+
+
     /**
      * 社員詳細画面を表示。
      */
@@ -36,6 +36,7 @@ class UserController extends Controller
      */
     public function search(Request $request)
     {
+        ddd($request->all());
         //選択したスキルセットをNULLじゃなければ配列に入れる
         $search = array();
         if ($request ->language != NULL){
@@ -53,15 +54,15 @@ class UserController extends Controller
             $search["process"] =  $request ->process;
         }
         if ($request ->proceeding != NULL){
-            
+
             $search["proceeding"] =  $request ->proceeding;
-        }        
+        }
         if ($request ->framework != NULL){
-            
+
             $search["framework"] =  $request ->framework;
         }
         if ($request ->infrastructure != NULL){
-            
+
             $search["infrastructure"] =  $request ->infrastructure;
         }
         if ($request ->database != NULL){
@@ -74,8 +75,8 @@ class UserController extends Controller
         }
 
 
-        
-        
+
+
         $matter_hit_each = array();
         $matter_hits = array();
         foreach($search as $output){
@@ -93,7 +94,7 @@ class UserController extends Controller
             //案件数で0の可能性があるので注意
             array_push($matter_hits, count($corresponding_skill));
         }
-        
+
 
 
         // //とりあえず取ってきた入れ子の可能性のある配列を漸化式的にすべてのスキルを含む案件
@@ -110,10 +111,10 @@ class UserController extends Controller
         }
 
 
-        return view('employees.index', 
+        return view('employees.index',
                                         ['users' => $users,
                                         'matters' => $matters,
-                                        'skills' => $skills, 
+                                        'skills' => $skills,
                                         'search' => $search,
                                         'matter_hit_each' => $matter_hit_each,
                                         'matter_hits' => $matter_hits
