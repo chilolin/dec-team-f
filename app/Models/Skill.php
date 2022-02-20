@@ -38,6 +38,7 @@ class Skill extends Model
 
     /**
      * このスキルを有する案件
+     * matter that includes the given skill
      */
     public function include_skill()
     {
