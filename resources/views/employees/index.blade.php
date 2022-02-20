@@ -8,23 +8,11 @@
 // // var_dump($matter_hit_each);
 // var_dump($matter_hits);
 
-// var_dump($co_occur_matrix);
+// ddd($co_occur_matrix);
 // ddd($co_occur_matrix_skill);
 
-
-
-// $test = array();
-// array_push($test,$check);
-// $bool = in_array($check,$test);
-// var_dump($bool);
-
-
-
-// $test = array(1,2,3);
-// $replace = array(array_search(1,$test) => $test[array_search(1, $test)] +1);
-// $changes = array_replace($test,$replace);
-// $test = $changes;
-// var_dump($test);
+// ddd($check);
+// ddd($users);
 
 // exit();
 ?>

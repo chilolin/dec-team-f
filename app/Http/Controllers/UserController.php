@@ -36,6 +36,12 @@ class UserController extends Controller
      */
     public function search(Request $request)
     {
+        //共起行列
+        // ----------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
         //選択したスキルセットをNULLじゃなければ配列に入れる
         //search(skill_type => skill)
         //まだmultipleの対応ができていない
@@ -86,7 +92,6 @@ class UserController extends Controller
 
 
 
-        $users = array();
         
         $matter_hit_each = array();
         $matter_hits = array();
@@ -97,9 +102,7 @@ class UserController extends Controller
             //corresponding_skill -> obejct(skill)
             $corresponding_skill = Skill::where('name', $output)->get(); 
 
-            // foreach($corresponding_skill as $corr){
-            //     array_push($users, $corr ->users);
-            // }
+
 
             
             foreach($corresponding_skill as $corr){
@@ -137,7 +140,10 @@ class UserController extends Controller
                         //$co_occur_counts -> array(int, int, ...)
                         
                         foreach($mat as $skill_in_mat){
+                            //only('id')でコレクションの中の対応するカラムの値を配列で持ってくる
                             $skill_in_mat = $skill_in_mat ->only('id');
+                            $skill_in_mat = $skill_in_mat['id'];
+                            
 
 
                             if (! in_array($skill_in_mat, $co_occur_skills,true)){
@@ -177,6 +183,9 @@ class UserController extends Controller
                 }
 
 
+
+
+
                 //共起行列の列として追加
                 array_push($co_occur_matrix_skill, $co_occur_skills);
                 array_push($co_occur_matrix, $co_occur_possible);
@@ -191,13 +200,51 @@ class UserController extends Controller
         
 
 
-        //とりあえず取ってきた入れ子の可能性のある配列を漸化式的にすべてのスキルを含む案件
-        // foreach
+
+
+        //共起行列完成
+        // ----------------------------------------------------------------------------------------------------------------------------------
+
+        //スキル全てを持つユーザーを持ってくる ->論理積で構わない
+        //なぜなら、NMFであとで考慮するから
+    
+        $users = array();
+
+        foreach($search as $output){
+            $corresponding_skill = Skill::where('name', $output)->get();
+            
+            foreach($corresponding_skill as $corr_skill){
+                //あるスキルを持つ全てのユーザー取得
+                $corresponding_users = $corr_skill ->users;
+                array_push($users, $corresponding_users);
+            }
+        }
 
 
 
+        //各スキルを含むユーザーの集合積をとる
+        $user_set_product = array();
 
-        $users = User::all();
+        foreach($users as $user){
+            foreach($user as $u){
+                //idだけとってきて集合積をとる
+                $u = $u ->only('id');
+                $u = $u['id'];
+
+                if(! in_array($u, $user_set_product)){
+                    array_push($user_set_product,$u);
+                }
+            }
+        }
+
+        //一回usersを空に
+        $users=array();
+        
+        foreach($user_set_product as $set){
+            array_push($users, User::find($set));
+        }
+
+        
 
 
 
@@ -208,6 +255,8 @@ class UserController extends Controller
                                         'matter_hit_each' => $matter_hit_each,
                                         'matter_hits' => $matter_hits,
                                         'co_occur_matrix_skill' => $co_occur_matrix_skill,
-                                        'co_occur_matrix' => $co_occur_matrix                                    ]);
+                                        'co_occur_matrix' => $co_occur_matrix,      
+                                        // 'check' => $check
+                                    ]);
     }
 }
