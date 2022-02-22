@@ -1,21 +1,21 @@
-<div {{ $attributes->merge(['class' => 'accordion']) }} id="accordion-{{ $skillType }}">
+<div {{ $attributes->merge(['class' => 'accordion search-accordion']) }} id="accordion-{{ $skillType }}">
     <style>
-        .accordion {
+        .search-accordion {
             position: relative;
             width: 100%;
             padding: 0px;
         }
-        .accordion .card {
+        .search-accordion .card {
             position: unset;
             margin-bottom: 0px;
         }
-        .accordion .card-header {
+        .search-accordion .card-header {
             width: 100%;
             height: 40px;
             padding: 0px;
             border-bottom: 1px solid!important;
         }
-        .accordion .card-header-text {
+        .search-accordion .card-header-text {
             width: 100%;
             height: 100%;
             padding: 10px 20px;
@@ -26,10 +26,10 @@
             cursor: pointer;
             border-bottom: 1px solid rgba(0,0,0,.15);
         }
-        .accordion .collapsed {
+        .search-accordion .collapsed {
             background-color: #f1f1f1;
         }
-        .accordion .collapse {
+        .search-accordion .collapse {
             width: 100%;
             position: absolute;
             left: 0;
@@ -40,13 +40,13 @@
             top: 40px;
             background-color: #fff;
         }
-        .accordion .collapse.show {
+        .search-accordion .collapse.show {
             display: block;
         }
-        .accordion.upper .collapse {
+        .search-accordion.upper .collapse {
             z-index: 1100;
         }
-        .accordion .collapsing {
+        .search-accordion .collapsing {
             width: 100%;
             position: absolute;
             left: 0;
@@ -57,15 +57,15 @@
             border: 1px solid rgba(0,0,0,.15);
             top: 40px;
         }
-        .accordion.upper .collapsing {
+        .search-accordion.upper .collapsing {
             z-index: 1100;
         }
-        .accordion .custom-control-label::before,.custom-control-label::after {
+        .search-accordion .custom-control-label::before,.custom-control-label::after {
             top: 0.2px;
             width: 1.25rem;
             height: 1.25rem;
         }
-		.accordion .custom-control-input,.custom-control-label {
+		.search-accordion .custom-control-input,.custom-control-label {
             font-size: 14px!important;
 			cursor: pointer;
             text-transform: none!important;

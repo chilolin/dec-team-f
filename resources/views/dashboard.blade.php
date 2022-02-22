@@ -27,7 +27,6 @@
 
     <div class="content">
         <div class="container">
-            <x-employees.search-box />
 
             <form method="GET" action="{{ route('employees.index') }}">
             @csrf

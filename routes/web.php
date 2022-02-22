@@ -29,6 +29,8 @@ Route::middleware('auth')->group(function() {
     Route::prefix('employees')->group(function() {
         Route::get('/', [UserController::class, 'search'])->name('employees.index');
 
+        Route::post('/search', [UserController::class, 'search'])->name('employees.search');
+
         Route::get('/{id}', [UserController::class, 'show'])->name('employees.show');
 
         Route::get('/practice_learning/{skill_type}/edit', [PracticeLearningController::class, 'edit'])->name('employees.practice_learning_edit');

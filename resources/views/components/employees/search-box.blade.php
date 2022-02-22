@@ -1,11 +1,15 @@
-<div class="search-box">
+<div {{ $attributes->merge(['class' => 'search-box']) }} >
     <style>
         .search-box .col-10 {
             padding: 0px;
         }
+        .search-box .row {
+            margin-left: 0px;
+            margin-right: 0px;
+        }
     </style>
 
-    <form method='GET' action='{{ route('employees.index') }}'>
+    <form method='POST' action='{{ route('employees.search') }}'>
         @csrf
         <div class="row">
             <x-forms.skill-select skill_type="all" id="accordion-search-tagsinput" class="col-10" name="skills" />

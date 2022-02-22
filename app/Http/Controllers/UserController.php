@@ -17,7 +17,6 @@ class UserController extends Controller
         return view('employees.index', ['users' => $users]);
     }
 
-
     /**
      * 社員詳細画面を表示。
      */
@@ -36,7 +35,6 @@ class UserController extends Controller
      */
     public function search(Request $request)
     {
-        ddd($request->all());
         //選択したスキルセットをNULLじゃなければ配列に入れる
         $search = array();
         if ($request ->language != NULL){

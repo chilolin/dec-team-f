@@ -1,16 +1,16 @@
-<div {{ $attributes->merge(['class' => 'card']) }}>
+<div {{ $attributes->merge(['class' => 'card skill-card']) }}>
     <style scoped>
-        .card {
+        .skill-card .card {
             color: #333333;
             margin-bottom: 0px;
         }
-        .card-title {
+        .skill-card .card-title {
             color: #333333;
         }
-        .to-edit-link {
+        .skill-card .to-edit-link {
             font-size: 13px;
         }
-        .list-group-item {
+        .skill-card .list-group-item {
             padding: 11px 7px 0 10px;
             margin-bottom: -15px;
         }
