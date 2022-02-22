@@ -1,13 +1,19 @@
 <?php
 
-// var_dump($users[0]);
+// var_dump($users);
 
-// var_dump($skills[1]);
 
 // var_dump($search);
 
-// var_dump($matter_hit_each);
+// // var_dump($matter_hit_each);
 // var_dump($matter_hits);
+
+// ddd($co_occur_matrix);
+// ddd($co_occur_matrix_skill);
+
+// ddd($check);
+// ddd($users);
+
 // exit();
 ?>
 
