@@ -67,7 +67,6 @@
             </div>
         @endforeach
     </div>
-
     {{-- <script>
         $(function () {
         $('[data-toggle="tooltip"]').tooltip()

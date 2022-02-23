@@ -35,6 +35,17 @@ class UserController extends Controller
      */
     public function search(Request $request)
     {
+        if (array_key_exists('skills', $request->all())) {
+            $skill_ids = explode(",", $request->skills);
+            $merge_skills = collect($skill_ids)
+                            ->reduce(function($merge_skills, $skill_id) {
+                                $skill = Skill::find($skill_id);
+                                $merge_skills[$skill->skill_type][] = $skill->name;
+                                return $merge_skills;
+                            }, []);
+            $request->merge($merge_skills);
+        }
+        // ddd($request->all());
         //共起行列
         // ----------------------------------------------------------------------------------------------------------------------------------
         //選択したスキルセットをNULLじゃなければ配列に入れる
