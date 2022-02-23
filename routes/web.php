@@ -25,6 +25,10 @@ Route::middleware('auth')->group(function() {
     // ダッシュボード
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
+    Route::get('/calender', function() {
+        return view('calender');
+    });
+
     // 社員画面
     Route::prefix('employees')->group(function() {
         // Route::resource('/', SearchController::class, ['only' => ['index']]);
@@ -49,7 +53,7 @@ Route::middleware('auth')->group(function() {
         // Route::get('/', function() {
         //     return view('matters.index');
         // })->name('matters.index');
-        
+
         Route::get('/', [MatterController::class, 'index'])->name('matters.index');
 
         Route::get('/create', [MatterController::class, 'create'])->name('matters.create');
