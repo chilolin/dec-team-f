@@ -11,7 +11,7 @@ const mix = require("laravel-mix");
  |
  */
 
-mix.ts("resources/ts/calender.tsx", "public/js");
+mix.ts("resources/ts/calendar.tsx", "public/js");
 
 if (mix.inProduction()) {
     mix.version();

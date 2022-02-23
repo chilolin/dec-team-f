@@ -25,8 +25,8 @@ Route::middleware('auth')->group(function() {
     // ダッシュボード
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
-    Route::get('/calender', function() {
-        return view('calender');
+    Route::get('/calendar', function() {
+        return view('calendar');
     });
 
     // 社員画面
