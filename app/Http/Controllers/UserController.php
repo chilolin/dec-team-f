@@ -115,7 +115,8 @@ class UserController extends Controller
                                         ['users' => $users,
                                         'points' => $points,
                                         'search' => $search,      
-                                        'check' => NULL
+                                        'check' => NULL,
+                                        'big_skill4' => NULL
                                     ]);
         } 
 
@@ -163,7 +164,8 @@ class UserController extends Controller
                     ['users' => $users,
                     'points' => $points,
                     'search' => $search,      
-                    'check' => NULL
+                    'check' => NULL,
+                    'big_skill4' => NULL
                 ]);
 
 
@@ -202,7 +204,8 @@ class UserController extends Controller
                             ['users' => $users,
                             'points' => $points,
                             'search' => $search,      
-                            'check' => NULL
+                            'check' => NULL,
+                            'big_skill4' => NULL
                             ]);
                         }
                         else{
@@ -562,13 +565,104 @@ class UserController extends Controller
 
 
         // ==================================================================================================================================
+        //重要スキル4つを取ってくる
+        //（usersの数）×4の配列
+        $big_skill4 = array();
 
+        //選択されたスキルの数を定義
+        $big_skill_count = count($search);
+        
+        //選択されたスキルが4つ以上なら
+        if($big_skill_count >= 4){
+            //始め4つのスキルのコレクションをbig_skill4に格納
+            $search_key = array_keys($search);
+            for($i=0; $i < 4 ; $i++){
+                $corresponding_skill = Skill::where('name', $search[$search_key[$i]])->get();
+
+                foreach($corresponding_skill as $corr){
+                    array_push($big_skill4,$corr);
+                }
+            }
+
+        } else{
+            //4つ未満であれば
+            //まず、選択されたスキルを全てbig_skill4に格納
+            $search_key = array_keys($search);
+            for($i=0; $i < $big_skill_count ; $i++){
+                $corresponding_skill = Skill::where('name', $search[$search_key[$i]])->get();
+
+                foreach($corresponding_skill as $corr){
+                    array_push($big_skill4,$corr);
+                }
+            }
+
+
+            //選択されたスキルを全てbig_skill4に格納後
+            //まず、、
+
+            //キーの同じ配列2つを作る
+            //キー：string(行番号vs列番号)
+            //score_arrayの（行、列）を保存
+            $big_skill_sort_keys = array();
+
+            //score_arrayの（行、列）の点数を保存
+            $big_skill_sort = array();
+
+            $score_rows = array_keys($score_array);
+
+            for ($i=0; $i<count($score_rows);$i++){
+                $score_columns = array_keys($score_array[$score_rows[$i]]);
+
+                for($j=0;$j<count($score_columns);$j++){
+                    $same_key = (string)$i . "vs" . (string) $j;
+                    $big_skill_sort_keys[(string)$same_key] = array($score_rows[$i],$score_columns[$j]);
+                    $big_skill_sort[(string)$same_key] = $score_array[$score_rows[$i]][$score_columns[$j]];
+                }
+            }
+
+            //$big_skill_sortをソート
+            arsort($big_skill_sort);
+            $same_keys = array_keys($big_skill_sort);
+
+            for($i=0;$i<count($same_keys);$i++){
+                $key = $same_keys[$i];
+                $skill_columns = $big_skill_sort_keys[$key][1];
+
+                $corresponding_skill = Skill::find($skill_columns);
+                $check = $corresponding_skill;
+
+                if (! in_array($corresponding_skill,$big_skill4)){
+                    array_push($big_skill4,$corresponding_skill);
+                    $big_skill_count++;
+                    if ($big_skill_count >= 4){
+                        break;
+                    }
+                }
+                
+            }
+
+
+            
+
+
+            }
+
+
+
+
+
+
+
+
+
+        // ==================================================================================================================================
 
         return view('employees.index', 
                                         ['users' => $users,
                                         'points' => $points,
                                         'search' => $search,     
-                                        'check' => $check
+                                        'check' => $check,
+                                        'big_skill4' => $big_skill4
                                     ]);
     }
 }
