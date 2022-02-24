@@ -15280,7 +15280,8 @@ var createApiUrl = function createApiUrl(pathname) {
 var Calendar = function Calendar() {
   var _a = (0, react_1.useState)([]),
       initialEvents = _a[0],
-      setInitialEvents = _a[1];
+      setInitialEvents = _a[1]; // const [currentEvents, setCurrentEvents] = useState<EventApi[]>([]);
+
 
   (0, react_1.useEffect)(function () {
     (function () {
@@ -15300,8 +15301,8 @@ var Calendar = function Calendar() {
                 return {
                   id: matter.id.toString(),
                   title: matter.name,
-                  start: new Date(matter.start_at) // end: matter.end_at,
-
+                  start: matter.start_at,
+                  end: matter.end_at
                 };
               });
               setInitialEvents(eventInput);
@@ -15312,17 +15313,22 @@ var Calendar = function Calendar() {
         });
       });
     })();
-  }, []);
+  }, []); // const handleEvents = useCallback((events: EventApi[]) => {
+  //     console.log("events:", events); // 確認用
+  //     setCurrentEvents(events);
+  // }, []);
+
   return react_1["default"].createElement("div", null, react_1["default"].createElement(react_2["default"], {
     plugins: [daygrid_1["default"]],
     initialView: "dayGridMonth",
-    initialEvents: initialEvents,
+    events: initialEvents,
+    // eventsSet={handleEvents}
     locales: locales_all_1["default"],
     locale: "ja"
   }));
 };
 
-react_dom_1["default"].render(react_1["default"].createElement(Calendar, null), document.getElementById("app"));
+react_dom_1["default"].render(react_1["default"].createElement(Calendar, null), document.getElementById("calendar"));
 
 /***/ }),
 

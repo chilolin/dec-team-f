@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import ReactDOM from "react-dom";
 import axios from "axios";
 import FullCalendar, { EventApi, EventInput } from "@fullcalendar/react";
@@ -21,6 +21,7 @@ const createApiUrl = (pathname: string) => {
 
 const Calendar = () => {
     const [initialEvents, setInitialEvents] = useState<EventInput[]>([]);
+    // const [currentEvents, setCurrentEvents] = useState<EventApi[]>([]);
 
     useEffect(() => {
         (async () => {
@@ -29,19 +30,25 @@ const Calendar = () => {
             const eventInput: EventInput[] = data.map((matter) => ({
                 id: matter.id.toString(),
                 title: matter.name,
-                start: new Date(matter.start_at),
-                // end: matter.end_at,
+                start: matter.start_at,
+                end: matter.end_at,
             }));
             setInitialEvents(eventInput);
         })();
     }, []);
+
+    // const handleEvents = useCallback((events: EventApi[]) => {
+    //     console.log("events:", events); // 確認用
+    //     setCurrentEvents(events);
+    // }, []);
 
     return (
         <div>
             <FullCalendar
                 plugins={[dayGridPlugin]}
                 initialView="dayGridMonth"
-                initialEvents={initialEvents}
+                events={initialEvents}
+                // eventsSet={handleEvents}
                 locales={allLocales}
                 locale="ja"
             />
@@ -49,4 +56,4 @@ const Calendar = () => {
     );
 };
 
-ReactDOM.render(<Calendar />, document.getElementById("app"));
+ReactDOM.render(<Calendar />, document.getElementById("calendar"));
