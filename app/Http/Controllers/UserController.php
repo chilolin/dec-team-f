@@ -35,15 +35,8 @@ class UserController extends Controller
      */
     public function search(Request $request)
     {
-        if (array_key_exists('skills', $request->all())) {
-            $skill_ids = explode(",", $request->skills);
-            $merge_skills = collect($skill_ids)
-                            ->reduce(function($merge_skills, $skill_id) {
-                                $skill = Skill::find($skill_id);
-                                $merge_skills[$skill->skill_type][] = $skill->name;
-                                return $merge_skills;
-                            }, []);
-            $request->merge($merge_skills);
+        if ($request->session()->has('search_criteria')) {
+            $request->merge($request->session()->pull('search_criteria'));
         }
         // ddd($request->all());
         //共起行列
@@ -219,8 +212,25 @@ class UserController extends Controller
                 'matter_hits' => $matter_hits,
                 'co_occur_matrix_skill' => $co_occur_matrix_skill,
                 'co_occur_matrix' => $co_occur_matrix,
-                // 'check' => $check
+                // 'check' => $request->all(),
             ]
         );
+    }
+
+    public function searchByBox(Request $request) {
+        if ($request->skills == '') {
+            return redirect()->route('employees.index')->withInput();
+        }
+
+        $skill_ids = explode(",", $request->skills);
+        $merge_skills = collect($skill_ids)
+                        ->reduce(function($merge_skills, $skill_id) {
+                            $skill = Skill::find($skill_id);
+                            $merge_skills[$skill->skill_type][] = $skill->id;
+                            return $merge_skills;
+                        }, []);
+        $request->session()->put('search_criteria', $merge_skills);
+
+        return redirect()->route('employees.index')->withInput();
     }
 }
