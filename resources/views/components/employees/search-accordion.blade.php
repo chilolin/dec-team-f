@@ -27,7 +27,8 @@
             border-bottom: 1px solid rgba(0,0,0,.15);
         }
         .search-accordion .collapsed {
-            background-color: #f1f1f1;
+            /* background-color: #f1f1f1; */
+            background-color: #fff;
         }
         .search-accordion .collapse {
             width: 100%;
@@ -41,7 +42,7 @@
             background-color: #fff;
         }
         .search-accordion .collapse.show {
-            display: block;
+            display: block
         }
         .search-accordion.upper .collapse {
             z-index: 1100;
@@ -72,9 +73,9 @@
 		}
     </style>
 
-    <div class="card {{ $borderType }}">
-        <div class="card-header {{ $borderType }}" id="heading-{{ $skillType }}">
-            <div class="card-header-text collapsed dropdown-toggle {{ $borderType }}" data-toggle="collapse" data-target="#collapse-{{ $skillType }}" aria-expanded="false" aria-controls="collapse-{{ $skillType }}">
+    <div class="card {{ $borderType }} rounded">
+        <div class="card-header {{ $borderType }} rounded" id="heading-{{ $skillType }}">
+            <div class="card-header-text collapsed dropdown-toggle {{ $borderType }} rounded" data-toggle="collapse" data-target="#collapse-{{ $skillType }}" aria-expanded="false" aria-controls="collapse-{{ $skillType }}">
                 {{ $skill_types_in_jp[$skillType] }}
             </div>
         </div>

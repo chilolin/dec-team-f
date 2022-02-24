@@ -46,9 +46,9 @@
                     </div>
 
                     <div class="card-footer">
-                        <select name="language" class="form-select form-control text-center" size="5"  multiple aria-label=" .form-select-lg example">
+                        <select name="language[]" class="form-select form-control text-center" size="5"  multiple aria-label=" .form-select-lg example">
                             @for ($i = 0; $i < count($language); $i++){
-                                <option value="<?php echo($language[$i]['name']) ?>"><?php echo($language[$i]["name"])?></option>
+                                <option value="<?php echo($language[$i]['id']) ?>"><?php echo($language[$i]["name"])?></option>
                             }
                             @endfor
                             <!-- <option value="Bash">
@@ -130,9 +130,9 @@
                     </div>
 
                     <div class="card-footer">
-                        <select name="framework" class="form-select form-control text-center" size="5"  multiple aria-label=" .form-select-lg example">
+                        <select name="framework[]" class="form-select form-control text-center" size="5"  multiple aria-label=" .form-select-lg example">
                             @for ($i = 0; $i < count($framework); $i++){
-                                <option value="<?php echo($framework[$i]['name'] )?>"><?php echo($framework[$i]["name"])?></option>
+                                <option value="<?php echo($framework[$i]['id'] )?>"><?php echo($framework[$i]["name"])?></option>
                             }
                             @endfor
                             <!-- <option value="Ruby on Rails">
