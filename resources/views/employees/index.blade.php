@@ -2,7 +2,7 @@
 
 // ddd($search);
 
-// ddd($check);
+// var_dump($check);
 // ddd($users);
 // ddd($points);
 
