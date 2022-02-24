@@ -118,6 +118,8 @@ class UserController extends Controller
                                         'check' => NULL
                                     ]);
         } 
+
+        
         //スキルの集合積
         else{
             $users = array();
@@ -132,28 +134,108 @@ class UserController extends Controller
                 }
             }
             //各スキルを含むユーザーの集合積をとる
+
+
+            //１つ前までの集合積としてuser_copyを定義
+            //スキルAとスキルB両方含むユーザーidを保存する
             $user_set_product = array();
-    
+
+            
             foreach($users as $user){
+                //foreachを繰り返す過程で
+                $user_copy = array();
+
                 foreach($user as $u){
-                    //idだけとってきて集合積をとる
+                    //idだけとってきて配列user_copyに入れる
                     $u = $u ->only('id');
                     $u = $u['id'];
-    
-                    if(! in_array($u, $user_set_product)){
-                        array_push($user_set_product,$u);
-                    }
-                    //一回usersを空に
-                    $users=array();
-                    
-                    //スキルidからユーザーのコレクションを取得
-                    foreach($user_set_product as $set){
-                        array_push($users, User::find($set));
-                    }
+                    array_push($user_copy,$u);
                 }
-            }
-        }
 
+                //何も入っていない、つまりそのスキルを持っているユーザーがいなければ
+                //ユーザーには何も入れず、ブレードに返す
+                if( empty ($user_copy)){
+                    $users = array();
+                    //ポイントは計算できないので'--'を入れておく
+                    $points = array();
+
+                    return view('employees.index', 
+                    ['users' => $users,
+                    'points' => $points,
+                    'search' => $search,      
+                    'check' => NULL
+                ]);
+
+
+                }
+                
+                else{
+                    //始めのスキルを持つ全てユーザーを入れるときは
+                    if ( empty($user_set_product)){
+                        //user_set_productに格納
+                        foreach($user_copy as $copy){
+                            array_push($user_set_product,$copy);
+                        }
+
+                    }else{
+                        //その前の繰り返しまでに出たuser_set_productの要素が
+                        //取得したユーザーidにあれば残す
+                        
+                        //残すための配列を作っておく
+                        $set_product_copy = array();
+
+                        foreach($user_set_product as $set){
+                            if( in_array($set,$user_copy)){
+                                array_push($set_product_copy,$set);
+                            }
+                        }
+
+                        //$set_product_copyが空なら対称となるユーザーはいない
+                        //いたら&user_set_productに戻す
+
+                        if( empty($set_product_copy) ){
+                            $users = array();
+                            //ポイントは計算できないので'--'を入れておく
+                            $points = array();
+        
+                            return view('employees.index', 
+                            ['users' => $users,
+                            'points' => $points,
+                            'search' => $search,      
+                            'check' => NULL
+                            ]);
+                        }
+                        else{
+                            $user_set_product = $set_product_copy;
+                        }
+
+
+
+
+                        
+                    }
+
+                }
+
+
+
+                
+
+
+            }
+            
+            
+            
+        }
+        
+        
+        //一回usersを空に
+        $users = array();
+
+        //スキルidからユーザーのコレクションを取得
+        foreach($user_set_product as $set){
+            array_push($users, User::find($set));
+        }
 
 
         // ==================================================================================================================================
@@ -373,7 +455,7 @@ class UserController extends Controller
 
             //このユーザーが持ってるスキル全部取る
             $skill_in_user = $user -> skills;
-
+            
             // $check = $skill_in_user;
 
             //持ってるスキルが0じゃなければ、
