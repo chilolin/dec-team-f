@@ -3,10 +3,15 @@
     Tip 1: You can change the color of the sidebar using: data-color="purple | blue | green | orange | red"
     Tip 2: you can also add an image using data-image tag
 -->
+    <style>
+        .sidebar-wrapper .logo {
+            padding: 0px;
+        }
+    </style>
     <div class="sidebar-wrapper">
         <div class="logo">
-            <a href="https://e3sys.co.jp/" class="simple-text">
-                <img src="{{asset('img/e3sys_logo.png')}}" width="100%" height=100%">
+            <a href="{{ route('dashboard') }}" class="simple-text">
+                <img src="{{asset('img/logo.png')}}" height=50px">
             </a>
         </div>
         <ul class="nav">
