@@ -11,68 +11,59 @@
 ?>
 
 <x-app-layout>
-  <x-slot name="title">
-    社員一覧
-  </x-slot>
+    <x-slot name="title">
+        社員一覧
+    </x-slot>
 
-  <style>
-    .content {
-      display: flex;
-      flex-flow: row wrap;
-      justify-content: space-around;
-    }
+    <style>
+        .search-container {
+            padding: 0px 27px;
+        }
+        .container {
+            display: flex;
+            flex-flow: row wrap;
+            justify-content: space-around;
+        }
+        .custom-card {
+            flex-direction: row;
+            width: 28rem;
+            height: auto;
+        }
+        .card-info {
+            margin: 28px 16px;
+        }
+        .icon {
+            width: 24px;
+            height: auto;
+            margin: 8px 4px;
+        }
+        .card-text {
+            margin-top: 16px;
+        }
+    </style>
 
-    .card {
-      flex-direction: row;
-      width: 30rem;
-      height: auto;
-    }
-
-    .card-info {
-      margin: 28px 16px;
-    }
-     
-    .icon {
-      width: 24px; 
-      height: auto;  
-      margin: 8px 4px;
-    }
-
-    .card-text {
-      margin-top: 16px; 
-    }
-  </style>
-  <script>
-    $(function () {
-      $('[data-toggle="tooltip"]').tooltip()
-    })
-  </script>
-
-  @if(! empty($users))
-    @for($i=0;$i < count($users); $i++)
-      <div class="card">
-        <div class="card-info">
-          <h3 class="card-title"><a href="{{ route('employees.show', ['id' => Auth::id()])}}">{{ $users[$i]-> name }}</a></h3>
-          <a href="https://twitter.com/?lang=ja"><i class="bi bi-twitter"></i></a>
-          <a href="https://github.co.jp/"><i class="bi bi-github"></i></a>
-        </div>
-        <div class="card-body">
-          @if(gettype($points[$i]) != 'string')
-            <p class="card-text">オススメ度：{{$points[$i]}}</p>
-          @endif
-
-          <p class="card-text">スキル：</p>
-
-          </div>
-      </div>
-    @endfor
-  
-  @else <p>選択されたスキルを全て持つユーザーがいませんでした</p>
-
-  @endif
-
-
-
-</x-app-layout> 
-
-<!-- data-toggle="tooltip" data-placement="top" title="Tooltip on top" -->
+    <div class="search-container mb-5">
+        <x-employees.search-box />
+    </div>
+    <div class="container">
+        @if(! empty($users))
+            @foreach($users as $index => $user)
+                <div class="card custom-card">
+                    <div class="card-info">
+                        <h3 class="card-title"><a href="{{ route('employees.show', ['id' => $user['id']])}}">{{ $user-> name }}</a></h3>
+                        <a href="https://twitter.com/?lang=ja"><img src="{{ asset('img/twitter.png')}}" alt="Twitterのアイコン" class="icon"></a>
+                        <a href="https://github.co.jp/"><img src="{{ asset('img/github.png')}}" alt="GitHubのアイコン" class="icon"></a>
+                    </div>
+                    <div class="card-body">
+                        @if(gettype($points[$index]) != 'string')
+                            <p class="card-text">オススメ度：{{$points[$index]}}</p>
+                        @endif
+                        <p class="card-text">スキル：</p>
+                    </div>
+                </div>
+            @endforeach
+        @else
+            <p>選択されたスキルを全て持つユーザーがいませんでした</p>
+        @endif
+    </div>
+</x-app-layout>

@@ -368,8 +368,11 @@
                     return self.options.itemValue(item).toString();
                 });
 
-            // self.$element.val(val.join(self.options.delimiter));
-            self.$element.val(JSON.stringify(self.itemsMap));
+            if (self.options.freeInput) {
+                self.$element.val(JSON.stringify(self.itemsMap));
+            } else {
+                self.$element.val(val.join(self.options.delimiter));
+            }
 
             if (self.options.triggerChange) self.$element.trigger("change");
         },

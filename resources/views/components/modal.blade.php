@@ -95,9 +95,9 @@
                                                                         data-readonly="{{ $skill['disabled'] ? "true" : '' }}"
 																	>
 																	<input
-																			type="hidden"
-																			name="skills[{{ $skill_type }}][{{ $index }}][id]"
-																			value="{{ $skill['id'] }}"
+                                                                        type="hidden"
+                                                                        name="skills[{{ $skill_type }}][{{ $index }}][id]"
+                                                                        value="{{ $skill['id'] }}"
 																	>
 																</div>
 															@endforeach

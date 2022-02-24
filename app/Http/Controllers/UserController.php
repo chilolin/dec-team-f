@@ -11,22 +11,21 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
-    public function index()
-    {
-        $users = User::all();
+    // public function index()
+    // {
+    //     $users = User::all();
 
-        //user_pointに点数0を入れる
-        $user_point = array();
-        foreach($users as $user){
-            $user_id = $user ->only('id');
-            $user_id = $user_id['id'];
-            $user_point[$user_id] = 0; 
-        }
+    //     //user_pointに点数0を入れる
+    //     $user_point = array();
+    //     foreach($users as $user){
+    //         $user_id = $user ->only('id');
+    //         $user_id = $user_id['id'];
+    //         $user_point[$user_id] = 0;
+    //     }
 
-        return view('employees.index', ['user_point' => $user_point]);
-    }
-    
-    
+    //     return view('employees.index', ['user_point' => $user_point]);
+    // }
+
     /**
      * 社員詳細画面を表示。
      */
@@ -44,10 +43,28 @@ class UserController extends Controller
      * 社員一覧を表示。
      */
     public function search(Request $request)
-    {   
+    {
+        if ($request->session()->has('search_criteria')) {
+            $search_criteria = $request->session()->pull('search_criteria');
+            $request->merge($search_criteria);
+            $request->session()->now(
+                'old_skills',
+                collect($search_criteria)
+                ->reduce(function($old_skills, $skill_names) {
+                    foreach ($skill_names as $skill_name) {
+                        $skill = Skill::firstWhere('name', $skill_name);
+                        if ($skill == null) continue;
+
+                        $old_skills[] = ['value' => $skill->id, 'text' => $skill->name, 'skillType' => $skill->skill_type];
+                    }
+                    return $old_skills;
+                }, [])
+            );
+        }
+        //共起行列
+        // ----------------------------------------------------------------------------------------------------------------------------------
         // ==================================================================================================================================
         //スキルセット取得
-
 
 
         //選択したスキルセットをNULLじゃなければ配列に入れる
@@ -63,8 +80,7 @@ class UserController extends Controller
         if ($request ->design_pattern != NULL){
             $search["design_pattern"] = $request ->design_pattern;
         }
-        if ($request ->position != NULL){
-
+        if ($request ->position != NULL) {
             $search["position"] =  $request ->position;
         }
         if ($request ->process != NULL){
@@ -72,11 +88,11 @@ class UserController extends Controller
             $search["process"] =  $request ->process;
         }
         if ($request ->proceeding != NULL){
-            
+
             $search["proceeding"] =  $request ->proceeding;
-        }        
+        }
         if ($request ->framework != NULL){
-            
+
             $search["framework"] =  $request ->framework;
         }
         if ($request ->database != NULL){
@@ -84,7 +100,7 @@ class UserController extends Controller
             $search["database"] =  $request ->database;
         }
         if ($request ->infrastructure != NULL){
-            
+
             $search["infrastructure"] =  $request ->infrastructure;
         }
         if ($request ->engineer_type != NULL){
@@ -99,8 +115,8 @@ class UserController extends Controller
 
         //スキル全てを持つユーザーを持ってくる ->論理積で構わない
         //なぜなら、NMFであとで考慮するから
-        
-        
+
+
         //スキルが入力されていないなら全てのユーザーを取ってくる
         if (empty($search)){
             $users = User::all();
@@ -111,23 +127,23 @@ class UserController extends Controller
                 array_push($points,'--');
             }
 
-            return view('employees.index', 
+            return view('employees.index',
                                         ['users' => $users,
                                         'points' => $points,
-                                        'search' => $search,      
+                                        'search' => $search,
                                         'check' => NULL,
                                         'big_skill4' => NULL
                                     ]);
-        } 
+        }
 
-        
+
         //スキルの集合積
         else{
             $users = array();
-            
+
             foreach($search as $output){
                 $corresponding_skill = Skill::where('name', $output)->get();
-                
+
                 foreach($corresponding_skill as $corr_skill){
                     //あるスキルを持つ全てのユーザー取得
                     $corresponding_users = $corr_skill ->users;
@@ -141,7 +157,7 @@ class UserController extends Controller
             //スキルAとスキルB両方含むユーザーidを保存する
             $user_set_product = array();
 
-            
+
             foreach($users as $user){
                 //foreachを繰り返す過程で
                 $user_copy = array();
@@ -160,17 +176,17 @@ class UserController extends Controller
                     //ポイントは計算できないので'--'を入れておく
                     $points = array();
 
-                    return view('employees.index', 
+                    return view('employees.index',
                     ['users' => $users,
                     'points' => $points,
-                    'search' => $search,      
+                    'search' => $search,
                     'check' => NULL,
                     'big_skill4' => NULL
                 ]);
 
 
                 }
-                
+
                 else{
                     //始めのスキルを持つ全てユーザーを入れるときは
                     if ( empty($user_set_product)){
@@ -182,7 +198,7 @@ class UserController extends Controller
                     }else{
                         //その前の繰り返しまでに出たuser_set_productの要素が
                         //取得したユーザーidにあれば残す
-                        
+
                         //残すための配列を作っておく
                         $set_product_copy = array();
 
@@ -199,11 +215,11 @@ class UserController extends Controller
                             $users = array();
                             //ポイントは計算できないので'--'を入れておく
                             $points = array();
-        
-                            return view('employees.index', 
+
+                            return view('employees.index',
                             ['users' => $users,
                             'points' => $points,
-                            'search' => $search,      
+                            'search' => $search,
                             'check' => NULL,
                             'big_skill4' => NULL
                             ]);
@@ -215,23 +231,23 @@ class UserController extends Controller
 
 
 
-                        
+
                     }
 
                 }
 
 
 
-                
+
 
 
             }
-            
-            
-            
+
+
+
         }
-        
-        
+
+
         //一回usersを空に
         $users = array();
 
@@ -252,9 +268,6 @@ class UserController extends Controller
         //ただし、正方行列とは限らない。選択されたスキルを含む案件にあるスキル数が異なるから
         $co_occur_matrix = array();
 
-
-
-        
         $matter_hit_each = array();
         $matter_hits = array();
 
@@ -262,15 +275,12 @@ class UserController extends Controller
             //文字列で取ってきているのでスキル（オブジェクト）を取得。
             //オブジェクトの配列で返ってきているため、foreachで探すことに注意。
             //corresponding_skill -> obejct(skill)
-            $corresponding_skill = Skill::where('name', $output)->get(); 
+            $corresponding_skill = Skill::where('name', $output)->get();
 
-
-
-            
             foreach($corresponding_skill as $corr){
                 //選択したスキルを持ってる案件を全部とりあえず取ってくる
                 $matter_y = $corr ->include_skill;
-                
+
                 //実験用
                 //スキルXを含む案件(複数の可能性)を取得
                 //corresponding_skill -> obejct(matter1,matter2...)
@@ -278,8 +288,6 @@ class UserController extends Controller
                 //案件数で0の可能性があるので注意
                 $matter_hits_per_skill = count($matter_y);
                 array_push($matter_hits, $matter_hits_per_skill);
-
-
 
                 //co_occur_matrix_skillの共起行列の一行になる
                 $co_occur_skills = array();
@@ -290,79 +298,51 @@ class UserController extends Controller
                     //とってきた案件それぞれに何のスキルが含まれているか
                     $mat = $matter_z ->skills;
                     // $check = $mat;
-                    
-                    
-                    
+
                     if ($mat != NULL){
-                        
                         //co_occur_skillsに全案件中に含むスキルを保持　＝　共起行列の一行になる
                         //最初に1個数えたco_occur_countsを用意。keyの場所が一緒になる。
                         //被った場合、keyの場所で+1
                         //co_occur_skills -> array(object(skill), object(skill), ...)
                         //$co_occur_counts -> array(int, int, ...)
-                        
+
                         foreach($mat as $skill_in_mat){
                             //only('id')でコレクションの中の対応するカラムの値を配列で持ってくる
                             $skill_in_mat = $skill_in_mat ->only('id');
                             $skill_in_mat = $skill_in_mat['id'];
-                            
-
 
                             if (! in_array($skill_in_mat, $co_occur_skills,true)){
                                 array_push($co_occur_skills, $skill_in_mat);
                                 array_push($co_occur_counts,1);
-                            }else{
+                            } else {
                                 $replacements = array(array_search($skill_in_mat,$co_occur_skills) => $co_occur_counts[array_search($skill_in_mat,$co_occur_skills)] + 1);
                                 $changes = array_replace($co_occur_counts,$replacements);
                                 // $check = $changes;
                                 $co_occur_counts = $changes;
-                                
                             }
-        
                         }
                     }
                 }
-
- 
-
-
-
             }
-            
-            
-
-
 
             //スキルXを含む案件が１つ以上ある場合
             if (count($matter_y) != 0){
                 //共起率計算
                 //count($matter_y) ＝　共起率の分母部分
-
                 //変換できないので新しく共起”率”用の配列を用意
                 $co_occur_possible = array();
                 foreach ($co_occur_counts as $cos){
                     array_push($co_occur_possible, $cos / count($matter_y));
                 }
 
-
-
-
-
                 //共起行列の列として追加
                 array_push($co_occur_matrix_skill, $co_occur_skills);
                 array_push($co_occur_matrix, $co_occur_possible);
             }
 
-            
-
             // //foreachですべて一つのスキルを持つ案件に変換した
             array_push($matter_hit_each, $corresponding_skill);
-
         }
-        
-
-
-
 
         //共起行列完成
         // ==================================================================================================================================
@@ -370,7 +350,7 @@ class UserController extends Controller
         //スキルidをキーに取った共起行列に変換
 
         $score_array = array();
-        
+
 
 
         //暫定的なもの
@@ -408,7 +388,7 @@ class UserController extends Controller
             $i = $score_rows[$i];
             //ある1行内の、列のキーを取る
             $columns_array = array_keys($score_array[$i]);
-            
+
             //あるスキルに対して共起しているスキル全部
             foreach($columns_array as $col){
 
@@ -430,11 +410,11 @@ class UserController extends Controller
                         }
 
                     }
-                    
+
                     //交換が終われば対称の列をソートする
                     arsort($score_array[$i]);
                     arsort($score_array[$col]);
-                    
+
                 }
 
             }
@@ -442,13 +422,13 @@ class UserController extends Controller
 
 
         // $check = $score_array;
-        
+
         // ==================================================================================================================================
         //各ユーザーに対して、点数計算
 
         $user_point = array();
 
-        
+
         foreach($users as $user){
             //userのなかにはコレクション
 
@@ -458,7 +438,7 @@ class UserController extends Controller
 
             //このユーザーが持ってるスキル全部取る
             $skill_in_user = $user -> skills;
-            
+
             // $check = $skill_in_user;
 
             //持ってるスキルが0じゃなければ、
@@ -477,14 +457,14 @@ class UserController extends Controller
 
                     //skillsのpivot属性('useable'は使わない)でそのユーザーが持っている1スキルのレベルを取得
                     $skill_level = $skill_collection -> pivot -> level;
-                    
+
                     $skill_id_level[$skill_id] = $skill_level;
 
 
                 }
 
 
-                
+
 
 
 
@@ -499,7 +479,7 @@ class UserController extends Controller
 
                     //点数行列１行内の列全てのキーを取る
                     $skill_score_key = array_keys($score);
-    
+
 
                     //上位10位、または列成分が10以下の場合は全てのスキルの計算
                     for ($i=0; $i < count($score) || $i < 10; $i++){
@@ -529,11 +509,11 @@ class UserController extends Controller
 
         }
 
-        
+
 
 
         $check = $user_point;
-        
+
 
 
 
@@ -571,7 +551,7 @@ class UserController extends Controller
 
         //選択されたスキルの数を定義
         $big_skill_count = count($search);
-        
+
         //選択されたスキルが4つ以上なら
         if($big_skill_count >= 4){
             //始め4つのスキルのコレクションをbig_skill4に格納
@@ -638,31 +618,41 @@ class UserController extends Controller
                         break;
                     }
                 }
-                
-            }
-
-
-            
-
 
             }
 
 
 
 
+            // ==================================================================================================================================
+
+            return view('employees.index',
+                                            ['users' => $users,
+                                            'points' => $points,
+                                            'search' => $search,
+                                            'check' => $check,
+                                            'big_skill4' => $big_skill4
+                                        ]);
+
+        }
+    }
 
 
 
+    public function searchByBox(Request $request) {
+        if ($request->skills == '') {
+            return redirect()->route('employees.index')->withInput();
+        }
 
+        $skill_ids = explode(",", $request->skills);
+        $merge_skills = collect($skill_ids)
+                        ->reduce(function($merge_skills, $skill_id) {
+                            $skill = Skill::find($skill_id);
+                            $merge_skills[$skill->skill_type][] = $skill->name;
+                            return $merge_skills;
+                        }, []);
+        $request->session()->put('search_criteria', $merge_skills);
 
-        // ==================================================================================================================================
-
-        return view('employees.index', 
-                                        ['users' => $users,
-                                        'points' => $points,
-                                        'search' => $search,     
-                                        'check' => $check,
-                                        'big_skill4' => $big_skill4
-                                    ]);
+        return redirect()->route('employees.index')->withInput();
     }
 }
