@@ -47,23 +47,31 @@
     })
   </script>
 
-  @for($i=0;$i < count($users); $i++)
-    <div class="card">
-      <div class="card-info">
-        <h3 class="card-title"><a href="{{ route('employees.show', ['id' => Auth::id()])}}">{{ $users[$i]-> name }}</a></h3>
-        <a href="https://twitter.com/?lang=ja"><i class="bi bi-twitter"></i></a>
-        <a href="https://github.co.jp/"><i class="bi bi-github"></i></a>
+  @if(! empty($users))
+    @for($i=0;$i < count($users); $i++)
+      <div class="card">
+        <div class="card-info">
+          <h3 class="card-title"><a href="{{ route('employees.show', ['id' => Auth::id()])}}">{{ $users[$i]-> name }}</a></h3>
+          <a href="https://twitter.com/?lang=ja"><i class="bi bi-twitter"></i></a>
+          <a href="https://github.co.jp/"><i class="bi bi-github"></i></a>
+        </div>
+        <div class="card-body">
+          @if(gettype($points[$i]) != 'string')
+            <p class="card-text">オススメ度：{{$points[$i]}}</p>
+          @endif
+
+          <p class="card-text">スキル：</p>
+
+          </div>
       </div>
-      <div class="card-body">
-        @if(gettype($points[$i]) != 'string')
-          <p class="card-text">オススメ度：{{$points[$i]}}</p>
-        @endif
+    @endfor
+  
+  @else <p>選択されたスキルを全て持つユーザーがいませんでした</p>
 
-        <p class="card-text">スキル：</p>
+  @endif
 
-       </div>
-    </div>
-  @endfor
+
+
 </x-app-layout> 
 
 <!-- data-toggle="tooltip" data-placement="top" title="Tooltip on top" -->
