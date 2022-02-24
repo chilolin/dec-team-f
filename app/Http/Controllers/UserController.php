@@ -11,20 +11,20 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
-    public function index()
-    {
-        $users = User::all();
+    // public function index()
+    // {
+    //     $users = User::all();
 
-        //user_pointに点数0を入れる
-        $user_point = array();
-        foreach($users as $user){
-            $user_id = $user ->only('id');
-            $user_id = $user_id['id'];
-            $user_point[$user_id] = 0;
-        }
+    //     //user_pointに点数0を入れる
+    //     $user_point = array();
+    //     foreach($users as $user){
+    //         $user_id = $user ->only('id');
+    //         $user_id = $user_id['id'];
+    //         $user_point[$user_id] = 0;
+    //     }
 
-        return view('employees.index', ['user_point' => $user_point]);
-    }
+    //     return view('employees.index', ['user_point' => $user_point]);
+    // }
 
     /**
      * 社員詳細画面を表示。
@@ -45,14 +45,26 @@ class UserController extends Controller
     public function search(Request $request)
     {
         if ($request->session()->has('search_criteria')) {
-            $request->merge($request->session()->pull('search_criteria'));
+            $search_criteria = $request->session()->pull('search_criteria');
+            $request->merge($search_criteria);
+            $request->session()->now(
+                'old_skills',
+                collect($search_criteria)
+                ->reduce(function($old_skills, $skill_names) {
+                    foreach ($skill_names as $skill_name) {
+                        $skill = Skill::firstWhere('name', $skill_name);
+                        if ($skill == null) continue;
+
+                        $old_skills[] = ['value' => $skill->id, 'text' => $skill->name, 'skillType' => $skill->skill_type];
+                    }
+                    return $old_skills;
+                }, [])
+            );
         }
-        // ddd($request->all());
         //共起行列
         // ----------------------------------------------------------------------------------------------------------------------------------
         // ==================================================================================================================================
         //スキルセット取得
-
 
 
         //選択したスキルセットをNULLじゃなければ配列に入れる

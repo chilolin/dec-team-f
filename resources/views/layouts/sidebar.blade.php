@@ -13,14 +13,14 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('dashboard') }}">
                     <i class="bi bi-search"></i>
-                    <p>エンジニア検索</p>
+                    <p>ダッシュボード</p>
                 </a>
             </li>
 
             <li>
                 <a class="nav-link" href="{{ route('employees.index')}}">
                 <i class="bi bi-people"></i>
-                    <p>社員一覧</p>
+                    <p>エンジニア検索</p>
                 </a>
             </li>
 

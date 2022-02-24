@@ -29,4 +29,19 @@
         <x-employees.search-accordion skill_type="database" class="col"/>
         <x-employees.search-accordion skill_type="infrastructure" class="col"/>
     </div>
+
+    <script>
+        (function($) {
+            const oldSkills = @json(session('old_skills'));
+
+            $(function() {
+                if(oldSkills && oldSkills.length) {
+                    oldSkills.forEach((oldSkill) => {
+                        $('#accordion-search-tagsinput').tagsinput('add', oldSkill);
+                    });
+                }
+            })
+        })(window.jQuery);
+    </script>
+
 </div>
