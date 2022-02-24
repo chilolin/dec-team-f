@@ -14,7 +14,16 @@ class UserController extends Controller
     public function index()
     {
         $users = User::all();
-        return view('employees.index', ['users' => $users]);
+
+        //user_pointに点数0を入れる
+        $user_point = array();
+        foreach($users as $user){
+            $user_id = $user ->only('id');
+            $user_id = $user_id['id'];
+            $user_point[$user_id] = 0;
+        }
+
+        return view('employees.index', ['user_point' => $user_point]);
     }
 
     /**
@@ -41,9 +50,17 @@ class UserController extends Controller
         // ddd($request->all());
         //共起行列
         // ----------------------------------------------------------------------------------------------------------------------------------
+        // ==================================================================================================================================
+        //スキルセット取得
+
+
+
         //選択したスキルセットをNULLじゃなければ配列に入れる
         //search(skill_type => skill)
-        //まだmultipleの対応ができていない
+
+
+        //後でユーザー取得でも使うのでコピー
+
         $search = array();
         if ($request ->language != NULL){
             $search["language"] = $request ->language;
@@ -79,6 +96,157 @@ class UserController extends Controller
             $search["engineer_type"] =  $request ->engineer_type;
         }
 
+
+        // ==================================================================================================================================
+        //ユーザー取得
+
+
+        //スキル全てを持つユーザーを持ってくる ->論理積で構わない
+        //なぜなら、NMFであとで考慮するから
+
+
+        //スキルが入力されていないなら全てのユーザーを取ってくる
+        if (empty($search)){
+            $users = User::all();
+
+            //ポイントは計算できないので'--'を入れておく
+            $points = array();
+            for($i=0;$i<count($users);$i++){
+                array_push($points,'--');
+            }
+
+            return view('employees.index',
+                                        ['users' => $users,
+                                        'points' => $points,
+                                        'search' => $search,
+                                        'check' => NULL,
+                                        'big_skill4' => NULL
+                                    ]);
+        }
+
+
+        //スキルの集合積
+        else{
+            $users = array();
+
+            foreach($search as $output){
+                $corresponding_skill = Skill::where('name', $output)->get();
+
+                foreach($corresponding_skill as $corr_skill){
+                    //あるスキルを持つ全てのユーザー取得
+                    $corresponding_users = $corr_skill ->users;
+                    array_push($users, $corresponding_users);
+                }
+            }
+            //各スキルを含むユーザーの集合積をとる
+
+
+            //１つ前までの集合積としてuser_copyを定義
+            //スキルAとスキルB両方含むユーザーidを保存する
+            $user_set_product = array();
+
+
+            foreach($users as $user){
+                //foreachを繰り返す過程で
+                $user_copy = array();
+
+                foreach($user as $u){
+                    //idだけとってきて配列user_copyに入れる
+                    $u = $u ->only('id');
+                    $u = $u['id'];
+                    array_push($user_copy,$u);
+                }
+
+                //何も入っていない、つまりそのスキルを持っているユーザーがいなければ
+                //ユーザーには何も入れず、ブレードに返す
+                if( empty ($user_copy)){
+                    $users = array();
+                    //ポイントは計算できないので'--'を入れておく
+                    $points = array();
+
+                    return view('employees.index',
+                    ['users' => $users,
+                    'points' => $points,
+                    'search' => $search,
+                    'check' => NULL,
+                    'big_skill4' => NULL
+                ]);
+
+
+                }
+
+                else{
+                    //始めのスキルを持つ全てユーザーを入れるときは
+                    if ( empty($user_set_product)){
+                        //user_set_productに格納
+                        foreach($user_copy as $copy){
+                            array_push($user_set_product,$copy);
+                        }
+
+                    }else{
+                        //その前の繰り返しまでに出たuser_set_productの要素が
+                        //取得したユーザーidにあれば残す
+
+                        //残すための配列を作っておく
+                        $set_product_copy = array();
+
+                        foreach($user_set_product as $set){
+                            if( in_array($set,$user_copy)){
+                                array_push($set_product_copy,$set);
+                            }
+                        }
+
+                        //$set_product_copyが空なら対称となるユーザーはいない
+                        //いたら&user_set_productに戻す
+
+                        if( empty($set_product_copy) ){
+                            $users = array();
+                            //ポイントは計算できないので'--'を入れておく
+                            $points = array();
+
+                            return view('employees.index',
+                            ['users' => $users,
+                            'points' => $points,
+                            'search' => $search,
+                            'check' => NULL,
+                            'big_skill4' => NULL
+                            ]);
+                        }
+                        else{
+                            $user_set_product = $set_product_copy;
+                        }
+
+
+
+
+
+                    }
+
+                }
+
+
+
+
+
+
+            }
+
+
+
+        }
+
+
+        //一回usersを空に
+        $users = array();
+
+        //スキルidからユーザーのコレクションを取得
+        foreach($user_set_product as $set){
+            array_push($users, User::find($set));
+        }
+
+
+        // ==================================================================================================================================
+        //共起行列
 
         //co_occur_matrix_skill = スキルを列にとった行列
         //スキルが被った場合、MAXを取るために必要
@@ -165,57 +333,299 @@ class UserController extends Controller
         }
 
         //共起行列完成
-        // ----------------------------------------------------------------------------------------------------------------------------------
+        // ==================================================================================================================================
+        //点数行列作成のために、転置スキル被りなどの調整
+        //スキルidをキーに取った共起行列に変換
 
-        //スキル全てを持つユーザーを持ってくる ->論理積で構わない
-        //なぜなら、NMFであとで考慮するから
+        $score_array = array();
 
-        $users = array();
-        foreach($search as $output){
-            $corresponding_skill = Skill::where('name', $output)->get();
 
-            foreach($corresponding_skill as $corr_skill){
-                //あるスキルを持つ全てのユーザー取得
-                $corresponding_users = $corr_skill ->users;
-                array_push($users, $corresponding_users);
+
+        //暫定的なもの
+        $search_key_number = array();
+        foreach($search as $ser){
+            array_push($search_key_number,$ser);
+        }
+
+
+        //行:選択したスキル
+        //key:$co_occur_matrix_skill
+        //value:$co_occur_matrix
+        for ($i=0; $i < count($co_occur_matrix);$i++){
+            $skill_selected = Skill::where('name', $search_key_number[$i])->get();
+            foreach($skill_selected as $selected){
+                $row = $selected->only('id');
+                $row = $row['id'];
+            }
+            for ($j=0;$j < count($co_occur_matrix[$i]); $j++){
+                $score_array[$row][$co_occur_matrix_skill[$i][$j]] = $co_occur_matrix[$i][$j];
+            }
+            //この$iをスキルidに後で変更
+            arsort($score_array[$row]);
+        }
+
+
+        $score_rows = array_keys($score_array);
+
+
+
+
+        //かぶり調整
+        for ($i=0;$i<count($score_rows);$i++){
+            //行番号だった$iを行のキーに変換
+            $i = $score_rows[$i];
+            //ある1行内の、列のキーを取る
+            $columns_array = array_keys($score_array[$i]);
+
+            //あるスキルに対して共起しているスキル全部
+            foreach($columns_array as $col){
+
+                //列成分のうち一つが、行配列にあれば
+                if (in_array($col,$score_rows)){
+
+                    //その行に、転置成分（列要素のがあった行番号）がなければ
+                    if(! in_array($i,$score_array[$col]) ){
+                        $score_array[$col][$i] = $score_array[$i][$col];
+                    }
+
+                    //転置成分があれば、大きいものに合わせる
+                    else{
+                        if ($score_array[$col][$i] > $score_array[$i][$col]){
+                            $score_array[$i][$col] = $score_array[$col][$i];
+                        }
+                        else {
+                            $score_array[$col][$i] = $score_array[$i][$col];
+                        }
+
+                    }
+
+                    //交換が終われば対称の列をソートする
+                    arsort($score_array[$i]);
+                    arsort($score_array[$col]);
+
+                }
+
             }
         }
 
-        //各スキルを含むユーザーの集合積をとる
-        $user_set_product = array();
+
+        // $check = $score_array;
+
+        // ==================================================================================================================================
+        //各ユーザーに対して、点数計算
+
+        $user_point = array();
+
 
         foreach($users as $user){
-            foreach($user as $u){
-                //idだけとってきて集合積をとる
-                $u = $u ->only('id');
-                $u = $u['id'];
+            //userのなかにはコレクション
 
-                if(! in_array($u, $user_set_product)){
-                    array_push($user_set_product,$u);
+
+            //初期値0。入力スキルがない場合は既にユーザー取得時に排除済み。
+            $points = 0;
+
+            //このユーザーが持ってるスキル全部取る
+            $skill_in_user = $user -> skills;
+
+            // $check = $skill_in_user;
+
+            //持ってるスキルが0じゃなければ、
+            if($skill_in_user != NULL){
+
+                //1ユーザーの持ってる全スキルidをキー
+                //1ユーザーの持ってる全スキルlevelをバリューにした配列作成
+                $skill_id_level = array();
+
+                //スキル一つ一つ見るが、中間テーブルのカラム要素
+                //['is_practice', 'is_learning', 'level']も含むことに注意
+                foreach($skill_in_user as $skill_collection){
+                    //スキルid取得
+                    $skill_id = $skill_collection ->only('id');
+                    $skill_id = $skill_id['id'];
+
+                    //skillsのpivot属性('useable'は使わない)でそのユーザーが持っている1スキルのレベルを取得
+                    $skill_level = $skill_collection -> pivot -> level;
+
+                    $skill_id_level[$skill_id] = $skill_level;
+
+
+                }
+
+
+
+
+
+
+
+                //点数行列を1行ずつ確認
+                foreach($score_array as $score){
+
+                    //ユーザーが持っているスキルのidとlevelの配列から
+                    //キーであるidを持ってくる
+                    $skill_user_key = array_keys($skill_id_level);
+
+
+                    //点数行列１行内の列全てのキーを取る
+                    $skill_score_key = array_keys($score);
+
+
+                    //上位10位、または列成分が10以下の場合は全てのスキルの計算
+                    for ($i=0; $i < count($score) || $i < 10; $i++){
+
+                        //もし、そのスキルidを$skill_id_in_userが持っていれば
+                        //skill_level_in_userの値と点数を乗算の上、ポイント加算
+                        if(in_array($skill_score_key[$i], $skill_user_key)){
+                            //点数×スキルレベル
+                            //skill_id_levelのキーは本来ユーザーが持っているスキルのidだが
+                            //点数行列の列要素と同じキーを持つことを既に検証している
+                            $points += $score[$skill_score_key[$i]] * $skill_id_level[$skill_score_key[$i]];
+
+                        }
+                    }
+                }
+
+            }
+
+            $user_id = $user ->only('id');
+            $user_id = $user_id['id'];
+
+            $user_point[$user_id] = $points;
+
+            // $check = $points;
+
+
+
+        }
+
+
+
+
+        $check = $user_point;
+
+
+
+
+        // ==================================================================================================================================
+        //点数に応じてユーザーをソートする
+
+        arsort($user_point);
+
+        $check = $user_point;
+
+        //ユーザーをソートする
+        //一回空にしてから
+        $users = array();
+
+        //ソート済みのuser_pointのキー取得
+        $user_point_id = array_keys($user_point);
+
+        for($i=0; $i<count($user_point);$i++){
+            $user = User::find($user_point_id[$i]);
+            array_push($users, $user);
+        }
+
+        //点数の配列も作成
+        $points = array();
+        foreach($user_point as $up){
+            array_push($points,$up);
+        }
+
+
+
+        // ==================================================================================================================================
+        //重要スキル4つを取ってくる
+        //（usersの数）×4の配列
+        $big_skill4 = array();
+
+        //選択されたスキルの数を定義
+        $big_skill_count = count($search);
+
+        //選択されたスキルが4つ以上なら
+        if($big_skill_count >= 4){
+            //始め4つのスキルのコレクションをbig_skill4に格納
+            $search_key = array_keys($search);
+            for($i=0; $i < 4 ; $i++){
+                $corresponding_skill = Skill::where('name', $search[$search_key[$i]])->get();
+
+                foreach($corresponding_skill as $corr){
+                    array_push($big_skill4,$corr);
                 }
             }
+
+        } else{
+            //4つ未満であれば
+            //まず、選択されたスキルを全てbig_skill4に格納
+            $search_key = array_keys($search);
+            for($i=0; $i < $big_skill_count ; $i++){
+                $corresponding_skill = Skill::where('name', $search[$search_key[$i]])->get();
+
+                foreach($corresponding_skill as $corr){
+                    array_push($big_skill4,$corr);
+                }
+            }
+
+
+            //選択されたスキルを全てbig_skill4に格納後
+            //まず、、
+
+            //キーの同じ配列2つを作る
+            //キー：string(行番号vs列番号)
+            //score_arrayの（行、列）を保存
+            $big_skill_sort_keys = array();
+
+            //score_arrayの（行、列）の点数を保存
+            $big_skill_sort = array();
+
+            $score_rows = array_keys($score_array);
+
+            for ($i=0; $i<count($score_rows);$i++){
+                $score_columns = array_keys($score_array[$score_rows[$i]]);
+
+                for($j=0;$j<count($score_columns);$j++){
+                    $same_key = (string)$i . "vs" . (string) $j;
+                    $big_skill_sort_keys[(string)$same_key] = array($score_rows[$i],$score_columns[$j]);
+                    $big_skill_sort[(string)$same_key] = $score_array[$score_rows[$i]][$score_columns[$j]];
+                }
+            }
+
+            //$big_skill_sortをソート
+            arsort($big_skill_sort);
+            $same_keys = array_keys($big_skill_sort);
+
+            for($i=0;$i<count($same_keys);$i++){
+                $key = $same_keys[$i];
+                $skill_columns = $big_skill_sort_keys[$key][1];
+
+                $corresponding_skill = Skill::find($skill_columns);
+                $check = $corresponding_skill;
+
+                if (! in_array($corresponding_skill,$big_skill4)){
+                    array_push($big_skill4,$corresponding_skill);
+                    $big_skill_count++;
+                    if ($big_skill_count >= 4){
+                        break;
+                    }
+                }
+
+            }
+
+
+
+
+            // ==================================================================================================================================
+
+            return view('employees.index',
+                                            ['users' => $users,
+                                            'points' => $points,
+                                            'search' => $search,
+                                            'check' => $check,
+                                            'big_skill4' => $big_skill4
+                                        ]);
+
         }
-
-        //一回usersを空に
-        $users=array();
-
-        foreach($user_set_product as $set){
-            array_push($users, User::find($set));
-        }
-
-        return view(
-            'employees.index',
-            [
-                'users' => $users,
-                'search' => $search,
-                'matter_hit_each' => $matter_hit_each,
-                'matter_hits' => $matter_hits,
-                'co_occur_matrix_skill' => $co_occur_matrix_skill,
-                'co_occur_matrix' => $co_occur_matrix,
-                // 'check' => $request->all(),
-            ]
-        );
     }
+
+
 
     public function searchByBox(Request $request) {
         if ($request->skills == '') {
@@ -226,7 +636,7 @@ class UserController extends Controller
         $merge_skills = collect($skill_ids)
                         ->reduce(function($merge_skills, $skill_id) {
                             $skill = Skill::find($skill_id);
-                            $merge_skills[$skill->skill_type][] = $skill->id;
+                            $merge_skills[$skill->skill_type][] = $skill->name;
                             return $merge_skills;
                         }, []);
         $request->session()->put('search_criteria', $merge_skills);
