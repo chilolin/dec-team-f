@@ -1,18 +1,10 @@
 <?php
 
-// var_dump($users);
-
-
-// var_dump($search);
-
-// // var_dump($matter_hit_each);
-// var_dump($matter_hits);
-
-// ddd($co_occur_matrix);
-// ddd($co_occur_matrix_skill);
+// ddd($search);
 
 // ddd($check);
 // ddd($users);
+// ddd($points);
 
 // exit();
 ?>
@@ -55,19 +47,23 @@
     })
   </script>
 
-  @foreach($users as $user)
+  @for($i=0;$i < count($users); $i++)
     <div class="card">
       <div class="card-info">
-        <h3 class="card-title"><a href="{{ route('employees.show', ['id' => Auth::id()])}}">{{ $user-> name }}</a></h3>
-        <a href="https://twitter.com/?lang=ja"><img src="{{ asset('img/twitter.png')}}" alt="Twitterのアイコン" class="icon"></a>
-        <a href="https://github.co.jp/"><img src="{{ asset('img/github.png')}}" alt="GitHubのアイコン" class="icon"></a>
+        <h3 class="card-title"><a href="{{ route('employees.show', ['id' => Auth::id()])}}">{{ $users[$i]-> name }}</a></h3>
+        <a href="https://twitter.com/?lang=ja"><i class="bi bi-twitter"></i></a>
+        <a href="https://github.co.jp/"><i class="bi bi-github"></i></a>
       </div>
       <div class="card-body">
-        <p class="card-text">役職：</p>
-        <p class="card-text">言語：</p>
+        @if(gettype($points[$i]) != 'string')
+          <p class="card-text">オススメ度：{{$points[$i]}}</p>
+        @endif
+
+        <p class="card-text">スキル：</p>
+
        </div>
     </div>
-  @endforeach
+  @endfor
 </x-app-layout> 
 
 <!-- data-toggle="tooltip" data-placement="top" title="Tooltip on top" -->
