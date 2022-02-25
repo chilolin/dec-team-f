@@ -490,7 +490,7 @@ class UserController extends Controller
                             //点数×スキルレベル
                             //skill_id_levelのキーは本来ユーザーが持っているスキルのidだが
                             //点数行列の列要素と同じキーを持つことを既に検証している
-                            $points += $score[$skill_score_key[$i]] * $skill_id_level[$skill_score_key[$i]];
+                            $points += number_format($score[$skill_score_key[$i]] * $skill_id_level[$skill_score_key[$i]], 2);
 
                         }
                     }

@@ -56,7 +56,7 @@
                     </div>
                     <div class="card-body">
                         @if(gettype($points[$index]) != 'string')
-                            <p class="card-text">オススメ度：{{$points[$index]}}</p>
+                            <p class="card-text">オススメ度：<?php printf("%.2f", $points[$index]);?></p>
                         @endif
                         <p class="card-text">スキル：</p>
                     </div>
