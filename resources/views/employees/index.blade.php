@@ -51,8 +51,8 @@
                 <div class="card custom-card">
                     <div class="card-info">
                         <h3 class="card-title"><a href="{{ route('employees.show', ['id' => $user['id']])}}">{{ $user-> name }}</a></h3>
-                        <a href="https://twitter.com/?lang=ja"><img src="{{ asset('img/twitter.png')}}" alt="Twitterのアイコン" class="icon"></a>
-                        <a href="https://github.co.jp/"><img src="{{ asset('img/github.png')}}" alt="GitHubのアイコン" class="icon"></a>
+                        <a href="https://twitter.com/?lang=ja"><i class="bi bi-twitter"></i></a>
+                        <a href="https://github.co.jp/"><i class="bi bi-github"></i></a>
                     </div>
                     <div class="card-body">
                         @if(gettype($points[$index]) != 'string')
