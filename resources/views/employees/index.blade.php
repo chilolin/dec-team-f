@@ -1,5 +1,5 @@
 <?php
-
+ use App\Models\Skill;
 // ddd($search);
 
 // ddd($check);
@@ -26,17 +26,20 @@
         }
         .custom-card {
             flex-direction: row;
-            width: 28rem;
+            width: 30rem;
             height: auto;
         }
         .card-info {
-            margin: 28px 16px;
+            margin: 8px 8px;
         }
-        .icon {
-            width: 24px;
-            height: auto;
-            margin: 8px 4px;
+        
+        .img {
+            width: 64x;
+            height: 64px;
+            margin-left: 16px;
+            margin-bottom: 8px;
         }
+
         .card-text {
             margin-top: 16px;
         }
@@ -50,15 +53,35 @@
             @foreach($users as $index => $user)
                 <div class="card custom-card">
                     <div class="card-info">
+                        <img src="{{ asset('/img/human.png') }}" class="img">
                         <h3 class="card-title"><a href="{{ route('employees.show', ['id' => $user['id']])}}">{{ $user-> name }}</a></h3>
-                        <a href="https://twitter.com/?lang=ja"><i class="bi bi-twitter"></i></a>
-                        <a href="https://github.co.jp/"><i class="bi bi-github"></i></a>
                     </div>
                     <div class="card-body">
                         @if(gettype($points[$index]) != 'string')
                             <p class="card-text">オススメ度：{{$points[$index]}}</p>
                         @endif
-                        <p class="card-text">スキル：</p>
+                        <!-- @if(gettype($points[$index]) == 'string')
+                            <?php 
+                                $user_skill_array = $user->skills;
+                                $id_level = array();
+                                foreach($user_skill_array as $array){
+                                $skill_id = $array ->only('id');
+                                $skill_id = $skill_id['id'];
+                                $id_level[$skill_id]= $array -> pivot->level;
+                                }
+                                arsort($id_level);
+                                $id_keys = array_keys($id_level);
+                                for($i = 0; $i<4; $i++) {
+                                    $colle = Skill::find($id_keys[$i])->get();
+                                   foreach($colle as $co){
+                                        $skill_name = $co->name;
+                                        echo($skill_name);
+                                      }
+                                   }
+                            ?> -->
+                            <p class="card-text">スキル：</p>
+                            @else
+                        @endif
                     </div>
                 </div>
             @endforeach
@@ -67,3 +90,4 @@
         @endif
     </div>
 </x-app-layout>
+
