@@ -1,8 +1,14 @@
 import React, { useState, useEffect, useCallback } from "react";
 import ReactDOM from "react-dom";
 import axios from "axios";
-import FullCalendar, { EventApi, EventInput } from "@fullcalendar/react";
+import FullCalendar, {
+    EventApi,
+    EventClickArg,
+    EventContentArg,
+    EventInput,
+} from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
+import timeGridPlugin from "@fullcalendar/timegrid";
 import allLocales from "@fullcalendar/core/locales-all";
 
 type Matter = {
@@ -18,6 +24,13 @@ type Matter = {
 const createApiUrl = (pathname: string) => {
     return `${location.protocol}//${location.host}/api/${pathname}`;
 };
+
+const renderEventContent = (eventContent: EventContentArg) => (
+    <>
+        <b>{eventContent.timeText}</b>
+        <i>{eventContent.event.title}</i>
+    </>
+);
 
 const Calendar = () => {
     const [initialEvents, setInitialEvents] = useState<EventInput[]>([]);
@@ -37,22 +50,28 @@ const Calendar = () => {
         })();
     }, []);
 
-    // const handleEvents = useCallback((events: EventApi[]) => {
-    //     console.log("events:", events); // 確認用
-    //     setCurrentEvents(events);
-    // }, []);
+    const handleEventClick = useCallback((clickInfo: EventClickArg) => {
+        window.location.href = `${location.protocol}//${location.host}/matters/${clickInfo.event.id}`;
+    }, []);
 
     return (
-        <div>
-            <FullCalendar
-                plugins={[dayGridPlugin]}
-                initialView="dayGridMonth"
-                events={initialEvents}
-                // eventsSet={handleEvents}
-                locales={allLocales}
-                locale="ja"
-            />
-        </div>
+        <FullCalendar
+            plugins={[dayGridPlugin, timeGridPlugin]}
+            initialView="dayGridMonth"
+            events={initialEvents}
+            locales={allLocales}
+            locale="ja"
+            editable={true}
+            eventClick={handleEventClick}
+            eventContent={renderEventContent}
+            headerToolbar={{
+                start: "prev,next today",
+                center: "title",
+                end: "dayGridMonth,timeGridWeek,timeGridDay",
+            }}
+            businessHours={true}
+            contentHeight="auto"
+        />
     );
 };
 
