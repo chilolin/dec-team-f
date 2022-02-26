@@ -109,6 +109,8 @@ class UserController extends Controller
         }
 
 
+
+
         // ==================================================================================================================================
         //ユーザー取得
 
@@ -420,8 +422,27 @@ class UserController extends Controller
             }
         }
 
+        // ==================================================================================================================================
+        //選択されたスキルの点数を10倍に
 
-        // $check = $score_array;
+
+        for($i=0; $i<count($score_rows); $i++){
+            $columns_array = array_keys($score_array[$score_rows[$i]]);
+            for ($j=0; $j<count($score_array[$score_rows[$i]]); $j++){
+                if (in_array($columns_array[$j], $score_rows)){
+                    $score_array[$score_rows[$i]][$columns_array[$j]] *= 10;
+                }
+
+            }
+            arsort($score_array[$score_rows[$i]]);
+        }
+
+
+
+
+
+
+        
 
         // ==================================================================================================================================
         //各ユーザーに対して、点数計算
@@ -463,8 +484,25 @@ class UserController extends Controller
 
                 }
 
+            // ==================================================================================================================================
+            //ユーザーが持ってるスキルのレベルをMin-Max Normalizationで正規化
+            //Min=0; Max=1;でスケーリングする
+
+            $skill_user_key = array_keys($skill_id_level);
 
 
+            $max = max($skill_id_level);
+            $min = min($skill_id_level);
+
+
+            for($i=0; $i<count($skill_user_key); $i++){
+                $skill_id_level[$skill_user_key[$i]] 
+                = ($skill_id_level[$skill_user_key[$i]] - $min) / ( $max - $min);
+            }
+
+
+
+            // ==================================================================================================================================
 
 
 
@@ -474,7 +512,9 @@ class UserController extends Controller
 
                     //ユーザーが持っているスキルのidとlevelの配列から
                     //キーであるidを持ってくる
-                    $skill_user_key = array_keys($skill_id_level);
+                    //↑で定義済み
+
+                    // $skill_user_key = array_keys($skill_id_level);
 
 
                     //点数行列１行内の列全てのキーを取る
@@ -491,6 +531,7 @@ class UserController extends Controller
                             //skill_id_levelのキーは本来ユーザーが持っているスキルのidだが
                             //点数行列の列要素と同じキーを持つことを既に検証している
                             $points += number_format($score[$skill_score_key[$i]] * $skill_id_level[$skill_score_key[$i]], 2);
+                            // $points = log10($points);
 
                         }
                     }
@@ -623,7 +664,7 @@ class UserController extends Controller
 
 
 
-
+            $check = $skill_id_level;
             // ==================================================================================================================================
 
             return view('employees.index',
