@@ -423,14 +423,14 @@ class UserController extends Controller
         }
 
         // ==================================================================================================================================
-        //選択されたスキルの点数を10倍に
+        //選択されたスキルの点数を20倍に
 
 
         for($i=0; $i<count($score_rows); $i++){
             $columns_array = array_keys($score_array[$score_rows[$i]]);
             for ($j=0; $j<count($score_array[$score_rows[$i]]); $j++){
                 if (in_array($columns_array[$j], $score_rows)){
-                    $score_array[$score_rows[$i]][$columns_array[$j]] *= 10;
+                    $score_array[$score_rows[$i]][$columns_array[$j]] *= 20;
                 }
 
             }
@@ -439,7 +439,114 @@ class UserController extends Controller
 
 
 
+        // ==================================================================================================================================
+        //正規化で用いるMax,Minを計算
+        //$max_level, $min_levelさえわかればいいので少し雑
+        //行番号は適当
+        
+        //$level_in_users : 2d matrix
+        //row: number(0,1,2...)
+        //column: array(key->skill_id, value: level)
+        $level_in_users = array();
 
+        //始めは点数計算の部分とほぼ一緒
+        //同じことを2回やる部分があり、計算時間は最適ではない
+        //ここでユーザーidを取得するのが面倒だった
+
+        foreach($users as $user){
+            //このユーザーが持ってるスキル全部取る
+            $skill_in_user = $user -> skills;
+
+            //持ってるスキルが0じゃなければ、
+            if($skill_in_user != NULL){
+
+                //1ユーザーの持ってる全スキルidをキー
+                //1ユーザーの持ってる全スキルlevelをバリューにした配列作成
+                $skill_id_level = array();
+
+                //スキル一つ一つ見るが、中間テーブルのカラム要素
+                //['is_practice', 'is_learning', 'level']も含むことに注意
+                foreach($skill_in_user as $skill_collection){
+                    //スキルid取得
+                    $skill_id = $skill_collection ->only('id');
+                    $skill_id = $skill_id['id'];
+
+                    //skillsのpivot属性('useable'は使わない)でそのユーザーが持っている1スキルのレベルを取得
+                    $skill_level = $skill_collection -> pivot -> level;
+
+                    $skill_id_level[$skill_id] = $skill_level;
+                }
+                arsort($skill_id_level);
+                array_push($level_in_users,$skill_id_level);
+            }            
+        }
+        
+        //各列はソートされあるので先頭要素、末尾要素でMax, Min決定
+        //初期値はありえない値で
+
+
+        $max_level_array = array();
+        $min_level_array = array();
+
+        foreach($level_in_users as $row){
+            $length = count($row);
+            $key = array_keys($row);
+            array_push($max_level_array, $row[$key[0]]);
+            array_push($min_level_array,$row[$key[$length -1 ]]);
+        }
+
+        $max_level = max(array_values($max_level_array));
+        $min_level = min(array_values($min_level_array));
+
+
+        // ==================================================================================================================================
+        //四分位数を求める用の関数定義
+        //中央値を求める補助関数
+        //median: $array -> num
+        function median($array){
+            asort($array);
+            $key = array_keys($array);
+            $length = count($array);
+            if(($length % 2) != 0){
+                return $array[$key[floor($length / 2)]];
+            }else{
+                $evens = ($array[$key[floor($length / 2)]] + $array[$key[($length / 2) - 1]]) /2;
+                return $evens;
+            }
+        }
+
+        //quartile: $array -> $array(num, num, num)
+        //キーはnum
+        function quartile($array){
+            asort($array);
+            $key = array_keys($array);
+            
+            $q2 = median($array);
+            $length = count($array);
+            $former = array();
+            $latter = array();
+            if(($length % 2) != 0){
+                for($i=0; $i< (floor($length / 2)); $i++){
+                    array_push($former,$array[$key[$i]]);
+                }
+                $i++;
+                for($i; $i< $length;$i++){
+                    array_push($latter,$array[$key[$i]]);
+                }
+            }else{
+                for($i=0; $i< (floor($length / 2)); $i++){
+                    array_push($former,$array[$key[$i]]);
+                }
+                for($i; $i< $length;$i++){
+                    array_push($latter,$array[$key[$i]]);
+                }
+            }
+            $q1 = median($former);
+            $q3 = median($latter);
+
+            return array($q1,$q2,$q3);
+
+        }
 
 
         
@@ -483,22 +590,45 @@ class UserController extends Controller
 
 
                 }
+                // ==================================================================================================================================
+                //RobustScaler
+                //データの中央値からの偏差（＝中央値を中心0にした場合の値）を
+                //四分位範囲（＝第3四分位数－第1四分位数）で割る
+    
+                $skill_user_key = array_keys($skill_id_level);
+    
+                for($i=0; $i<count($skill_user_key); $i++){
+                    $quart = quartile($skill_id_level);
+                    if(( $quart[2] - $quart[0]) == 0){
+                        $skill_id_level[$skill_user_key[$i]] 
+                        = ($skill_id_level[$skill_user_key[$i]] - $quart[1]) / (0.5);
+                    }else{
+                        $skill_id_level[$skill_user_key[$i]] 
+                        = ($skill_id_level[$skill_user_key[$i]] - $quart[1]) / ( $quart[2] - $quart[0]);
+    
+                    }
+                }            
 
-            // ==================================================================================================================================
-            //ユーザーが持ってるスキルのレベルをMin-Max Normalizationで正規化
-            //Min=0; Max=1;でスケーリングする
-
-            $skill_user_key = array_keys($skill_id_level);
-
-
-            $max = max($skill_id_level);
-            $min = min($skill_id_level);
+                // ==================================================================================================================================
+                //ユーザーが持ってるスキルのレベルをMin-Max Normalizationで正規化
+                //Min=0; Max=1;でスケーリングする
+                //ユーザー一人ずつやってもダメ。学習中で低いスキルを持つものが過剰高得点に。（選択されたスキル以外で）
+                //このforeachの外で$max_level, $min_levelとして定義済み
 
 
-            for($i=0; $i<count($skill_user_key); $i++){
-                $skill_id_level[$skill_user_key[$i]] 
-                = ($skill_id_level[$skill_user_key[$i]] - $min) / ( $max - $min);
-            }
+                $max_level = max($skill_id_level);
+                $min_level = min($skill_id_level);
+
+                $skill_user_key = array_keys($skill_id_level);
+
+                for($i=0; $i<count($skill_user_key); $i++){
+                    $skill_id_level[$skill_user_key[$i]] 
+                    = ($skill_id_level[$skill_user_key[$i]] - $min_level) / ( $max_level - $min_level);
+                }
+
+
+
+
 
 
 
@@ -512,9 +642,8 @@ class UserController extends Controller
 
                     //ユーザーが持っているスキルのidとlevelの配列から
                     //キーであるidを持ってくる
-                    //↑で定義済み
-
-                    // $skill_user_key = array_keys($skill_id_level);
+                    //↑で正規化前と別物
+                    $skill_user_key = array_keys($skill_id_level);
 
 
                     //点数行列１行内の列全てのキーを取る
@@ -522,16 +651,35 @@ class UserController extends Controller
 
 
                     //上位10位、または列成分が10以下の場合は全てのスキルの計算
+                    //↑編集！！！言語とフレームワークに絞ることで要素数が少ないものが低得点になる
                     for ($i=0; $i < count($score) || $i < 10; $i++){
 
                         //もし、そのスキルidを$skill_id_in_userが持っていれば
                         //skill_level_in_userの値と点数を乗算の上、ポイント加算
                         if(in_array($skill_score_key[$i], $skill_user_key)){
-                            //点数×スキルレベル
-                            //skill_id_levelのキーは本来ユーザーが持っているスキルのidだが
-                            //点数行列の列要素と同じキーを持つことを既に検証している
-                            $points += number_format($score[$skill_score_key[$i]] * $skill_id_level[$skill_score_key[$i]], 2);
-                            // $points = log10($points);
+
+                            //言語とフレームワーク以外で点数を与えない
+                            //スキルidからスキルタイプを取ってくる
+                            $corresponding_skill_type = Skill::find($skill_score_key[$i])->get();
+                            foreach($corresponding_skill_type as $type){
+                                $skill_type = $type ->only('skill_type');
+                                $skill_type = $skill_type['skill_type'];
+                            }
+
+                            if($skill_type == 'language' || $skill_type == 'framework'){
+
+                                //点数×スキルレベル
+                                //skill_id_levelのキーは本来ユーザーが持っているスキルのidだが
+                                //点数行列の列要素と同じキーを持つことを既に検証している
+                                $points += number_format($score[$skill_score_key[$i]] * $skill_id_level[$skill_score_key[$i]], 2);
+                                // $points = log10($points);
+
+                            }
+
+
+
+
+
 
                         }
                     }
