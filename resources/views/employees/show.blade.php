@@ -28,6 +28,12 @@
         .employee-detail .matter-row:hover {
             opacity: 0.6;
         }
+        .employee-detail .table tbody tr {
+            border-top: 1px solid #dee2e6;
+        }
+        .employee-detail .table td {
+            border: none;
+        }
     </style>
 
         <div class="container employee-detail">
@@ -45,7 +51,7 @@
                                 </th>
                             </thead>
                             <tbody>
-                                @foreach ($user->matters as $matter)
+                                @foreach (collect($user->matters)->sortBy('start_at') as $matter)
                                     @if ($matter->start_at <= date("Y-m-d") && date("Y-m-d") <= $matter->end_at)
                                         <tr id="user-matter-{{ $matter->id }}" class="matter-row" href={{ route('matters.show', ['id' => $matter->id]) }}>
                                             <td>{{ $matter->start_at }} ～ {{ $matter->end_at }}</td>

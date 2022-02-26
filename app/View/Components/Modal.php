@@ -31,6 +31,7 @@ class Modal extends Component
                     ->filter(function($matter) {
                         return $matter->start_at <= date("Y-m-d") && date("Y-m-d") <= $matter->end_at;
                     })
+                    ->sortBy('start_at')
                     ->reduce(function($matters, $matter) {
                         $skills = [];
                         foreach (SkillType::SKILL_TYPES as $skill_type)
