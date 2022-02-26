@@ -32,30 +32,25 @@
     </div>
 
     <div style="padding: 7px 0px;">
-        <div class="form-group">
-            <div class="row">
-                <ul class="list-group list-group-flush">
-                    @foreach ($skillList as $skill)
-                        <div class="d-flex justify-content-between">
-                        <li class="list-group-item">
-
-                            <?php $practical_flag = $skill->pivot->is_practice ?>
-                            @if( $practical_flag == true)
-                            <div style="padding-left: 7px; font-size: 16px; float: left;">
-                            {{ $skill->name }}
-                            </div>
-                            <div style="margin-left: 100%;">
-                            <p class="badge badge-primary" style="font-size: 50%;">実務</p>
-                            </div>
-
+        <div class="row">
+            <ul class="list-group list-group-flush" style="width: 100%;">
+                @foreach ($skillList as $skill)
+                    {{-- <div class="d-flex justify-content-between" style="margin-bottom: -20px;"> --}}
+                        <li class="list-group-item" style="min-width: 100%;">
+                            @if( $skill->pivot->is_practice == true)
+                                <div style="padding-left: 7px; font-size: 16px; float: left;">
+                                    {{ $skill->name }}
+                                </div>
+                                <div style="margin-left: 92%;">
+                                    <p class="badge badge-primary" style="font-size: 50%; margin-bottom: 5px;">実務</p>
+                                </div>
                             @else
-                            <div style="padding-left: 7px; font-size: 16px; float: left;">
-                            {{ $skill->name }}
-                            </div>
-                            <div style="margin-left: 100%">
-                            <p class="badge badge-secondary" style="font-size: 50%;">学習</p>
-                            </div>
-
+                                <div style="padding-left: 7px; font-size: 16px; float: left;">
+                                    {{ $skill->name }}
+                                </div>
+                                <div style="margin-left: 92%">
+                                    <p class="badge badge-secondary" style="font-size: 50%; margin-bottom: 5px;">学習</p>
+                                </div>
                             @endif
                             <input
                                 id="input-id"
@@ -73,10 +68,9 @@
                                 data-show-caption="false"
                             >
                         </li>
-                        </div>
-                    @endforeach
-                </ul>
-            </div>
+                    {{-- </div> --}}
+                @endforeach
+            </ul>
         </div>
     </div>
 

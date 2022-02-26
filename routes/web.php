@@ -25,6 +25,7 @@ Route::middleware('auth')->group(function() {
     // ダッシュボード
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
+
     // 社員画面
     Route::prefix('employees')->group(function() {
         Route::get('/', [UserController::class, 'search'])->name('employees.index');
@@ -44,15 +45,15 @@ Route::middleware('auth')->group(function() {
 
     // 案件画面
     Route::prefix('matters')->group(function() {
-        // Route::get('/', function() {
-        //     return view('matters.index');
-        // })->name('matters.index');
-
         Route::get('/', [MatterController::class, 'index'])->name('matters.index');
 
         Route::get('/create', [MatterController::class, 'create'])->name('matters.create');
 
         Route::post('/store', [MatterController::class, 'store'])->name('matters.store');
+
+        Route::get('/calendar', function() {
+            return view('calendar');
+        })->name('matters.calendar');
 
         Route::get('/{id}', [MatterController::class, 'show'])->name('matters.show');
 

@@ -37,6 +37,13 @@
             </li>
 
             <li>
+                <a class="nav-link" href="{{ route('matters.calendar')}}">
+                    <i class="bi bi-calendar"></i>
+                    <p>案件カレンダー</p>
+                </a>
+            </li>
+
+            <li>
                 <a class="nav-link" href="{{ route('matters.create')}}">
                     <i class="bi bi-card-checklist"></i>
                     <p>案件入力</p>
