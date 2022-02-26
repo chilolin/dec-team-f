@@ -1,6 +1,5 @@
 <x-app-layout>
     <style>
-
         .calendar {
             width: 100%;
         }
@@ -11,9 +10,6 @@
             padding: 0 8px;
             line-height: 20px;
         }
-        /* .fc-day-future {
-            display: none;
-        } */
     </style>
     <div class="container">
         <div id="calendar" class="calendar"></div>

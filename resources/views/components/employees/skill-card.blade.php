@@ -36,22 +36,27 @@
             <ul class="list-group list-group-flush" style="width: 100%;">
                 @foreach ($skillList as $skill)
                     {{-- <div class="d-flex justify-content-between" style="margin-bottom: -20px;"> --}}
-                        <li class="list-group-item" style="min-width: 100%;">
+                        <li class="list-group-item">
                             @if( $skill->pivot->is_practice == true)
                                 <div style="padding-left: 7px; font-size: 16px; float: left;">
                                     {{ $skill->name }}
                                 </div>
-                                <div style="margin-left: 92%;">
-                                    <p class="badge badge-primary" style="font-size: 50%; margin-bottom: 5px;">実務</p>
-                                </div>
+                                @if ($listType == "practice_learning")
+                                    <div style="margin-left: 92%;">
+                                        <p class="badge badge-primary" style="font-size: 50%; margin-bottom: 5px;">実務</p>
+                                    </div>
+                                @endif
                             @else
                                 <div style="padding-left: 7px; font-size: 16px; float: left;">
                                     {{ $skill->name }}
                                 </div>
-                                <div style="margin-left: 92%">
-                                    <p class="badge badge-secondary" style="font-size: 50%; margin-bottom: 5px;">学習</p>
-                                </div>
+                                @if ($listType == "practice_learning")
+                                    <div style="margin-left: 92%">
+                                        <p class="badge badge-secondary" style="font-size: 50%; margin-bottom: 5px;">学習</p>
+                                    </div>
+                                @endif
                             @endif
+                            <div>
                             <input
                                 id="input-id"
                                 name="input-name"
@@ -67,6 +72,7 @@
                                 data-show-clear="false"
                                 data-show-caption="false"
                             >
+                            </div>
                         </li>
                     {{-- </div> --}}
                 @endforeach
