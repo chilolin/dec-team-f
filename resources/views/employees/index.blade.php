@@ -1,73 +1,69 @@
 <?php
 
-// var_dump($users);
-
-
-// var_dump($search);
-
-// // var_dump($matter_hit_each);
-// var_dump($matter_hits);
-
-// ddd($co_occur_matrix);
-// ddd($co_occur_matrix_skill);
+// ddd($search);
 
 // ddd($check);
 // ddd($users);
+// ddd($points);
+// ddd($big_skill4);
 
 // exit();
 ?>
 
 <x-app-layout>
-  <x-slot name="title">
-    社員一覧
-  </x-slot>
+    <x-slot name="title">
+        社員一覧
+    </x-slot>
 
-  <style>
-    .content {
-      display: flex;
-      flex-flow: row wrap;
-      justify-content: space-around;
-    }
+    <style>
+        .search-container {
+            padding: 0px 27px;
+        }
+        .container {
+            display: flex;
+            flex-flow: row wrap;
+            justify-content: space-around;
+        }
+        .custom-card {
+            flex-direction: row;
+            width: 28rem;
+            height: auto;
+        }
+        .card-info {
+            margin: 28px 16px;
+        }
+        .icon {
+            width: 24px;
+            height: auto;
+            margin: 8px 4px;
+        }
+        .card-text {
+            margin-top: 16px;
+        }
+    </style>
 
-    .card {
-      flex-direction: row;
-      width: 30rem;
-      height: auto;
-    }
-
-    .card-info {
-      margin: 28px 16px;
-    }
-     
-    .icon {
-      width: 24px; 
-      height: auto;  
-      margin: 8px 4px;
-    }
-
-    .card-text {
-      margin-top: 16px; 
-    }
-  </style>
-  <script>
-    $(function () {
-      $('[data-toggle="tooltip"]').tooltip()
-    })
-  </script>
-
-  @foreach($users as $user)
-    <div class="card">
-      <div class="card-info">
-        <h3 class="card-title"><a href="{{ route('employees.show', ['id' => Auth::id()])}}">{{ $user-> name }}</a></h3>
-        <a href="https://twitter.com/?lang=ja"><img src="{{ asset('img/twitter.png')}}" alt="Twitterのアイコン" class="icon"></a>
-        <a href="https://github.co.jp/"><img src="{{ asset('img/github.png')}}" alt="GitHubのアイコン" class="icon"></a>
-      </div>
-      <div class="card-body">
-        <p class="card-text">役職：</p>
-        <p class="card-text">言語：</p>
-       </div>
+    <div class="search-container mb-5">
+        <x-employees.search-box />
     </div>
-  @endforeach
-</x-app-layout> 
-
-<!-- data-toggle="tooltip" data-placement="top" title="Tooltip on top" -->
+    <div class="container">
+        @if(! empty($users))
+            @foreach($users as $index => $user)
+                <div class="card custom-card">
+                    <div class="card-info">
+                        <h3 class="card-title"><a href="{{ route('employees.show', ['id' => $user['id']])}}">{{ $user-> name }}</a></h3>
+                        <a href="https://twitter.com/?lang=ja"><i class="bi bi-twitter"></i></a>
+                        <a href="https://github.co.jp/"><i class="bi bi-github"></i></a>
+                    </div>
+                    <div class="card-body">
+                        @if(gettype($points[$index]) != 'string')
+                            <p class="card-text">オススメ度：<?php printf("%.2f", $points[$index]);?></p>
+                        @endif
+                        <p class="card-text">スキル：</p>
+                    </div>
+                </div>
+            @endforeach
+        @else
+            <p>選択されたスキルを全て持つユーザーがいませんでした</p>
+        @endif
+    </div>
+</x-app-layout>

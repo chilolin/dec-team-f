@@ -89,5 +89,4 @@
         </tbody>
     </table>
     </x-matters.create-input-group>
-
 </x-app-layout>

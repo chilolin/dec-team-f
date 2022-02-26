@@ -2,7 +2,7 @@
     <div>
         <div class="d-flex justify-content-center" style="margin-bottom: 40px;">
             <a href="/">
-                <img src="{{ asset('img/e3sys_logo.png') }}" width="200px" />
+                <img src="{{ asset('img/logo.png') }}" width="170px" />
             </a>
         </div>
 
@@ -13,7 +13,7 @@
 
     <style>
         .container {
-                height: 100vh;
+            min-height: 100vh;
         }
     </style>
 </div>

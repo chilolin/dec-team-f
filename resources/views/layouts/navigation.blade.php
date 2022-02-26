@@ -1,8 +1,8 @@
 <nav class="navbar navbar-expand-lg " color-on-scroll="500">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#pablo">
+        {{-- <a class="navbar-brand" href="#pablo">
             icons
-        </a>
+        </a> --}}
         <div class="collapse navbar-collapse justify-content-end" id="navigation">
             <ul class="navbar-nav ml-auto">
 
