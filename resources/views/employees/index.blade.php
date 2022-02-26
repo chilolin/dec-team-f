@@ -1,5 +1,5 @@
 <?php
-
+ use App\Models\Skill;
 // ddd($search);
 
 // ddd($check);
@@ -30,13 +30,16 @@
             height: auto;
         }
         .card-info {
-            margin: 28px 16px;
+            margin: 8px 8px;
         }
-        .icon {
-            width: 24px;
-            height: auto;
-            margin: 8px 4px;
+
+        .img {
+            width: 64x;
+            height: 64px;
+            margin-left: 16px;
+            margin-bottom: 8px;
         }
+
         .card-text {
             margin-top: 16px;
         }
@@ -50,15 +53,25 @@
             @foreach($users as $index => $user)
                 <div class="card custom-card">
                     <div class="card-info">
-                        <h3 class="card-title"><a href="{{ route('employees.show', ['id' => $user['id']])}}">{{ $user-> name }}</a></h3>
-                        <a href="https://twitter.com/?lang=ja"><i class="bi bi-twitter"></i></a>
-                        <a href="https://github.co.jp/"><i class="bi bi-github"></i></a>
+                        <img src="{{ asset('/img/human.png') }}" class="img">
+                        <h4 class="card-title"><a href="{{ route('employees.show', ['id' => $user['id']])}}">{{ $user-> name }}</a></h4>
                     </div>
                     <div class="card-body">
                         @if(gettype($points[$index]) != 'string')
                             <p class="card-text">オススメ度：<?php printf("%.2f", $points[$index]);?></p>
                         @endif
-                        <p class="card-text">スキル：</p>
+                         @if(gettype($points[$index]) == 'string')
+                            <p class="card-text">スキル：</p>
+                            <ul>
+                                @foreach($user->skills as $idx=>$skill)
+                                @if($idx<3)
+                                    <li>
+                                    {{$skill->name}}
+                                    </li>
+                                @endif
+                                @endforeach
+                            </ul>
+                        @endif
                     </div>
                 </div>
             @endforeach
@@ -67,3 +80,4 @@
         @endif
     </div>
 </x-app-layout>
+

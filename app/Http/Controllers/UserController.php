@@ -121,7 +121,10 @@ class UserController extends Controller
 
         //スキルが入力されていないなら全てのユーザーを取ってくる
         if (empty($search)){
-            $users = User::all();
+            $users = User::with(['skills' => function($query) {
+                 $query->orderBy('level', 'desc');
+            }])->get();
+            
 
             //ポイントは計算できないので'--'を入れておく
             $points = array();

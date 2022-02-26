@@ -22,7 +22,7 @@ class SkillCardList extends Component
             ],
         ],
         "career" => [
-            "title" => "キャリア",
+            "title" => "学習希望スキル",
             "skillTypeList" => [
                 'language',
                 'proceeding',
