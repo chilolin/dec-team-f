@@ -28,7 +28,10 @@ class Modal extends Component
     {
         $matters = Auth::user()
                     ->matters
-                    ->map(function($matter) {
+                    ->filter(function($matter) {
+                        return $matter->start_at <= date("Y-m-d") && date("Y-m-d") <= $matter->end_at;
+                    })
+                    ->reduce(function($matters, $matter) {
                         $skills = [];
                         foreach (SkillType::SKILL_TYPES as $skill_type)
                         {
@@ -51,14 +54,16 @@ class Modal extends Component
                             $skills[$skill_type] = $specific_skills;
                         }
 
-                        return [
+                        $matters[] = [
                             'id' => $matter->id,
                             'name' => $matter->name,
                             'start_at' => $matter->start_at,
                             'end_at' => $matter->end_at,
                             'skills' => $skills
                         ];
-                    });
+
+                        return $matters;
+                    }, []);
 
         return view('components.modal', ['matters' => $matters]);
     }
