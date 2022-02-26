@@ -26,13 +26,13 @@
         }
         .custom-card {
             flex-direction: row;
-            width: 30rem;
+            width: 28rem;
             height: auto;
         }
         .card-info {
             margin: 8px 8px;
         }
-        
+
         .img {
             width: 64x;
             height: 64px;
