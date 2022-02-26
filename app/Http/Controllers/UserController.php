@@ -746,13 +746,15 @@ class UserController extends Controller
 
         //選択されたスキルが4つ以上なら
         if($big_skill_count >= 4){
-            //始め4つのスキルのコレクションをbig_skill4に格納
+            //始め4つのスキルのidをbig_skill4に格納
             $search_key = array_keys($search);
             for($i=0; $i < 4 ; $i++){
                 $corresponding_skill = Skill::where('name', $search[$search_key[$i]])->get();
 
                 foreach($corresponding_skill as $corr){
-                    array_push($big_skill4,$corr);
+                    $skill_id = $corr->only('id');
+                    $skill_id = $skill_id['id'];
+                    array_push($big_skill4,$skill_id);
                 }
             }
 
@@ -764,7 +766,9 @@ class UserController extends Controller
                 $corresponding_skill = Skill::where('name', $search[$search_key[$i]])->get();
 
                 foreach($corresponding_skill as $corr){
-                    array_push($big_skill4,$corr);
+                    $skill_id = $corr->only('id');
+                    $skill_id = $skill_id['id'];
+                    array_push($big_skill4,$skill_id);
                 }
             }
 
@@ -801,15 +805,20 @@ class UserController extends Controller
                 $skill_columns = $big_skill_sort_keys[$key][1];
 
                 $corresponding_skill = Skill::find($skill_columns);
-                $check = $corresponding_skill;
+                $skill_id = $corresponding_skill->only('id');
+                $skill_id = $skill_id['id'];
+                // $check = $corresponding_skill;
 
-                if (! in_array($corresponding_skill,$big_skill4)){
-                    array_push($big_skill4,$corresponding_skill);
-                    $big_skill_count++;
-                    if ($big_skill_count >= 4){
-                        break;
+                if($corresponding_skill->skill_type == 'language'||$corresponding_skill->skill_type == 'framework'){
+                    if (! in_array($skill_id,$big_skill4)){
+                        array_push($big_skill4,$skill_id);
+                        $big_skill_count++;
+                        if ($big_skill_count >= 4){
+                            break;
+                        }
                     }
                 }
+
 
             }
 
