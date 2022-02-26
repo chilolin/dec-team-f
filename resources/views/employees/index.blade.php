@@ -61,24 +61,6 @@
                             <p class="card-text">オススメ度：<?php printf("%.2f", $points[$index]);?></p>
                         @endif
                          @if(gettype($points[$index]) == 'string')
-                            <?php 
-                                // $user_skill_array = $user->skills;
-                                // $id_level = array();
-                                // foreach($user_skill_array as $array){
-                                // $skill_id = $array ->only('id');
-                                // $skill_id = $skill_id['id'];
-                                // $id_level[$skill_id]= $array -> pivot->level;
-                                // }
-                                // arsort($id_level);
-                                // $id_keys = array_keys($id_level);
-                                // for($i = 0; $i<4; $i++) {
-                                //     $colle = Skill::find($id_keys[$i])->get();
-                                //    foreach($colle as $co){
-                                //         $skill_name = $co->name;
-                                //         echo($skill_name);
-                                //       }
-                                //    }
-                            ?> 
                             <p class="card-text">スキル：</p>
                             <ul>
                                 @foreach($user->skills as $idx=>$skill)
@@ -89,7 +71,6 @@
                                 @endif
                                 @endforeach
                             </ul>
-                            @else
                         @endif
                     </div>
                 </div>
