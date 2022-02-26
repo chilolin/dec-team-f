@@ -10,17 +10,17 @@
     </style>
     <div class="sidebar-wrapper">
         <div class="logo">
-            <a href="{{ route('dashboard') }}" class="simple-text">
+            <a href="{{ route('employees.index') }}" class="simple-text">
                 <img src="{{asset('img/logo.png')}}" height=50px">
             </a>
         </div>
         <ul class="nav">
-            <li class="nav-item">
+            {{-- <li class="nav-item">
                 <a class="nav-link" href="{{ route('dashboard') }}">
                     <i class="bi bi-search"></i>
                     <p>ダッシュボード</p>
                 </a>
-            </li>
+            </li> --}}
 
             <li>
                 <a class="nav-link" href="{{ route('employees.index')}}">

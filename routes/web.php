@@ -22,13 +22,13 @@ use App\Http\Controllers\ModalController;
 
 
 Route::middleware('auth')->group(function() {
-    // ダッシュボード
-    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+    // // ダッシュボード
+    // Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/', [UserController::class, 'search'])->name('employees.index');
 
 
     // 社員画面
     Route::prefix('employees')->group(function() {
-        Route::get('/', [UserController::class, 'search'])->name('employees.index');
 
         Route::post('/search', [UserController::class, 'searchByBox'])->name('employees.search');
 
